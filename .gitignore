@@ -1,0 +1,16 @@
+# 파이썬 · 테스트 임시 파일
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# 자동 백업 (data/backup) — 저장소에는 올리지 않음
+data/backup/
+
+# 중복 사본 (원본은 .claude/ 와 web/)
+staff_files/
+deploy/
+
+# Claude Code 개인 설정 · Vercel 로컬 설정
+.claude/settings.local.json
+.vercel/
+.env*
