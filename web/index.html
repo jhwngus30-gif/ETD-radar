@@ -169,12 +169,39 @@
   .dgrid.v32{margin-top:10px} .dgrid .span-all{grid-column:1/-1}
   .checks{margin-top:10px} .checks ul{margin:6px 0 0;padding-left:18px} .checks li{margin:3px 0}
   .check-line{margin-top:10px;font-size:13px;line-height:1.9} .check-line a{color:var(--ink);text-decoration:none} .check-line a:hover{text-decoration:underline}
+  /* 홈(선적 현황) 배치 v3.3 */
+  .home-grid{display:grid;grid-template-columns:minmax(0,1fr) 370px;gap:18px;align-items:start}
+  .home-side{position:sticky;top:18px;display:flex;flex-direction:column;gap:18px} .home-side .alerts{max-height:calc(100vh - 36px);overflow:auto;scrollbar-width:thin}
+  .grid2{display:grid;grid-template-columns:minmax(0,1fr) 370px;gap:18px;align-items:start}
+  .home-side .alerts h2{flex-wrap:wrap}
+  .dlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+  .dcard{border:1px solid var(--line);border-left:4px solid var(--na);border-radius:12px;padding:10px 12px;background:#fff;font-size:12.5px}
+  .dcard.late{border-left-color:var(--late)} .dcard.red{border-left-color:var(--red)} .dcard.yellow{border-left-color:var(--yelbar)}
+  .d-top{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px} .d-top .chip{font-size:11px}
+  .d-who{font-size:13.5px;line-height:1.4} .d-sub{color:var(--sub);font-size:11.5px;margin:2px 0 8px}
+  .d-row{display:grid;grid-template-columns:30px 1fr;} .d-row>div>div+div{margin-top:3px} .d-row{gap:6px;margin-top:4px;line-height:1.5} .d-row>span{color:var(--sub);font-weight:700;font-size:11.5px}
+  .tbd{color:var(--late);font-style:normal;font-weight:600}
+  .d-acts{display:flex;gap:6px;margin-top:9px} .d-plan{display:flex;gap:6px;margin-top:9px} .d-plan input{flex:1;min-width:0;font-size:12.5px;padding:6px 8px}
+  .home-side .check-line{margin-top:12px;padding:10px 11px;border-radius:10px;background:#f6f6fb;font-size:12.5px}
+  .home-side .check-line ul{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:3px}
+  .home-side .check-line a{color:var(--ink);text-decoration:none} .home-side .check-line a:hover{text-decoration:underline}
+  .alert-foot{display:flex;align-items:center;gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
+  /* calendar v3.4: 범례 · 칸 표시 · 요약 창 */
+  .cal-legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--sub);margin:0 0 12px}
+  .cal-legend span{display:inline-flex;align-items:center;gap:5px} .cal-legend i{width:9px;height:9px;border-radius:3px}
+  .cal-grid .ev{display:flex;flex-direction:column;gap:0;line-height:1.35;padding:3px 6px} .cal-grid .ev .l1{display:flex;justify-content:space-between;gap:4px} .cal-grid .ev .pn{opacity:.75;font-weight:700} .cal-grid .ev .bn{font-weight:500;font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #cal-pop .pop{position:fixed;z-index:30;width:300px;background:#fff;border-radius:14px;box-shadow:0 12px 40px #1b1d3a33,0 0 0 1px var(--line);padding:14px 16px;font-size:13px}
+  .pop h3{margin:0 0 2px;font-size:15px} .pop .sub{color:var(--sub);font-size:12.5px;margin-bottom:10px}
+  .pop dl{display:grid;grid-template-columns:72px 1fr;gap:5px 8px;margin:10px 0 12px} .pop dt{color:var(--sub)} .pop dd{margin:0}
+  .pop .row-end{display:flex;gap:8px;justify-content:flex-end}
+  .agenda .ev{display:flex;flex-direction:column;align-items:flex-start;gap:1px;white-space:normal}
+  .agenda .ev small{font-weight:500;opacity:.85}
   /* calendar (F5-3) */
   .cal-nav{display:flex;gap:6px}
   .cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border:1px solid var(--line);border-radius:12px;overflow:hidden}
   .cal-grid .wd{background:#f6f6fb;font-size:12px;font-weight:700;color:var(--sub);padding:7px 8px;border-bottom:1px solid var(--line)}
   .cal-grid .wd.sun{color:#c42b2b} .cal-grid .wd.sat{color:#2f5fd6}
-  .cell{min-height:104px;padding:6px 6px 8px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff;display:flex;flex-direction:column;gap:3px;min-width:0}
+  .cell{min-height:92px;padding:6px 6px 8px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff;display:flex;flex-direction:column;gap:3px;min-width:0}
   .cell:nth-child(7n){border-right:none}
   .cell.out{background:#fafafd} .cell.out .dn{color:#a3a6ba}
   .cell .dn{font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:2px}
@@ -207,7 +234,7 @@
   .flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:12px;color:var(--sub);margin:8px 0 0}
   .flow b{background:#f0edff;color:var(--acc);border-radius:6px;padding:2px 8px}
   .more{color:var(--acc);font-size:13px;font-weight:600;text-decoration:none;background:none;border:none;padding:0;cursor:pointer}
-  @media(max-width:1180px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:1180px){.grid,.home-grid,.grid2{grid-template-columns:1fr} .home-side{position:static} .home-side .alerts{max-height:none}.stats{grid-template-columns:repeat(3,1fr)}}
   /* ---------- mobile (F6-1) ---------- */
   @media(max-width:860px){
     .app{grid-template-columns:1fr}
@@ -243,15 +270,6 @@
   <aside>
     <div class="logo"><span class="dot"></span>ETD 레이더</div>
     <nav class="nav" id="sidenav"></nav>
-    <div class="side-sec">색의 뜻</div>
-    <div class="legend">
-      <div><i style="background:var(--late)"></i>ETD 지남 · 선적 미확인</div>
-      <div><i style="background:var(--red)"></i>L/C 기한 초과</div>
-      <div><i style="background:var(--yelbar)"></i>임박 (0~7일)</div>
-      <div><i style="background:var(--grnbar)"></i>여유 (8일 이상)</div>
-      <div><i style="background:var(--ok)"></i>선적 완료</div>
-      <div><i style="background:#b8bccb"></i>해당 없음 (T/T · D/P)</div>
-    </div>
     <div class="side-foot">
       모든 회사명 · 오더는 가상 데이터예요<br>
       <button class="mini" id="reset">가상 데이터 처음으로</button>
@@ -261,7 +279,7 @@
   <main>
     <div class="top">
       <div>
-        <h1 id="view-title">선적 일정 대시보드</h1>
+        <h1 id="view-title">선적 현황</h1>
         <div class="sub" id="view-sub"></div>
       </div>
       <div class="right">
@@ -273,26 +291,29 @@
     <nav class="toptabs" id="toptabs"></nav>
     <div id="flash"></div>
 
-    <!-- 대시보드 -->
+    <!-- 홈: 선적 현황 -->
     <div class="view stack" data-view="dashboard">
       <div id="guide"></div>
-      <section class="card alerts" id="alerts"></section>
       <div class="stats" id="stats"></div>
-      <section class="card" id="cal-card">
-        <h2>일정 캘린더 <small id="cal-title"></small>
-          <span class="act cal-nav"><button class="mini ghost" data-cal="-1" aria-label="이전 달">‹ 이전</button><button class="mini ghost" data-cal="0">오늘</button><button class="mini ghost" data-cal="1" aria-label="다음 달">다음 ›</button></span></h2>
-        <div class="tabs" id="cal-kinds" style="margin:-4px 0 12px"></div>
-        <div id="cal"></div>
-      </section>
-      <div class="grid">
+      <div class="home-grid">
+        <section class="card" id="cal-card">
+          <h2>일정 캘린더 <small id="cal-title"></small>
+            <span class="act cal-nav"><button class="mini ghost" data-cal="-1" aria-label="이전 달">‹ 이전</button><button class="mini ghost" data-cal="0">오늘</button><button class="mini ghost" data-cal="1" aria-label="다음 달">다음 ›</button></span></h2>
+          <div class="tabs" id="cal-kinds" style="margin:-4px 0 8px"></div>
+          <div class="cal-legend"><span>색 =</span><span><i style="background:var(--late)"></i>ETD 지남</span><span><i style="background:var(--red)"></i>L/C 초과</span><span><i style="background:var(--yelbar)"></i>임박 (7일 이내)</span><span><i style="background:var(--grnbar)"></i>여유</span><span><i style="background:var(--ok)"></i>선적 완료</span><span><i style="background:#b8bccb"></i>L/C 아님</span></div>
+          <div id="cal-pop"></div>
+          <div id="cal"></div>
+        </section>
+        <div class="home-side">
+          <section class="card alerts" id="alerts"></section>
+        </div>
+      </div>
+      <div class="grid2">
         <section class="card">
           <h2>L/C 선적 기한까지 여유 <small>선적 대기 L/C 오더 · 위험한 순</small></h2>
           <div id="gantt"></div>
         </section>
-        <div class="stack">
-          <section class="card"><h2>오더 현황</h2><div class="donut-wrap" id="donut"></div></section>
-          <section class="card"><h2>보고용 문장 <a class="act more" href="#report">보고 내보내기 →</a></h2><div id="risk"></div></section>
-        </div>
+        <section class="card"><h2>오더 현황</h2><div class="donut-wrap" id="donut"></div></section>
       </div>
     </div>
 
@@ -521,8 +542,8 @@ function summary(act){
 function alerts(act){  // F5-1
   const out = [];
   act.forEach(o=>{ const s=lcStatus(o);
-    if (!s.shipped && RANK[s.level]!==undefined) out.push({o, level:s.level, label:s.label, key:[RANK[s.level], s.days ?? 0]});
-    const c = cutoffStatus(o); if (c) out.push({o, level:c.level, label:c.label, key:[RANK[c.level], c.days]}); });
+    if (!s.shipped && RANK[s.level]!==undefined) out.push({o, level:s.level, label:s.label, type:s.level==="late"?"late":"lc", days:s.days, key:[RANK[s.level], s.days ?? 0]});
+    const c = cutoffStatus(o); if (c) out.push({o, level:c.level, label:c.label, type:"cutoff", days:c.days, key:[RANK[c.level], c.days]}); });
   return out.sort((a,b)=> a.key[0]-b.key[0] || a.key[1]-b.key[1]);
 }
 
@@ -576,6 +597,26 @@ function crossCheck(o, others){
   return out;
 }
 function checkMap(act){ const m = {}; act.forEach(o=>{ const c = crossCheck(o, act); if (c.length) m[o.order_no] = c; }); return m; }
+
+// ---------- v3.4 결정 카드 (F5-1) ----------
+const NEXT = {late:"실제 출항했는지 확인 → 출항했으면 '선적 완료'에 B/L 날짜 입력, 아니면 새 ETD를 받아 변경",
+  lcOver:"바이어에 L/C 연장(Amendment) 요청 — 새 선적 기한 · 유효기한을 함께", lcSame:"기한 당일 출항 — 롤오버되면 바로 초과. 선사 · 포워더에 선적 확정 재확인",
+  lcSoon:"롤오버 한 번이면 초과될 수 있어요 — 선적 확정 확인, 필요하면 연장 요청 미리 준비",
+  cutOver:"서류 마감 지남 — 포워더에 늦은 서류 접수 가능 여부 확인", cutSoon:"서류 마감 임박 — 인보이스 · 패킹리스트 · SI 제출 확인"};
+function bookingContact(o){ const t = String(o.incoterms||"").trim().toUpperCase();
+  if (!t) return "부킹 담당 확인 필요 (인코텀즈 미입력)"; return BUYER_BOOKS.includes(t) ? `바이어 측 포워더 (${t})` : `우리 포워더 · 선사 (${t})`; }
+function nextStep(a){ if (a.type==="late") return NEXT.late;
+  if (a.type==="lc") return a.level==="red" ? NEXT.lcOver : (a.days===0 ? NEXT.lcSame : NEXT.lcSoon);
+  return a.level==="red" ? NEXT.cutOver : NEXT.cutSoon; }
+function decisionCards(act){ const cards = [], by = {};
+  alerts(act).forEach(a=>{ const no = a.o.order_no;
+    if (!by[no]){ by[no] = {o:a.o, level:a.level, issues:[], steps:[], contacts:[]}; cards.push(by[no]); }
+    const c = by[no]; c.issues.push(a); const st = nextStep(a); if (!c.steps.includes(st)) c.steps.push(st);
+    const who = (a.type==="lc" && a.level==="red") ? "바이어 (개설은행에 Amendment 신청)" : bookingContact(a.o); if (!c.contacts.includes(who)) c.contacts.push(who); });
+  return cards; }
+const CHECK_SHORT = {eta:"ETA 날짜 확인", cutoff:"서류 마감일 확인", etd:"ETD 연도 확인", lc_ship_by:"선적 기한 두 번 입력 불일치", lc_port_loading:"L/C 44E 선적항 불일치",
+  lc_port_discharge:"L/C 44F 도착항 불일치", incoterms:"인코텀즈 미입력", incoterms_place:"인코텀즈 지정 장소 불일치", booking_no:"부킹번호 중복", bl_no:"B/L 번호 중복"};
+const shortOf = c => c.field==="lc_expiry" ? (c.level==="error" ? "L/C 유효기한이 선적 기한보다 빠름" : /비어 있어요/.test(c.msg) ? "L/C 유효기한 비어 있음" : "서류 낼 시간 부족") : (CHECK_SHORT[c.field] || c.kind);
 
 // ---------- F3 ----------
 function history(o){
@@ -731,11 +772,14 @@ function renderCalendar(act){
   if (!ui.calYM) ui.calYM = [Number(today.slice(0,4)), Number(today.slice(5,7))];
   if (!ui.calKinds) ui.calKinds = new Set(CAL_KINDS);
   const [y, m] = ui.calYM;
-  $("#cal-title").textContent = `${y}년 ${m}월 · 일정을 누르면 그 오더로 이동`;
+  $("#cal-title").textContent = `${y}년 ${m}월 · 커서를 올리면 요약, 누르면 오더로 이동`;
   $("#cal-kinds").innerHTML = CAL_KINDS.map(k=>`<button class="tab kind-toggle ${ui.calKinds.has(k)?"on":"off"}" data-kind="${k}" aria-pressed="${ui.calKinds.has(k)}">${CAL_KIND_NAME[k]}</button>`).join("");
   const evs = calendarEvents(act).filter(e=>ui.calKinds.has(e.kind)), byDay = {};
   evs.forEach(e=>{ (byDay[e.date] = byDay[e.date] || []).push(e); });
-  const evBtn = e => `<button class="ev ${e.level}" data-goto="${esc(e.no)}" title="${esc(CAL_KIND_NAME[e.kind])} · ${esc(e.no)}"><b>${esc(e.kind)}</b>${esc(e.no.replace(/^PO-/,""))}</button>`;
+  const byNo = Object.fromEntries(act.map(o=>[o.order_no,o]));
+  const short = b => { const t = String(b||"").split(/\s+/)[0] || ""; return t.length > 9 ? t.slice(0,8) + "…" : t; };
+  const tip = e => { const o = byNo[e.no]; return `${CAL_KIND_NAME[e.kind]} ${e.date} · ${e.no} · ${o.buyer} · ${o.item} · ${noEmoji(lcStatus(o).label)}`; };
+  const evBtn = e => `<button class="ev ${e.level}" data-goto="${esc(e.no)}" data-calpop="${esc(e.no)}|${e.date}|${e.kind}" aria-label="${esc(tip(e))}"><span class="l1"><b>${esc(e.kind)}</b><span class="pn">${esc(e.no.slice(-3))}</span></span><span class="bn">${esc(byNo[e.no].buyer)}</span></button>`;
   const first = new Date(Date.UTC(y, m-1, 1)), start = new Date(first); start.setUTCDate(1 - first.getUTCDay());
   const cells = [];
   for (let i=0; i<42; i++){ const d = new Date(start); d.setUTCDate(start.getUTCDate()+i); cells.push(d); if (i>=34 && i%7===6 && d.getUTCMonth()!==m-1) break; }
@@ -746,9 +790,26 @@ function renderCalendar(act){
       return `<div class="cell ${out?"out":""} ${k===today?"today":""}" role="gridcell"><div class="dn">${out?`${d.getUTCMonth()+1}/`:""}${d.getUTCDate()}</div>${shown.map(evBtn).join("")}${list.length>3?`<button class="more-ev" data-calopen="${k}">${open?"접기":`+${list.length-3}`}</button>`:""}</div>`; }).join("")}</div>`;
   const allUp = evs.filter(e=>e.date>=today), upcoming = ui.calAll ? allUp : allUp.slice(0,12); let last = "";
   const agenda = `<ul class="agenda">${upcoming.length ? upcoming.map(e=>{ const head = e.date!==last ? `<li class="day ${e.date===today?"today":""}">${fmt(e.date)}${e.date===today?" · 오늘":""}</li>` : ""; last = e.date;
-      return head + `<li><button class="ev ${e.level}" data-goto="${esc(e.no)}"><b>${esc(CAL_KIND_NAME[e.kind])}</b> ${esc(e.no)}</button></li>`; }).join("") : `<li class="empty">다가오는 일정이 없어요.</li>`}${allUp.length>12?`<li><button class="mini ghost" data-calall="1">${ui.calAll?"접기":`일정 ${allUp.length-12}개 더 보기`}</button></li>`:""}</ul>`;
+      const o = byNo[e.no];
+      return head + `<li><button class="ev ${e.level}" data-goto="${esc(e.no)}"><span><b>${esc(CAL_KIND_NAME[e.kind])}</b> ${esc(o.buyer)} · ${esc(o.item)}</span><small>${esc(e.no)} · ${esc(noEmoji(lcStatus(o).label))}</small></button></li>`; }).join("") : `<li class="empty">다가오는 일정이 없어요.</li>`}${allUp.length>12?`<li><button class="mini ghost" data-calall="1">${ui.calAll?"접기":`일정 ${allUp.length-12}개 더 보기`}</button></li>`:""}</ul>`;
   $("#cal").innerHTML = grid + agenda;
+  ui.calPop = null; $("#cal-pop").innerHTML = "";
 }
+
+function popHtml(P){ const act = S.orders.filter(o=>!isDel(o)), po = act.find(o=>o.order_no===P.no);
+  return po ? (()=>{ const s = lcStatus(po), left = Math.min(P.x, innerWidth-316), top = Math.min(P.y+6, innerHeight-330);
+    return `<div class="pop" style="left:${left}px;top:${top}px" role="dialog" aria-label="오더 요약"><h3>${esc(po.buyer)}</h3><div class="sub">${esc(po.item)} · ${esc(po.order_no)}</div>${chip(s.label, s.level)}
+      <dl><dt>이 날짜</dt><dd><b>${esc(CAL_KIND_NAME[P.kind])}</b> ${fmt(P.date)}</dd><dt>ETD</dt><dd>${fmt(po.etd)}</dd>${isLC(po)?`<dt>L/C 기한</dt><dd>${fmt(po.lc_ship_by)}</dd>`:""}
+      <dt>결제 · 항구</dt><dd>${esc(termsOf(po))} · ${esc(portOf(po))}${po.port_of_discharge?` → ${esc(po.port_of_discharge)}`:""}</dd><dt>부킹 담당</dt><dd>${esc(booker(po).split(" →")[0])}</dd>${(()=>{ const dc = decisionCards(act).find(c=>c.o.order_no===po.order_no); return dc ? `<dt>할 일</dt><dd>${dc.steps.map(esc).join("<br>")}</dd>` : ""; })()}<dt>대응 계획</dt><dd>${esc(po.action)||'<span style="color:var(--late)">(미정)</span>'}</dd></dl>
+      <div class="row-end"><button class="mini" data-goto="${esc(po.order_no)}">오더 열기</button></div></div>`; })() : ""; }
+let popTimer = null;   // F5-3 v3.5: 커서를 올리면 요약 창, 누르면 오더로 이동
+document.addEventListener("mouseover", e=>{
+  const ev = e.target.closest(".cal-grid [data-calpop]"), inPop = e.target.closest("#cal-pop .pop");
+  if (ev){ clearTimeout(popTimer); popTimer = setTimeout(()=>{ const [no,date,kind] = ev.dataset.calpop.split("|"), rc = ev.getBoundingClientRect();
+      ui.calPop = {no,date,kind,x:rc.left,y:rc.bottom}; $("#cal-pop").innerHTML = popHtml(ui.calPop); }, 120); return; }
+  if (inPop){ clearTimeout(popTimer); return; }
+  if ($("#cal-pop").innerHTML){ clearTimeout(popTimer); popTimer = setTimeout(()=>{ ui.calPop = null; $("#cal-pop").innerHTML = ""; }, 220); }
+});
 
 // ---------- 화면 ----------
 const LV = {late:"ETD 지남", red:"L/C 초과", yellow:"임박", green:"여유", ok:"선적 완료", na:"해당 없음"};
@@ -800,7 +861,7 @@ function renderDetail(o, s){
   </div>
   <div class="dgrid v32">${orderField("인코텀즈", esc(((o.incoterms||"") + " " + (o.incoterms_place||"")).trim()))}${orderField("도착항", esc(o.port_of_discharge))}${orderField("부킹 담당", esc(booker(o)))}
     ${isLC(o) ? orderField("L/C 원본", `44C 선적 기한 ${fmt(o.lc_ship_by)} · 31D 유효기한 ${fmt(o.lc_expiry)} · 48 제시 기간 ${esc(o.lc_presentation_days||"21(기본)")}일 · 44E ${esc(o.lc_port_loading||"—")} · 44F ${esc(o.lc_port_discharge||"—")}`).replace("<div>",'<div class="span-all">') : ""}</div>
-  ${ui.checks[o.order_no] ? `<div class="box warn checks"><b>입력 확인 필요 ${ui.checks[o.order_no].length}건</b><ul>${ui.checks[o.order_no].map(c=>`<li><span class="tag">${esc(c.kind)}</span> ${esc(c.msg)}</li>`).join("")}</ul></div>` : ""}
+  ${ui.checks[o.order_no] ? `<div class="box warn checks"><b>입력 확인 필요 ${ui.checks[o.order_no].length}건</b><ul>${ui.checks[o.order_no].map(c=>`<li><b>${esc(shortOf(c))}</b> — ${esc(c.msg)}</li>`).join("")}</ul></div>` : ""}
   ${locals?`<p class="cap">${locals}</p>`:""}
   <div class="dacts"><button class="mini ghost" data-edit="${no}">수정</button>
     ${isWaiting(o) ? `<button class="mini ghost" data-ship="${no}">선적 완료</button>` : `<button class="mini ghost" data-unship="${no}">선적 대기로 되돌리기</button>`}
@@ -863,17 +924,29 @@ function render(){
   let closed = false; try { closed = localStorage.getItem(GUIDE_KEY)==="1"; } catch(e){}
   $("#guide").innerHTML = (closed && !ui.showGuide) ? "" : `<div class="guide">${ic("help")}<div><b>처음이신가요? ETD 레이더 사용법</b>
     <ol><li><b>새 오더 등록</b>에서 ETD · L/C 선적 기한 · 결제 조건 · 선적항을 넣어요.</li>
-    <li><b>대시보드</b>의 '오늘 확인할 것'과 여유 막대로 위험한 오더를 먼저 봐요. <b>여유 일수 = L/C 기한 − ETD</b>, <b>7일 이하면 임박</b>이에요 (롤오버 한 번에 약 1주가 밀리기 때문).</li>
+    <li><b>선적 현황</b>의 캘린더 · '오늘 확인할 것'과 여유 막대로 위험한 오더를 먼저 봐요. <b>여유 일수 = L/C 기한 − ETD</b>, <b>7일 이하면 임박</b>이에요 (롤오버 한 번에 약 1주가 밀리기 때문).</li>
     <li>ETD가 바뀌면 <b>변경 기록</b>에, L/C가 연장되면 오더 <b>수정</b>에서 사유와 함께 남겨요.</li>
     <li><b>보고 내보내기</b>에서 대응 계획이 붙은 보고 문장을 복사해 상사에게 보내요.</li></ol></div>
     <button class="mini ghost x" data-act="close-guide">닫기</button></div>`;
 
   // 오늘 확인할 것 (F5-1)
   $("#alerts").className = "card alerts" + (al.length ? "" : " none");
-  $("#alerts").innerHTML = `<h2>${ic("bell")} 오늘 확인할 것 <small>${al.length}건 · 위험한 순 · 누르면 그 오더로 이동</small></h2>` + (al.length
-    ? `<ul class="alist">${al.slice(0,8).map(a=>`<li><a href="#orders" data-goto="${esc(a.o.order_no)}">${chip(a.label, a.level==="late"?"late":a.level)} <b>${esc(a.o.order_no)}</b> <span style="color:var(--sub)">${esc(a.o.buyer)} · ETD ${fmt(a.o.etd)}</span><span class="go">열기 ${ic("chev")}</span></a></li>`).join("")}</ul>${al.length>8?`<p class="cap">외 ${al.length-8}건은 오더 목록에서 확인하세요.</p>`:""}`
+  const cards = decisionCards(active), SHOWN = 4;
+  const dCard = c => { const o = c.o, no = esc(o.order_no), plan = String(o.action||"").trim();
+    return `<li class="dcard ${c.level}"><div class="d-top">${c.issues.map(a=>chip(a.label, a.level)).join("")}</div>
+      <div class="d-who"><b>${esc(o.buyer)}</b> · ${esc(o.item)}</div>
+      <div class="d-sub">${no} · ${esc(termsOf(o))} · ETD ${fmt(o.etd)}${isLC(o)?` · L/C ${fmt(o.lc_ship_by)}`:""}</div>
+      <div class="d-row"><span>할 일</span><div>${c.steps.map(t=>`<div>${esc(t)}</div>`).join("")}</div></div>
+      <div class="d-row"><span>연락</span><div>${c.contacts.map(esc).join(" · ")}</div></div>
+      <div class="d-row"><span>계획</span><div>${plan ? esc(plan) : '<em class="tbd">(미정)</em>'}</div></div>
+      ${ui.planFor===o.order_no ? `<div class="d-plan"><input id="plan-in" value="${esc(plan)}" placeholder="예: 바이어에 L/C 연장 요청 메일 발송 (11/13)"><button class="mini" data-plansave="${no}">저장</button><button class="mini ghost" data-planfor="">취소</button></div>`
+        : `<div class="d-acts"><button class="mini ghost" data-planfor="${no}">대응 계획 ${plan?"고치기":"적기"}</button><button class="mini ghost" data-goto="${no}">오더 열기</button></div>`}</li>`; };
+  $("#alerts").innerHTML = `<h2>${ic("bell")} 오늘 확인할 것 <small>오더 ${cards.length}건 · 위험한 순</small></h2>` + (cards.length
+    ? `<ul class="dlist">${cards.slice(0, ui.allCards ? cards.length : SHOWN).map(dCard).join("")}</ul>${cards.length>SHOWN?`<button class="mini ghost" data-act="all-cards" style="margin-top:8px">${ui.allCards?"접기":`나머지 ${cards.length-SHOWN}건 더 보기`}</button>`:""}`
     : `<p class="empty" style="padding:0">오늘 확인할 것 없음</p>`)
-    + (nCheck ? `<div class="check-line"><span class="chip na">입력 확인 필요 ${nCheck}건</span> ${Object.entries(ui.checks).map(([no,c])=>`<a href="#orders" data-goto="${esc(no)}"><b>${esc(no)}</b> ${esc(c[0].kind)}</a>`).join(" · ")}</div>` : "");
+    + (nCheck ? `<div class="check-line"><span class="chip na">입력 확인 필요 ${nCheck}건</span><ul>${Object.entries(ui.checks).map(([no,c])=>{ const o = active.find(x=>x.order_no===no);
+        return `<li><a href="#orders" data-goto="${esc(no)}"><b>${esc(o.buyer)}</b> <span style="color:var(--sub)">${esc(String(o.item).split(" ")[0])}</span> — ${esc(shortOf(c[0]))}${c.length>1?` 외 ${c.length-1}`:""}</a></li>`; }).join("")}</ul></div>` : "")
+    + `<div class="alert-foot"><button class="mini" data-act="copy-report">보고 문장 복사</button><a class="more" href="#report">보고 내보내기 →</a></div>`;
 
   // 숫자 카드
   const card = (key, cls, icon, n, t) => `<div class="stat ${cls}" data-filter="${key}" role="button" tabindex="0"><div class="ic">${ic(icon)}</div><div><div class="n">${n}</div><div class="t">${t}</div></div></div>`;
@@ -884,7 +957,7 @@ function render(){
   $("#gantt").innerHTML = renderMargin(active.filter(isWaiting));
   $("#donut").innerHTML = renderDonut(sm);
   const risky = active.map(o=>lcStatus(o)).filter((s,i)=> s.level==="late" || (isLC(active[i]) && !s.shipped && (s.level==="red"||s.level==="yellow"))).sort((a,b)=>RANK[a.level]-RANK[b.level]||a.days-b.days);
-  $("#risk").innerHTML = risky.length ? `<ul class="rlist">${risky.slice(0,4).map(r=>`<li>${chip(r.label, r.level)}<div>${esc(r.sentence)}</div></li>`).join("")}</ul>${risky.length>4?`<p class="cap">외 ${risky.length-4}건 — 보고 내보내기에서 전체 보기</p>`:""}` : `<div class="box good">위험 오더 없음</div>`;
+  if ($("#risk")) $("#risk").innerHTML = risky.length ? `<ul class="rlist">${risky.slice(0,4).map(r=>`<li>${chip(r.label, r.level)}<div>${esc(r.sentence)}</div></li>`).join("")}</ul>${risky.length>4?`<p class="cap">외 ${risky.length-4}건 — 보고 내보내기에서 전체 보기</p>`:""}` : `<div class="box good">위험 오더 없음</div>`;
 
   // 오더 목록 (F1 · F6-2)
   const tabs = [["all","전체",active.length],["late","ETD 지남",sm.late],["red","L/C 초과",sm.red],["yellow","임박",sm.yellow],["green","여유",sm.green],["ok","선적 완료",sm.shipped],["na","해당 없음",sm.na]];
@@ -1010,7 +1083,7 @@ document.addEventListener("click", e=>{
   const f = e.target.closest("[data-filter]");
   if (f){ ui.filter = f.dataset.filter; ui.open = null; render(); if (f.classList.contains("stat")) location.hash = "orders"; return; }
   const g = e.target.closest("[data-goto]");
-  if (g){ e.preventDefault(); ui.filter = "all"; ui.q = ""; $("#q").value = ""; ui.open = g.dataset.goto; render(); location.hash = "orders";
+  if (g){ e.preventDefault(); ui.calPop = null; ui.filter = "all"; ui.q = ""; $("#q").value = ""; ui.open = g.dataset.goto; render(); location.hash = "orders";
     setTimeout(()=>{ const el=document.getElementById("d-"+ui.open); el && el.scrollIntoView({block:"center"}); }, 30); return; }
   const b = e.target.closest("button");
   const row = e.target.closest("[data-open]");
@@ -1034,6 +1107,9 @@ document.addEventListener("click", e=>{
     if (!err && v>today) err = `실제 선적일이 선적항(${portOf(so)}) 오늘 ${today}보다 뒤예요. 이미 선적한 날짜를 입력해 주세요.`;
     if (err){ ui.err.ship = err; return render(); }
     so.status=SHIPPED; so.shipped_on=v; clear(); save(); ui.flash = `오더 ${so.order_no}을(를) 선적 완료로 저장했어요 (선적일 ${v}).`; render(); }
+  else if (d.planfor !== undefined){ ui.planFor = d.planfor || null; render(); const el = $("#plan-in"); el && el.focus(); }
+  else if (d.plansave){ const o = find(d.plansave), v = ($("#plan-in").value||"").trim(); o.action = v; ui.planFor = null; save(); ui.flash = `${o.order_no} 대응 계획을 저장했어요${v?`: ${v}`:" (비움)"}.`; render(); }
+  else if (d.act==="all-cards"){ ui.allCards = !ui.allCards; render(); }
   else if (d.cal !== undefined){ const t = dateIn("Asia/Seoul"); let [y,m] = ui.calYM; const step = Number(d.cal);
     if (step===0){ y = Number(t.slice(0,4)); m = Number(t.slice(5,7)); } else { m += step; if (m<1){ m=12; y--; } if (m>12){ m=1; y++; } }
     ui.calYM = [y,m]; ui.calOpen = null; render(); }
@@ -1060,13 +1136,13 @@ document.addEventListener("keydown", e=>{ if ((e.key==="Enter"||e.key===" ") && 
 
 // ---------- 화면(탭) 전환 ----------
 const VIEWS = {
-  "dashboard": ["선적 일정 대시보드", "오늘 확인할 것 · 위험 건수 · L/C 기한까지 여유", "dashboard"],
+  "dashboard": ["선적 현황", "일정 캘린더 · 오늘 확인할 것 · L/C 기한까지 여유", "dashboard"],
   "orders":    ["오더 목록", "줄을 누르면 상세 · 수정 · 선적 완료 · 삭제", "orders"],
   "new-order": ["새 오더 등록", "결제 조건 · 선적항 · 선적 정보까지 입력해요", "plus"],
   "etd-log":   ["변경 기록", "ETD 변경 · 선사 조회(데모) · L/C 기한 · 상태 변경 이력", "history"],
   "report":    ["보고 내보내기", "보고 문장 복사 · 엑셀(CSV) 내보내기 · CSV 불러오기", "report"],
 };
-const navHtml = cls => Object.entries(VIEWS).map(([k,v])=>`<a href="#${k}" data-nav="${k}">${ic(v[2])} ${v[0]==="선적 일정 대시보드"?"대시보드":v[0]}${k==="orders"&&cls==="side"?' <span class="cnt" id="nav-cnt"></span>':""}</a>`).join("");
+const navHtml = cls => Object.entries(VIEWS).map(([k,v])=>`<a href="#${k}" data-nav="${k}">${ic(v[2])} ${v[0]}${k==="orders"&&cls==="side"?' <span class="cnt" id="nav-cnt"></span>':""}</a>`).join("");
 $("#sidenav").innerHTML = navHtml("side"); $("#toptabs").innerHTML = navHtml("top");
 function route(){
   let v = (location.hash || "").replace("#", "");

@@ -112,72 +112,90 @@ checks_by = {x["order_no"]: x["checks"] for x in logic.check_alerts(orders)}
 if ss.show_guide:
     with st.container(border=True):
         g1, g2 = st.columns([10, 1])
-        g1.markdown("**처음이신가요?** ① 새 오더 등록 → ② 대시보드에서 위험 확인 → ③ ETD가 바뀌면 변경 기록 → ④ 보고 내보내기로 상사에게 보고  \n"
+        g1.markdown("**처음이신가요?** ① 새 오더 등록 → ② 선적 현황에서 캘린더 · 위험 확인 → ③ ETD가 바뀌면 변경 기록 → ④ 보고 내보내기로 상사에게 보고  \n"
                     "**여유 일수** = L/C 선적 기한 − ETD. **7일 이하면 임박** — 정기선은 주 1회 운항이 많아 롤오버 한 번에 약 1주가 밀리기 때문이에요.")
         if g2.button("닫기", key="guide_close"):
             ss.show_guide = False
             st.rerun()
 
 tab_dash, tab_orders, tab_new, tab_log, tab_report = st.tabs(
-    ["대시보드", f"오더 목록 ({len(active)})", "새 오더 등록", "변경 기록", "보고 내보내기"])
+    ["선적 현황", f"오더 목록 ({len(active)})", "새 오더 등록", "변경 기록", "보고 내보내기"])
 
-# ======================= 대시보드 =======================
+# ======================= 선적 현황 (홈) =======================
 with tab_dash:
-    # 오늘 확인할 것 (F5-1)
-    with st.container(border=True):
-        st.markdown(f"**{M.ALERTS_TITLE}** ({len(alerts)})")
-        if not alerts:
-            st.write(M.ALERTS_NONE)
-        for a in alerts:
-            o = a["order"]
-            st.markdown(f"{badge(a['label'], a['level'])} **{o['order_no']}** · {o['buyer']} · ETD {fd(o['etd'])}")
-        if checks_by:  # F7-6
-            st.markdown(f":gray-background[{M.CHECK_ALERT.format(n=len(checks_by))}] "
-                        + " · ".join(f"**{n}** {c[0]['kind']}" for n, c in checks_by.items())
-                        + " — 오더 목록에서 펼쳐 확인")
     summ = logic.lc_summary(orders)
     c1, c2, c3, c4 = st.columns(4)
     c1.metric("ETD 지남 · 선적 미확인", summ["late"])
     c2.metric("L/C 기한 초과", summ["red"])
     c3.metric("L/C 임박 (7일 이내)", summ["yellow"])
     c4.metric("기한 넘겨 선적", summ["late_shipped"])
-    # 일정 캘린더 (F5-3)
-    with st.container(border=True):
-        ym = ss.get("cal_ym") or (today.year, today.month)
-        h1, h2, h3, h4 = st.columns([3, 1, 1, 1])
-        h1.markdown(f"**일정 캘린더 — {ym[0]}년 {ym[1]}월**")
-        if h2.button("◀ 이전 달", key="cal_prev"):
-            ss.cal_ym = (ym[0] - 1, 12) if ym[1] == 1 else (ym[0], ym[1] - 1); st.rerun()
-        if h3.button("오늘", key="cal_today"):
-            ss.cal_ym = (today.year, today.month); st.rerun()
-        if h4.button("다음 달 ▶", key="cal_next"):
-            ss.cal_ym = (ym[0] + 1, 1) if ym[1] == 12 else (ym[0], ym[1] + 1); st.rerun()
-        kinds = st.multiselect("보이는 일정", logic.CAL_KINDS, default=logic.CAL_KINDS, key="cal_kinds")
-        events = [e for e in logic.calendar_events(orders) if e["kind"] in kinds]
-        by_day = {}
-        for e in events:
-            by_day.setdefault(e["date"], []).append(e)
-        if st.toggle("목록으로 보기 (다가오는 일정)", key="cal_list"):
-            upcoming = [e for e in events if e["date"] >= today.isoformat()][:30]
-            if not upcoming:
-                st.write("다가오는 일정이 없어요.")
-            for e in upcoming:
-                st.markdown(f"**{fd(e['date'])}** · {badge('x ' + e['title'], e['level'])}")
-        else:
-            head = st.columns(7)
-            for c, w in zip(head, "일월화수목금토"):
-                c.markdown(f"**{w}**")
-            for week in logic.month_grid(*ym):
-                cols = st.columns(7)
-                for c, d in zip(cols, week):
-                    day = d.isoformat()
-                    num = f"{d.day}" if d.month == ym[1] else f":gray[{d.month}/{d.day}]"
-                    lines = [f":violet-background[**{num} 오늘**]" if d == today else f"**{num}**"]
-                    evs = by_day.get(day, [])
-                    lines += [badge("x " + e["title"], e["level"]) for e in evs[:3]]
-                    if len(evs) > 3:
-                        lines.append(f":gray[+{len(evs) - 3}]")
-                    c.markdown("  \n".join(lines))
+    # v3.3: 캘린더를 넓게, 오늘 확인할 것은 오른쪽 (F6-9)
+    cal_col, side_col = st.columns([3, 1])
+    with cal_col:
+        # 일정 캘린더 (F5-3)
+        with st.container(border=True):
+            ym = ss.get("cal_ym") or (today.year, today.month)
+            h1, h2, h3, h4 = st.columns([3, 1, 1, 1])
+            h1.markdown(f"**일정 캘린더 — {ym[0]}년 {ym[1]}월**")
+            if h2.button("◀ 이전 달", key="cal_prev"):
+                ss.cal_ym = (ym[0] - 1, 12) if ym[1] == 1 else (ym[0], ym[1] - 1); st.rerun()
+            if h3.button("오늘", key="cal_today"):
+                ss.cal_ym = (today.year, today.month); st.rerun()
+            if h4.button("다음 달 ▶", key="cal_next"):
+                ss.cal_ym = (ym[0] + 1, 1) if ym[1] == 12 else (ym[0], ym[1] + 1); st.rerun()
+            kinds = st.multiselect("보이는 일정", logic.CAL_KINDS, default=logic.CAL_KINDS, key="cal_kinds")
+            events = [e for e in logic.calendar_events(orders) if e["kind"] in kinds]
+            by_day = {}
+            for e in events:
+                by_day.setdefault(e["date"], []).append(e)
+            if st.toggle("목록으로 보기 (다가오는 일정)", key="cal_list"):
+                upcoming = [e for e in events if e["date"] >= today.isoformat()][:30]
+                if not upcoming:
+                    st.write("다가오는 일정이 없어요.")
+                for e in upcoming:
+                    st.markdown(f"**{fd(e['date'])}** · {badge('x ' + e['title'], e['level'])}")
+            else:
+                head = st.columns(7)
+                for c, w in zip(head, "일월화수목금토"):
+                    c.markdown(f"**{w}**")
+                for week in logic.month_grid(*ym):
+                    cols = st.columns(7)
+                    for c, d in zip(cols, week):
+                        day = d.isoformat()
+                        num = f"{d.day}" if d.month == ym[1] else f":gray[{d.month}/{d.day}]"
+                        lines = [f":violet-background[**{num} 오늘**]" if d == today else f"**{num}**"]
+                        evs = by_day.get(day, [])
+                        lines += [badge("x " + e["title"], e["level"]) for e in evs[:3]]
+                        if len(evs) > 3:
+                            lines.append(f":gray[+{len(evs) - 3}]")
+                        c.markdown("  \n".join(lines))
+    with side_col:
+        # 오늘 확인할 것 — 결정 카드 (F5-1, v3.4)
+        cards = logic.decision_cards(orders)
+        st.markdown(f"**{M.ALERTS_TITLE}** · 오더 {len(cards)}건")
+        if not cards:
+            st.write(M.ALERTS_NONE)
+        for c in cards:
+            o, no = c["order"], c["order_no"]
+            with st.container(border=True):
+                st.markdown(" ".join(badge(i["label"], i["level"]) for i in c["issues"]))
+                st.markdown(f"**{o['buyer']}** · {o['item']}  \n:gray[{no} · {logic.terms_of(o)} · ETD {fd(o['etd'])}"
+                            + (f" · L/C {fd(o.get('lc_ship_by'))}" if logic.is_lc(o) else "") + "]")
+                st.markdown("**할 일** " + "  \n".join(c["steps"]) + f"  \n**연락** {' · '.join(c['contacts'])}"
+                            + f"  \n**계획** {c['plan'] or ':red[(미정)]'}")
+                with st.popover("대응 계획 " + ("고치기" if c["plan"] else "적기")):
+                    plan = st.text_input("대응 계획", c["plan"], key=f"plan_{no}", placeholder="예: 바이어에 L/C 연장 요청 메일 발송")
+                    if st.button("저장", key=f"plansave_{no}"):
+                        storage.update_order(no, {"action": plan.strip()})
+                        ss.flash, ss.open_order = f"{no} 대응 계획을 저장했어요.", no
+                        st.rerun()
+        if checks_by:  # F7-6
+            with st.container(border=True):
+                st.markdown(f":gray-background[{M.CHECK_ALERT.format(n=len(checks_by))}]")
+                for n, cs in checks_by.items():
+                    o = next(x for x in active if x["order_no"] == n)
+                    st.markdown(f"**{o['buyer']}** :gray[{o['item'].split(' ')[0]}] — {cs[0]['short']}"
+                                + (f" 외 {len(cs) - 1}" if len(cs) > 1 else ""))
 
     # 여유 일수 상위 8건 (F6-3)
     rows = []

@@ -228,7 +228,12 @@ def cross_check(order, others=None, now=None):
     """값끼리 서로 맞는지 본다 (F7). [{level: error|warn, kind, field, msg}]
     error = 저장 막음, warn = 저장하되 '입력 확인 필요' 표시. 날짜 형식 검사는 validate 쪽에서 한다."""
     out = []
-    add = lambda level, kind, field, msg: out.append({"level": level, "kind": kind, "field": field, "msg": msg})
+    def add(level, kind, field, msg):
+        if field == "lc_expiry":
+            short = M.CHECK_EXPIRY_ERR if level == "error" else (M.CHECK_EXPIRY_MISSING if msg == M.X_EXPIRY_MISSING else M.CHECK_EXPIRY_SHORT)
+        else:
+            short = M.CHECK_SHORT.get(field, kind)
+        out.append({"level": level, "kind": kind, "field": field, "msg": msg, "short": short})
     g = lambda k: str(order.get(k, "") or "").strip()
     etd, eta, cutoff = _d(g("etd")), _d(g("eta")), _d(g("cutoff"))
     # 1. 날짜 순서
@@ -409,13 +414,53 @@ def alerts(orders, now=None):
         s = lc_status(o, now)
         if not s["shipped"] and s["level"] in _RANK:
             out.append({"order_no": o["order_no"], "level": s["level"], "label": s["label"], "order": o,
+                        "type": "late" if s["level"] == "late" else "lc", "days": s["days"],
                         "key": (_RANK[s["level"]], s["days"] if s["days"] is not None else 0)})
         c = cutoff_status(o, now)
         if c:
             out.append({"order_no": o["order_no"], "level": c["level"], "label": c["label"], "order": o,
-                        "key": (_RANK[c["level"]], c["days"])})
+                        "type": "cutoff", "days": c["days"], "key": (_RANK[c["level"]], c["days"])})
     out.sort(key=lambda x: x["key"])
     return out
+
+
+def booking_contact(order):
+    term = (order.get("incoterms") or "").strip().upper()
+    if not term:
+        return M.CONTACT_UNKNOWN
+    return (M.CONTACT_BUYER_FWD if term in config.BUYER_BOOKS else M.CONTACT_OUR_FWD).format(term=term)
+
+
+def next_step(alert):
+    """경고 하나의 할 일 (F5-1)."""
+    t, lv = alert["type"], alert["level"]
+    if t == "late":
+        return M.NEXT_LATE
+    if t == "lc":
+        if lv == "red":
+            return M.NEXT_LC_OVER
+        return M.NEXT_LC_SAME if alert.get("days") == 0 else M.NEXT_LC_SOON
+    return M.NEXT_CUT_OVER if lv == "red" else M.NEXT_CUT_SOON
+
+
+def decision_cards(orders, now=None):
+    """오늘 확인할 것 → 오더 하나에 카드 하나: 경고 · 할 일 · 연락할 곳 · 현재 대응 계획 (F5-1)."""
+    cards, by_no = [], {}
+    for a in alerts(orders, now):
+        no = a["order_no"]
+        if no not in by_no:
+            by_no[no] = {"order_no": no, "order": a["order"], "level": a["level"], "issues": [], "steps": [],
+                         "contacts": [], "plan": (a["order"].get("action") or "").strip()}
+            cards.append(by_no[no])
+        c = by_no[no]
+        c["issues"].append({"label": a["label"], "level": a["level"]})
+        step = next_step(a)
+        if step not in c["steps"]:
+            c["steps"].append(step)
+        who = M.CONTACT_LC if (a["type"] == "lc" and a["level"] == "red") else booking_contact(a["order"])
+        if who not in c["contacts"]:
+            c["contacts"].append(who)
+    return cards
 
 
 # ---------- F3 ETD 변경 기록 ----------
@@ -735,7 +780,8 @@ def calendar_events(orders, now=None):
         for kind, d in pairs:
             if d:
                 out.append({"date": d, "kind": kind, "order_no": o["order_no"], "level": level,
-                            "title": f"{kind} {o['order_no']}"})
+                            "buyer": o.get("buyer", ""), "item": o.get("item", ""),
+                            "title": f"{kind} {o['order_no'][-3:]} · {o.get('buyer', '')}"})
     out.sort(key=lambda e: (e["date"], CAL_KINDS.index(e["kind"]), e["order_no"]))
     return out
 

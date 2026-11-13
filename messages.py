@@ -192,3 +192,23 @@ X_INCO_DISCHARGE = "{term} 지정 장소는 도착항이어야 해요: 지정 �
 X_DUP = "같은 {field}({value})가 {others}에도 있어요. 합적(같은 컨테이너에 여러 오더)이 아니면 오타를 확인해 주세요."
 CHECK_TITLE = "입력 확인 필요"
 CHECK_ALERT = "입력 확인 필요 {n}건"
+
+
+# ---------- v3.4 결정 카드 (F5-1) ----------
+NEXT_LATE = "실제 출항했는지 확인 → 출항했으면 '선적 완료'에 B/L 날짜 입력, 아니면 새 ETD를 받아 변경"
+NEXT_LC_OVER = "바이어에 L/C 연장(Amendment) 요청 — 새 선적 기한 · 유효기한을 함께"
+NEXT_LC_SAME = "기한 당일 출항 — 롤오버되면 바로 초과. 선사 · 포워더에 선적 확정 재확인"
+NEXT_LC_SOON = "롤오버 한 번이면 초과될 수 있어요 — 선적 확정 확인, 필요하면 연장 요청 미리 준비"
+NEXT_CUT_OVER = "서류 마감 지남 — 포워더에 늦은 서류 접수 가능 여부 확인"
+NEXT_CUT_SOON = "서류 마감 임박 — 인보이스 · 패킹리스트 · SI 제출 확인"
+CONTACT_BUYER_FWD = "바이어 측 포워더 ({term})"
+CONTACT_OUR_FWD = "우리 포워더 · 선사 ({term})"
+CONTACT_UNKNOWN = "부킹 담당 확인 필요 (인코텀즈 미입력)"
+CONTACT_LC = "바이어 (개설은행에 Amendment 신청)"
+CHECK_SHORT = {"eta": "ETA 날짜 확인", "cutoff": "서류 마감일 확인", "etd": "ETD 연도 확인",
+               "lc_ship_by": "선적 기한 두 번 입력 불일치", "lc_port_loading": "L/C 44E 선적항 불일치",
+               "lc_port_discharge": "L/C 44F 도착항 불일치", "incoterms": "인코텀즈 미입력",
+               "incoterms_place": "인코텀즈 지정 장소 불일치", "booking_no": "부킹번호 중복", "bl_no": "B/L 번호 중복"}
+CHECK_EXPIRY_MISSING = "L/C 유효기한 비어 있음"
+CHECK_EXPIRY_ERR = "L/C 유효기한이 선적 기한보다 빠름"
+CHECK_EXPIRY_SHORT = "서류 낼 시간 부족"

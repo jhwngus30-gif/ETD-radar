@@ -155,3 +155,32 @@ def test_export_has_new_columns(tmpdata):
     r = next(x for x in rows if x["오더번호"] == "PO-2611-002")
     assert r["인코텀즈"] == "CIF" and "10일뿐" in r["입력 확인"]
     assert next(x for x in rows if x["오더번호"] == "PO-2611-003")["입력 확인"] == ""
+
+
+# ---- v3.4 결정 카드 (F5-1) · 캘린더 표시 (F5-3) ----
+def test_decision_cards(tmpdata):
+    cards = logic.decision_cards(storage.load_orders(tmpdata / "orders.csv"), NOW)
+    nos = [c["order_no"] for c in cards]
+    assert nos[0] == "PO-2611-014" and len(nos) == len(set(nos))          # 오더 하나에 카드 하나, 위험한 순
+    c14 = cards[0]
+    assert len(c14["issues"]) == 2 and any("서류 마감" in i["label"] for i in c14["issues"])
+    assert any("실제 출항" in s for s in c14["steps"]) and any("늦은 서류" in s for s in c14["steps"])
+    assert c14["contacts"] == ["우리 포워더 · 선사 (CFR)"] and c14["plan"] == ""
+    c1 = next(c for c in cards if c["order_no"] == "PO-2611-001")
+    assert any("Amendment" in s for s in c1["steps"]) and "바이어 (개설은행에 Amendment 신청)" in c1["contacts"]
+    assert c1["plan"].startswith("L/C 연장 요청")
+    c2 = next(c for c in cards if c["order_no"] == "PO-2611-002")
+    assert any("기한 당일" in s for s in c2["steps"])
+
+
+def test_check_short_labels(tmpdata):
+    a = logic.check_alerts(storage.load_orders(tmpdata / "orders.csv"), NOW)
+    short = {x["order_no"]: x["checks"][0]["short"] for x in a}
+    assert short["PO-2611-002"] == "서류 낼 시간 부족" and short["PO-2611-001"] == "부킹번호 중복"
+    assert short["PO-2611-010"] == "L/C 44E 선적항 불일치"
+
+
+def test_calendar_title_has_buyer(tmpdata):
+    ev = logic.calendar_events(storage.load_orders(tmpdata / "orders.csv"), NOW)
+    e = next(e for e in ev if e["order_no"] == "PO-2611-004" and e["kind"] == "ETD")
+    assert e["title"] == "ETD 004 · Tokyo Deli" and e["item"].startswith("김치")
