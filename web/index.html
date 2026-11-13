@@ -8,251 +8,455 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --side:#25264a; --side2:#34366a; --acc:#7b61ff; --acc2:#c5b8ff; --bg:#f4f5fb; --card:#fff; --ink:#23253a; --sub:#8a8ca3; --line:#eceef6;
-    --red:#ec5a96; --redbg:#fde7f1; --yel:#f5b52e; --yelbg:#fff3d9; --grn:#4c7df0; --grnbg:#e6eeff; --ok:#9b6cf5; --okbg:#f0e9ff;
-    --r:16px; --sh:0 6px 20px rgba(60,60,120,.07);
+    --side:#25264a; --side2:#34366a; --acc:#6a50f0; --acc2:#c5b8ff; --bg:#f4f5fb; --card:#fff; --ink:#1f2135; --sub:#5b5f75; --line:#e4e6f0;
+    --late:#c42b2b; --latebg:#fde6e6;
+    --red:#b8306b; --redbg:#fde7f1; --yel:#8f5500; --yelbar:#f5b52e; --yelbg:#fff3d9; --grn:#2f5fd6; --grnbar:#4c7df0; --grnbg:#e6eeff;
+    --ok:#7b4fd6; --okbg:#f0e9ff; --na:#5b5f75; --nabg:#eef0f4;
+    --r:14px; --sh:0 4px 16px rgba(50,50,110,.07);
   }
   *{box-sizing:border-box}
-  html,body{margin:0;height:100%}
-  body{font-family:"Noto Sans KR","Malgun Gothic",system-ui,sans-serif;color:var(--ink);background:var(--bg);font-size:13.5px}
-  .app{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
+  html,body{margin:0}
+  body{font-family:"Noto Sans KR","Malgun Gothic",system-ui,sans-serif;color:var(--ink);background:var(--bg);font-size:14px;line-height:1.5}
+  svg.i{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:-3px}
+  .app{display:grid;grid-template-columns:224px 1fr;min-height:100vh}
   /* sidebar */
-  aside{background:var(--side);color:#d6d7ee;padding:24px 16px;display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100vh}
-  .logo{color:#fff;font-weight:800;font-size:21px;display:flex;align-items:center;gap:8px;margin:0 6px 22px}
-  .logo .dot{width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 50% 50%,#fff 0 3px,transparent 4px),repeating-radial-gradient(circle,#c5b8ff55 0 5px,transparent 5px 9px),#7b61ff;box-shadow:0 0 0 2px #c5b8ff88}
-  .nav a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;color:#d6d7ee;text-decoration:none;font-weight:500}
+  aside{background:var(--side);color:#e1e2f3;padding:22px 14px;display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100vh}
+  .logo{color:#fff;font-weight:800;font-size:20px;display:flex;align-items:center;gap:9px;margin:0 8px 20px}
+  .logo .dot{width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 50% 50%,#fff 0 3px,transparent 4px),repeating-radial-gradient(circle,#c5b8ff55 0 5px,transparent 5px 9px),#6a50f0;box-shadow:0 0 0 2px #c5b8ff88}
+  .nav a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;color:#e1e2f3;text-decoration:none;font-weight:500}
   .nav a:hover{background:var(--side2)} .nav a.on{background:var(--acc);color:#fff}
-  .nav .cnt{margin-left:auto;font-size:11px;background:#ffffff1f;padding:1px 7px;border-radius:999px}
-  .side-sec{margin:22px 8px 6px;font-size:11px;letter-spacing:.08em;color:#9a9cc4}
-  .legend div{display:flex;align-items:center;gap:8px;padding:5px 8px;font-size:12.5px}
-  .legend i{width:10px;height:10px;border-radius:50%;display:inline-block}
-  .side-foot{margin-top:auto;font-size:11px;color:#9a9cc4;padding:0 8px;line-height:1.6}
-  .side-foot button{margin-top:8px;background:var(--side2);border:1px solid #3f4178;color:#d6d7ee}
+  .nav .cnt{margin-left:auto;font-size:11.5px;background:#ffffff26;padding:1px 8px;border-radius:999px}
+  .side-sec{margin:22px 10px 6px;font-size:11.5px;letter-spacing:.06em;color:#b3b6d6}
+  .legend div{display:flex;align-items:center;gap:8px;padding:4px 10px;font-size:13px}
+  .legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+  .side-foot{margin-top:auto;font-size:12px;color:#b3b6d6;padding:0 10px;line-height:1.6}
+  .side-foot button{margin-top:8px;background:var(--side2);border:1px solid #4a4c86;color:#e1e2f3}
   /* main */
-  main{padding:22px 26px 50px;min-width:0}
-  .top{display:flex;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap}
-  .top h1{margin:0;font-size:24px;font-weight:800}
-  .top .sub{color:var(--sub);font-size:12.5px}
+  main{padding:22px 28px 60px;min-width:0}
+  .top{display:flex;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+  .top h1{margin:0;font-size:24px;font-weight:800;letter-spacing:-.3px}
+  .top .sub{color:var(--sub);font-size:13px}
   .top .right{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-  .pill{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:12px;color:var(--sub)}
+  .pill{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:12.5px;color:var(--sub);white-space:nowrap}
   .pill b{color:var(--ink)}
-  .demo{background:#fff3d9;color:#946000;border-color:#f6dfa6}
-  .grid{display:grid;grid-template-columns:1fr 320px;gap:18px}
-  .card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);padding:18px 20px}
-  .card h2{font-size:15px;margin:0 0 14px;display:flex;align-items:center;gap:8px}
-  .card h2 small{color:var(--sub);font-weight:400;font-size:12px}
+  .demo{background:#fff3d9;color:#7a4b00;border-color:#f3dba2}
+  .iconbtn{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);color:var(--sub);border-radius:999px;padding:6px 12px;font-size:12.5px;cursor:pointer;font-weight:500}
+  .toptabs{display:none}
+  .view:not(.on){display:none !important} .view.on{display:block} .view.stack.on{display:flex}
+  .card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);padding:18px 20px;min-width:0}
+  .card h2{font-size:15.5px;margin:0 0 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .card h2 small{color:var(--sub);font-weight:400;font-size:12.5px}
   .card h2 .act{margin-left:auto}
-  /* stat cards */
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
-  .stat{border-radius:var(--r);padding:16px 18px;background:var(--card);box-shadow:var(--sh);display:flex;gap:14px;align-items:center;cursor:pointer;border:2px solid transparent}
-  .stat.sel{border-color:var(--acc)}
-  .stat .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:20px}
-  .stat .n{font-size:26px;font-weight:800;line-height:1}
-  .stat .t{color:var(--sub);font-size:12px;margin-top:4px}
-  .stat.red{background:linear-gradient(135deg,#f27aac,#e04583);color:#fff}.stat.red .t{color:#ffe3ef}.stat.red .ic{background:#ffffff2e}
-  .s-yel .ic{background:var(--yelbg)} .s-grn .ic{background:var(--grnbg)} .s-late .ic{background:var(--okbg)}
+  .stack{display:flex;flex-direction:column;gap:18px}
+  .grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:18px}
+  .narrow{max-width:1000px}
+  /* guide */
+  .guide{background:linear-gradient(135deg,#efeaff,#e8f0ff);border:1px solid #d9d0ff;border-radius:var(--r);padding:16px 18px;display:flex;gap:16px;align-items:flex-start}
+  .guide ol{margin:6px 0 0;padding-left:18px} .guide li{margin:2px 0}
+  .guide .x{margin-left:auto}
+  /* alerts */
+  .alerts{border-left:4px solid var(--late)}
+  .alerts.none{border-left-color:#22a06b}
+  .alist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+  .alist a{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;background:#fafafd;text-decoration:none;color:var(--ink);border:1px solid transparent}
+  .alist a:hover{border-color:var(--line);background:#fff}
+  .alist .go{margin-left:auto;color:var(--sub);font-size:12.5px;display:flex;align-items:center;gap:2px}
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+  .stat{border-radius:var(--r);padding:14px 16px;background:var(--card);box-shadow:var(--sh);display:flex;gap:12px;align-items:center;cursor:pointer;border:2px solid transparent;min-width:0}
+  .stat:hover{border-color:var(--acc2)}
+  .stat .ic{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;flex:none}
+  .stat .n{font-size:24px;font-weight:800;line-height:1}
+  .stat .t{color:var(--sub);font-size:12.5px;margin-top:4px}
+  .stat.hot{background:var(--late);color:#fff} .stat.hot .t{color:#ffe1e1} .stat.hot .ic{background:#ffffff2b;color:#fff}
+  .s-late .ic{background:var(--latebg);color:var(--late)} .s-red .ic{background:var(--redbg);color:var(--red)} .s-yel .ic{background:var(--yelbg);color:var(--yel)}
+  .s-grn .ic{background:var(--grnbg);color:var(--grn)} .s-ok .ic{background:var(--okbg);color:var(--ok)}
+  /* chips */
+  .chip{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:3px 10px;font-weight:700;font-size:12px;white-space:nowrap}
+  .chip::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+  .chip.late{background:var(--latebg);color:var(--late)} .chip.red{background:var(--redbg);color:var(--red)} .chip.yellow{background:var(--yelbg);color:var(--yel)}
+  .chip.green{background:var(--grnbg);color:var(--grn)} .chip.ok{background:var(--okbg);color:var(--ok)} .chip.na{background:var(--nabg);color:var(--na)}
+  .tag{display:inline-block;border-radius:6px;padding:0 6px;font-size:11.5px;font-weight:700;background:#eef0f8;color:#3d4160}
+  .tag.tc{background:#fff1e6;color:#a34d00}
+  .delta{color:var(--sub);font-weight:600;white-space:nowrap}
   /* margin chart */
-  .g-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--sub);margin:-4px 0 12px;align-items:center}
+  .g-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--sub);margin:-4px 0 12px;align-items:center}
   .g-legend span{display:flex;align-items:center;gap:6px}
   .lg{width:20px;height:10px;border-radius:5px}
-  .lg.red{background:linear-gradient(90deg,#e04583,#f27aac)} .lg.yellow{background:linear-gradient(90deg,#f2a516,#f9c95a)} .lg.green{background:linear-gradient(90deg,#3f6ff0,#6a93ff)}
-  .g-today-lbl{color:var(--acc);font-weight:700;margin-left:auto}
-  .g-row{display:grid;grid-template-columns:132px 78px 78px minmax(0,1fr);gap:14px;align-items:center;min-height:56px;border-top:1px solid var(--line)}
-  .g-hd{min-height:34px;border-top:none;font-size:11.5px;color:var(--sub);font-weight:600}
-  .g-row .who{font-weight:700;font-size:13px;line-height:1.3} .g-row .who small{display:block;color:var(--sub);font-weight:400;font-size:11.5px}
-  .g-date b{display:block;font-size:16px;font-weight:800;letter-spacing:-.3px;line-height:1.15}
-  .g-date small{color:var(--sub);font-size:11px}
+  .lg.red{background:var(--red)} .lg.yellow{background:var(--yelbar)} .lg.green{background:var(--grnbar)}
+  .g-row{display:grid;grid-template-columns:150px 92px 92px minmax(0,1fr);gap:14px;align-items:center;min-height:54px;border-top:1px solid var(--line)}
+  .g-hd{min-height:32px;border-top:none;font-size:12px;color:var(--sub);font-weight:600}
+  .who b{display:block;font-size:13.5px} .who small{color:var(--sub);font-size:12px}
+  .g-date b{display:block;font-size:15px;font-weight:800;line-height:1.2}
+  .g-date small{color:var(--sub);font-size:12px}
   .m-axis{position:relative;height:30px}
-  .m-axis span{position:absolute;bottom:2px;transform:translateX(-50%);white-space:nowrap;font-size:11px}
-  .m-axis .th{color:#c98a00;font-weight:700}
-  .m-axis .cap{right:0;left:auto;transform:none;top:0;bottom:auto;color:var(--sub);font-weight:500}
+  .m-axis span{position:absolute;bottom:2px;transform:translateX(-50%);white-space:nowrap;font-size:12px}
+  .m-axis .th{color:var(--yel);font-weight:700} .m-axis .neg{color:var(--red);font-weight:700}
   .m-body{position:relative}
-  .m-guides{position:absolute;top:0;bottom:0;left:calc(132px + 78px + 78px + 42px);right:0;pointer-events:none}
+  .m-guides{position:absolute;top:0;bottom:0;left:calc(150px + 92px + 92px + 42px);right:0;pointer-events:none}
   .m-guides i{position:absolute;top:0;bottom:0}
-  .m-guides .zero{width:2px;background:#23253a;opacity:.75;margin-left:-1px}
-  .m-guides .th{width:0;border-left:2px dashed #f2a516;opacity:.8;margin-left:-1px}
+  .m-guides .zero{width:2px;background:#2b2d42;opacity:.75;margin-left:-1px}
+  .m-guides .th{width:0;border-left:2px dashed var(--yelbar);margin-left:-1px}
   .m-track{position:relative;height:30px}
-  .m-bar{position:absolute;top:2px;height:26px;border-radius:0 13px 13px 0;box-shadow:0 3px 8px rgba(60,60,120,.12)}
-  .m-bar.neg{border-radius:13px 0 0 13px}
-  .m-bar.green{background:linear-gradient(90deg,#3f6ff0,#6a93ff)} .m-bar.yellow{background:linear-gradient(90deg,#f2a516,#f9c95a)} .m-bar.red{background:linear-gradient(90deg,#f27aac,#e04583)}
-  .m-lbl{position:absolute;top:3px;font-size:14px;font-weight:800;white-space:nowrap;letter-spacing:-.2px;background:#ffffffd9;padding:1px 6px;border-radius:6px;z-index:2}
-  .m-dot{position:absolute;top:8px;width:14px;height:14px;border-radius:50%;background:#f2a516;margin-left:-7px;box-shadow:0 0 0 3px #fde3a6}
-  .m-axis .neg{color:#d63c7c;font-weight:700}
-  .m-lbl.green{color:#2f5fd6} .m-lbl.yellow{color:#b57300} .m-lbl.red{color:#d63c7c}
-  @media(max-width:760px){.g-row{grid-template-columns:96px 60px 60px minmax(0,1fr);gap:8px}.m-guides{left:calc(96px + 60px + 60px + 24px)}.g-date b{font-size:14px}.m-lbl{font-size:12.5px}.m-axis .cap{display:none}}
-  /* table */
+  .m-bar{position:absolute;top:3px;height:24px;border-radius:0 12px 12px 0}
+  .m-bar.neg{border-radius:12px 0 0 12px}
+  .m-bar.green{background:linear-gradient(90deg,#3f6ff0,#6a93ff)} .m-bar.yellow{background:linear-gradient(90deg,#f2a516,#f9c95a)} .m-bar.red{background:linear-gradient(90deg,#f27aac,#d63c7c)}
+  .m-dot{position:absolute;top:8px;width:14px;height:14px;border-radius:50%;background:var(--yelbar);margin-left:-7px;box-shadow:0 0 0 3px #fde3a6}
+  .m-lbl{position:absolute;top:3px;font-size:13.5px;font-weight:800;white-space:nowrap;background:#ffffffe0;padding:1px 6px;border-radius:6px;z-index:2}
+  .m-lbl.green{color:var(--grn)} .m-lbl.in{background:transparent;color:#fff} .m-lbl.yellow{color:var(--yel)} .m-lbl.red{color:var(--red)}
+  /* donut */
+  .donut-wrap{display:flex;flex-direction:column;align-items:center}
+  .donut-legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin-top:10px;font-size:13px;width:100%}
+  .donut-legend span{display:flex;align-items:center;gap:6px} .donut-legend i{width:9px;height:9px;border-radius:3px}
+  /* order list */
+  .toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+  .search{flex:1 1 260px;display:flex;flex-direction:row;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:0 12px;background:#fafafd}
+  .search input{width:auto;border:none;background:transparent;padding:10px 0;flex:1;outline:none;font:inherit}
   .tabs{display:flex;gap:6px;flex-wrap:wrap}
-  .tab{border:1px solid var(--line);background:#fff;color:var(--sub);border-radius:999px;padding:5px 12px;font-size:12px;cursor:pointer}
+  .tab{border:1px solid var(--line);background:#fff;color:var(--sub);border-radius:999px;padding:5px 12px;font-size:12.5px;cursor:pointer;font-weight:500}
   .tab.on{background:var(--acc);border-color:var(--acc);color:#fff}
+  .olist{display:flex;flex-direction:column;gap:6px}
+  .orow{display:grid;grid-template-columns:minmax(150px,1.5fr) minmax(120px,1fr) 104px 104px minmax(170px,1.3fr) 36px;gap:12px;align-items:center;padding:10px 12px;border-radius:12px;background:#f8f9fd;cursor:pointer;border:1px solid transparent}
+  .orow:hover{border-color:var(--line);background:#fff}
+  .orow.open{background:#fff;border-color:var(--acc2);border-bottom-left-radius:0;border-bottom-right-radius:0}
+  .ohead{background:transparent;cursor:default;font-size:12px;color:var(--sub);font-weight:600;padding-top:0;padding-bottom:4px}
+  .ohead:hover{background:transparent;border-color:transparent}
+  .orow .c1 b{display:block} .orow .c1 small{color:var(--sub)}
+  .orow .lbl{display:none;color:var(--sub);font-size:11.5px}
+  .orow .st{display:flex;flex-wrap:wrap;gap:4px}
+  .chev{color:var(--sub);transition:transform .15s;justify-self:end}
+  .orow.open .chev{transform:rotate(90deg)}
+  .detail{border:1px solid var(--acc2);border-top:none;border-radius:0 0 12px 12px;padding:14px 16px 16px;background:#fff;margin-top:-6px}
+  .dgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px 22px;font-size:13px}
+  .dgrid div span{color:var(--sub);display:inline-block;min-width:84px}
+  .dacts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center}
+  .sub-panel{margin-top:12px;padding:12px;border-radius:10px;background:#f8f9fd}
+  /* forms */
+  form.f{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  label{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--sub);font-weight:500}
+  input,select,textarea{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:10px;font:inherit;color:var(--ink);background:#fafafd;min-width:0}
+  input:focus,select:focus{outline:2px solid var(--acc2);border-color:var(--acc2)}
+  input:disabled{opacity:.5}
+  .full{grid-column:1/-1}
+  .row-end{display:flex;gap:10px;align-items:center;margin-top:4px;flex-wrap:wrap}
+  details.more-fields{grid-column:1/-1;border:1px dashed var(--line);border-radius:10px;padding:8px 12px}
+  details.more-fields .inner{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:8px}
+  button{font:inherit;cursor:pointer;border-radius:10px;border:1px solid var(--acc);background:var(--acc);color:#fff;padding:9px 15px;font-weight:600}
+  button.mini{padding:5px 11px;font-size:12.5px;border-radius:8px}
+  button.ghost{background:#fff;color:#3d4160;border-color:var(--line)} button.ghost:hover{border-color:#c9ccdc}
+  button.danger{background:var(--late);border-color:var(--late)}
+  button.copy{background:#fff;color:var(--acc);border-color:var(--acc2)}
+  .err{color:var(--late);font-size:13px;min-height:18px;margin-top:6px}
+  .box{padding:10px 14px;border-radius:12px;margin:0 0 12px;background:#eef0f8}
+  .good{background:#e6f6ef;color:#16774d} .warn{background:var(--yelbg);color:#7a4b00} .bad{background:var(--latebg);color:var(--late)}
+  .cap{color:var(--sub);font-size:12.5px;margin:8px 0 0}
+  .empty{color:var(--sub);padding:12px 0}
+  details summary{cursor:pointer;color:var(--sub);font-size:13px}
   .tablewrap{overflow-x:auto}
-  table{width:100%;min-width:900px;border-collapse:separate;border-spacing:0 6px;font-size:12.5px}
-  th{text-align:left;color:var(--sub);font-weight:500;padding:4px 8px;white-space:nowrap}
-  td{background:#f8f9fd;padding:10px 8px;vertical-align:middle}
+  table{width:100%;border-collapse:separate;border-spacing:0 5px;font-size:13px}
+  th{text-align:left;color:var(--sub);font-weight:600;padding:4px 8px;white-space:nowrap;font-size:12px}
+  td{background:#f8f9fd;padding:9px 8px;vertical-align:middle}
   td:first-child{border-radius:10px 0 0 10px} td:last-child{border-radius:0 10px 10px 0}
   td.nw{white-space:nowrap}
-  .chip{display:inline-block;border-radius:999px;padding:3px 10px;font-weight:700;font-size:11.5px;white-space:nowrap}
-  .chip.red{background:var(--redbg);color:#d63c7c} .chip.yellow{background:var(--yelbg);color:#a86c00} .chip.green{background:var(--grnbg);color:#2f5fd6} .chip.ok{background:var(--okbg);color:var(--ok)}
-  .st{font-size:11.5px;color:var(--sub)} .st.done{color:var(--ok);font-weight:600}
-  .hist{font-size:11.5px;color:var(--sub)}
-  .sub-row td{background:transparent;padding:0 8px 6px}
-  /* right panel */
-  .donut-wrap{display:flex;flex-direction:column;align-items:center}
-  .donut-legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin-top:10px;font-size:12px;width:100%}
-  .donut-legend span{display:flex;align-items:center;gap:6px} .donut-legend i{width:9px;height:9px;border-radius:3px}
   .rlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
-  .rlist li{display:flex;gap:10px;align-items:flex-start;padding:10px;border-radius:12px;background:#f8f9fd}
-  .rlist .num{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-weight:800;flex:none}
-  .rlist .red .num{background:var(--redbg);color:var(--red)} .rlist .yellow .num{background:var(--yelbg);color:#a86c00}
-  .rlist .txt{font-size:12px;line-height:1.45}
-  .rlist .txt b{display:block;font-size:12.5px}
-  /* forms */
-  .forms{display:grid;grid-template-columns:1.3fr 1fr;gap:18px;margin-top:18px}
-  form.f{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  label{display:flex;flex-direction:column;gap:4px;font-size:11.5px;color:var(--sub)}
-  input,select{padding:9px 11px;border:1px solid var(--line);border-radius:10px;font:inherit;color:var(--ink);background:#f8f9fd}
-  input:focus,select:focus{outline:2px solid var(--acc2);border-color:var(--acc2)}
-  button{font:inherit;cursor:pointer;border-radius:10px;border:1px solid var(--acc);background:var(--acc);color:#fff;padding:9px 14px;font-weight:600}
-  button.mini{padding:4px 10px;font-size:11.5px;border-radius:8px} button.ghost{background:#fff;color:var(--sub);border-color:var(--line)}
-  button.danger{background:var(--red);border-color:var(--red)} button.copy{background:#fff;color:var(--acc);border-color:var(--acc2)}
-  .full{grid-column:1/-1}
-  .err{color:var(--red);font-size:12.5px;min-height:18px;margin-top:6px}
-  .box{padding:10px 14px;border-radius:12px;margin:0 0 12px;background:#eef0f8}
-  .good{background:#e6f6ef;color:#1f8a5c} .warn{background:var(--yelbg);color:#946000} .bad{background:var(--redbg);color:var(--red)}
-  details{margin-top:12px} summary{cursor:pointer;color:var(--sub);font-size:12.5px}
-  details ul{padding-left:18px;margin:8px 0;line-height:1.8;font-size:12.5px}
-  .empty{color:var(--sub);padding:12px 0}
-  .cap{color:var(--sub);font-size:11.5px;margin:6px 0 0}
-  @media(max-width:1180px){.grid{grid-template-columns:1fr}.forms{grid-template-columns:1fr}}
-  @media(max-width:860px){.app{grid-template-columns:1fr}aside{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center}.logo{margin:0 10px 0 0}.side-sec,.legend,.side-foot{display:none}.nav{display:flex;gap:4px;flex-wrap:wrap}.stats{grid-template-columns:1fr 1fr}main{padding:16px}}
+  .rlist li{display:flex;flex-direction:column;gap:6px;align-items:flex-start;padding:10px 12px;border-radius:12px;background:#f8f9fd;font-size:13px;line-height:1.55}
+  .preview{background:#f8f9fd;border:1px solid var(--line);border-radius:12px;padding:14px 16px;white-space:pre-wrap;font:13.5px/1.85 "Noto Sans KR",sans-serif;margin:0 0 10px}
+  .local-dates{margin:0 0 10px} .local-dates .tabs{margin-top:8px}
+  /* v3.2 인코텀즈 · 크로스체크 */
+  .v32-wrap{display:contents} .lc-only[hidden]{display:none !important}
+  .sub-h{font-weight:800;font-size:13.5px;margin-top:6px;padding-top:10px;border-top:1px dashed var(--line)}
+  .sub-h small{font-weight:500;color:var(--sub);margin-left:6px}
+  .dgrid.v32{margin-top:10px} .dgrid .span-all{grid-column:1/-1}
+  .checks{margin-top:10px} .checks ul{margin:6px 0 0;padding-left:18px} .checks li{margin:3px 0}
+  .check-line{margin-top:10px;font-size:13px;line-height:1.9} .check-line a{color:var(--ink);text-decoration:none} .check-line a:hover{text-decoration:underline}
+  /* calendar (F5-3) */
+  .cal-nav{display:flex;gap:6px}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .cal-grid .wd{background:#f6f6fb;font-size:12px;font-weight:700;color:var(--sub);padding:7px 8px;border-bottom:1px solid var(--line)}
+  .cal-grid .wd.sun{color:#c42b2b} .cal-grid .wd.sat{color:#2f5fd6}
+  .cell{min-height:104px;padding:6px 6px 8px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff;display:flex;flex-direction:column;gap:3px;min-width:0}
+  .cell:nth-child(7n){border-right:none}
+  .cell.out{background:#fafafd} .cell.out .dn{color:#a3a6ba}
+  .cell .dn{font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:2px}
+  .cell.today{background:#f4f1ff;box-shadow:inset 0 0 0 2px var(--acc)}
+  .cell.today .dn::after{content:" 오늘";color:var(--acc);font-size:11px}
+  .ev{display:block;width:100%;text-align:left;border:none;border-radius:6px;padding:2px 6px;font-size:11.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;line-height:1.5}
+  .ev b{font-weight:800;margin-right:3px}
+  .ev.late{background:var(--latebg);color:var(--late)} .ev.red{background:var(--redbg);color:var(--red)} .ev.yellow{background:var(--yelbg);color:var(--yel)}
+  .ev.green{background:var(--grnbg);color:var(--grn)} .ev.ok{background:var(--okbg);color:var(--ok)} .ev.na{background:var(--nabg);color:var(--na)}
+  .ev:hover{filter:brightness(.96)}
+  .more-ev{border:none;background:none;color:var(--sub);font-size:11.5px;padding:0 6px;text-align:left;cursor:pointer}
+  .agenda{display:none;list-style:none;margin:0;padding:0}
+  .agenda .day{font-weight:800;margin:12px 0 6px;font-size:13.5px} .agenda .day:first-child{margin-top:0}
+  .agenda .day.today{color:var(--acc)}
+  .agenda .ev{font-size:13px;padding:6px 10px;margin-bottom:4px}
+  .kind-toggle.off{opacity:.45;text-decoration:line-through}
+  /* simulator */
+  .sim-steps{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+  .sim-steps li{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:10px;background:#f8f9fd;border:1px solid var(--line)}
+  .sim-steps li.wait{opacity:.45}
+  .sim-steps .no{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:12px;flex:none;background:#e9e6ff;color:var(--acc)}
+  .sim-steps li.done .no{background:var(--acc);color:#fff}
+  .sim-steps li.run .no{background:#fff;border:2px solid var(--acc);animation:pulse 1s infinite}
+  .sim-steps li.act{border-color:var(--acc2);background:#fff}
+  .sim-steps li.act .no{background:#fff;border:2px solid var(--acc)}
+  .sim-steps li.stop .no{background:var(--late);color:#fff}
+  @keyframes pulse{50%{box-shadow:0 0 0 5px #6a50f033}}
+  .sim-steps .body{min-width:0;flex:1} .sim-steps .t{font-weight:700} .sim-steps .d{color:var(--sub);font-size:12.5px;word-break:break-all}
+  pre.code{background:#1f2135;color:#e7e8f5;border-radius:10px;padding:10px 12px;font:12px/1.55 ui-monospace,Menlo,Consolas,monospace;overflow:auto;max-height:260px;margin:8px 0 0;white-space:pre}
+  .flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:12px;color:var(--sub);margin:8px 0 0}
+  .flow b{background:#f0edff;color:var(--acc);border-radius:6px;padding:2px 8px}
+  .more{color:var(--acc);font-size:13px;font-weight:600;text-decoration:none;background:none;border:none;padding:0;cursor:pointer}
+  @media(max-width:1180px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,1fr)}}
+  /* ---------- mobile (F6-1) ---------- */
+  @media(max-width:860px){
+    .app{grid-template-columns:1fr}
+    aside{position:static;height:auto;flex-direction:row;align-items:center;padding:12px 16px}
+    aside .logo{margin:0}
+    aside .nav,.side-sec,.legend,.side-foot{display:none}
+    main{padding:14px 14px 50px}
+    .top h1{font-size:20px} .top .right{margin-left:0}
+    .toptabs{display:flex;gap:4px;overflow-x:auto;white-space:nowrap;margin:0 -14px 14px;padding:0 14px;border-bottom:1px solid var(--line);scrollbar-width:none;position:sticky;top:0;background:var(--bg);z-index:5}
+    .toptabs a{display:inline-flex;align-items:center;gap:6px;padding:10px 10px;color:var(--sub);text-decoration:none;font-weight:600;border-bottom:3px solid transparent;font-size:13.5px}
+    .toptabs a.on{color:var(--acc);border-bottom-color:var(--acc)}
+    .stats{grid-template-columns:1fr 1fr}
+    .stat{padding:12px}
+    .g-row{grid-template-columns:96px 64px 64px minmax(0,1fr);gap:8px}
+    .m-guides{left:calc(96px + 64px + 64px + 24px)}
+    .g-date b{font-size:13.5px} .m-lbl{font-size:12px} .m-axis .cap2{display:none}
+    .ohead{display:none}
+    .orow{grid-template-columns:1fr auto;gap:6px 10px;padding:12px}
+    .orow .c1{grid-column:1/2} .orow .chev{grid-column:2/3;grid-row:1}
+    .orow .c2,.orow .c3,.orow .c4,.orow .c5{grid-column:1/-1;display:flex;gap:8px;align-items:center}
+    .orow .lbl{display:inline;min-width:64px}
+    .dgrid{grid-template-columns:1fr}
+    form.f,details.more-fields .inner{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+    .sub-panel input[type=date]{width:auto}
+    .guide{flex-direction:column}
+    .cal-grid{display:none} .agenda{display:block}
+    .cal-nav{width:100%}
+  }
 </style>
 </head>
 <body>
 <div class="app">
   <aside>
     <div class="logo"><span class="dot"></span>ETD 레이더</div>
-    <nav class="nav">
-      <a href="#dashboard" class="on" data-nav>📊 대시보드</a>
-      <a href="#orders" data-nav>📦 오더 목록 <span class="cnt" id="nav-cnt"></span></a>
-      <a href="#new-order" data-nav>➕ 새 오더 등록</a>
-      <a href="#etd-log" data-nav>🕑 ETD 변경 기록</a>
-    </nav>
-    <div class="side-sec">L/C 경고 기준</div>
+    <nav class="nav" id="sidenav"></nav>
+    <div class="side-sec">색의 뜻</div>
     <div class="legend">
-      <div><i style="background:var(--red)"></i>기한 초과</div>
-      <div><i style="background:var(--yel)"></i>임박 (0~7일)</div>
-      <div><i style="background:var(--grn)"></i>여유 (8일 이상)</div>
+      <div><i style="background:var(--late)"></i>ETD 지남 · 선적 미확인</div>
+      <div><i style="background:var(--red)"></i>L/C 기한 초과</div>
+      <div><i style="background:var(--yelbar)"></i>임박 (0~7일)</div>
+      <div><i style="background:var(--grnbar)"></i>여유 (8일 이상)</div>
       <div><i style="background:var(--ok)"></i>선적 완료</div>
+      <div><i style="background:#b8bccb"></i>해당 없음 (T/T · D/P)</div>
     </div>
     <div class="side-foot">
-      7일 기준 = 롤오버 한 번에 ETD가 약 1주 밀리기 때문<br>
-      모든 회사명·오더는 가상 데이터예요<br>
+      모든 회사명 · 오더는 가상 데이터예요<br>
       <button class="mini" id="reset">가상 데이터 처음으로</button>
     </div>
   </aside>
 
   <main>
-    <div class="top" id="dashboard">
+    <div class="top">
       <div>
-        <h1>선적 일정 대시보드</h1>
-        <div class="sub">밀린 ETD와 L/C 선적 기한 위험을 한눈에 잡아내는 선적 일정 레이더</div>
+        <h1 id="view-title">선적 일정 대시보드</h1>
+        <div class="sub" id="view-sub"></div>
       </div>
       <div class="right">
-        <span class="pill demo">가상 데이터 시연판 · 변경은 이 브라우저에만 저장</span>
+        <span class="pill demo">가상 데이터 시연판 · 이 브라우저에 저장</span>
         <span class="pill" id="today"></span>
+        <button class="iconbtn" id="help-btn" title="사용 안내"></button>
       </div>
     </div>
-
+    <nav class="toptabs" id="toptabs"></nav>
     <div id="flash"></div>
-    <div class="stats" id="stats"></div>
 
-    <div class="grid">
-      <div style="display:flex;flex-direction:column;gap:18px;min-width:0">
+    <!-- 대시보드 -->
+    <div class="view stack" data-view="dashboard">
+      <div id="guide"></div>
+      <section class="card alerts" id="alerts"></section>
+      <div class="stats" id="stats"></div>
+      <section class="card" id="cal-card">
+        <h2>일정 캘린더 <small id="cal-title"></small>
+          <span class="act cal-nav"><button class="mini ghost" data-cal="-1" aria-label="이전 달">‹ 이전</button><button class="mini ghost" data-cal="0">오늘</button><button class="mini ghost" data-cal="1" aria-label="다음 달">다음 ›</button></span></h2>
+        <div class="tabs" id="cal-kinds" style="margin:-4px 0 12px"></div>
+        <div id="cal"></div>
+      </section>
+      <div class="grid">
         <section class="card">
-          <h2>📅 L/C 선적 기한까지 여유 <small>(선적 대기 오더 · ETD 기준)</small></h2>
-          <div class="gantt" id="gantt"></div>
+          <h2>L/C 선적 기한까지 여유 <small>선적 대기 L/C 오더 · 위험한 순</small></h2>
+          <div id="gantt"></div>
         </section>
-
-
-      </div>
-
-      <div style="display:flex;flex-direction:column;gap:18px">
-        <section class="card">
-          <h2>📊 오더 현황</h2>
-          <div class="donut-wrap" id="donut"></div>
-        </section>
-        <section class="card">
-          <h2>📝 보고용 경고 문장</h2>
-          <div id="risk"></div>
-        </section>
+        <div class="stack">
+          <section class="card"><h2>오더 현황</h2><div class="donut-wrap" id="donut"></div></section>
+          <section class="card"><h2>보고용 문장 <a class="act more" href="#report">보고 내보내기 →</a></h2><div id="risk"></div></section>
+        </div>
       </div>
     </div>
 
-    <section class="card" id="orders" style="margin-top:18px">
-          <h2>📦 오더 목록 <small>(ETD 빠른 순)</small>
-            <span class="act tabs" id="tabs"></span>
-          </h2>
-          <div id="today-local"></div>
-          <div class="tablewrap" id="list"></div>
-          <details id="gone"></details>
-        </section>
+    <!-- 오더 목록 -->
+    <div class="view" data-view="orders">
+      <section class="card">
+        <div class="toolbar">
+          <label class="search"><span id="ic-search"></span><input id="q" placeholder="오더번호 · 바이어 · 품목 · 부킹번호 · B/L 번호로 검색" aria-label="검색"></label>
+          <div class="tabs" id="tabs"></div>
+        </div>
+        <details class="local-dates" id="local-dates"></details>
+        <div id="list"></div>
+        <details id="gone" style="margin-top:12px"></details>
+      </section>
+    </div>
 
-    <div class="forms">
-      <section class="card" id="new-order">
-        <h2>➕ 새 오더 등록</h2>
+    <!-- 새 오더 등록 -->
+    <div class="view" data-view="new-order">
+      <section class="card narrow">
+        <h2>새 오더 등록 <small>* 표시는 필수</small></h2>
         <form id="new" class="f">
-          <label>오더번호 *<input name="order_no" placeholder="PO-2611-011"></label>
+          <label>오더번호 *<input name="order_no" placeholder="PO-2611-015"></label>
           <label>바이어 *<input name="buyer" placeholder="가상 회사명"></label>
-          <label>바이어 국가<select name="buyer_country" id="country"></select></label>
+          <label>바이어 국가<select name="buyer_country" class="sel-country"></select></label>
           <label>품목 *<input name="item"></label>
-          <label>ETD *<input name="etd" placeholder="2026-11-20"></label>
-          <label>ETA (선택)<input name="eta" placeholder="2026-12-10"></label>
-          <label>L/C 선적 기한 *<input name="lc_ship_by" placeholder="2026-11-25"></label>
-          <label>&nbsp;<button type="submit">오더 저장하기</button></label>
+          <label>결제 조건 *<select name="payment_terms" class="sel-terms"></select></label>
+          <label>선적항 *<select name="port_of_loading" class="sel-port"></select></label>
+          <label>ETD *<input type="date" name="etd"></label>
+          <label class="lc-field"><span>L/C 선적 기한 (44C) *</span><input type="date" name="lc_ship_by"></label>
+          <label>ETA<input type="date" name="eta"></label>
+          <div class="full v32-wrap" id="new-v32"></div>
+          <details class="more-fields"><summary>선적 정보 (선택) — 선사 · 부킹 · B/L · 서류 마감 · 대응 계획</summary>
+            <div class="inner">
+              <label>선사<input name="carrier"></label>
+              <label>선명/항차<input name="vessel"></label>
+              <label>부킹번호<input name="booking_no"></label>
+              <label>B/L 번호<input name="bl_no"></label>
+              <label>서류 마감일 (Cut-off)<input type="date" name="cutoff"></label>
+              <label>대응 계획<input name="action" placeholder="예: L/C 연장 요청"></label>
+            </div>
+          </details>
+          <div class="full row-end"><button type="submit">오더 저장하기</button> <a class="more" href="#orders">오더 목록 보기 →</a></div>
         </form>
         <div class="err" id="err-new"></div>
+        <p class="cap">결제 조건이 T/T · D/P면 L/C 선적 기한은 저장하지 않아요. 선적항이 한국이 아니면 '삼국 간'으로 표시되고, 그 항구의 현지 날짜로 계산해요.</p>
       </section>
+      <section class="card narrow" style="margin-top:18px">
+        <h2>여러 오더 한 번에 등록 <small>주간 스케줄 정리 · ERP/포워더 엑셀을 몰아서 넣을 때</small></h2>
+        <div class="row-end" style="margin:0 0 12px"><button class="mini ghost" data-act="template">빈 양식(CSV) 내려받기</button>
+          <span class="cap" style="margin:0">양식에 채워 올리거나, 엑셀에서 칸 이름 줄까지 복사해 붙여 넣으세요. 이미 있는 오더번호는 건너뛰어요.</span></div>
+        <div class="tabs" style="margin-bottom:10px"><button class="tab on" data-bulk="file">CSV 파일 올리기</button><button class="tab" data-bulk="paste">엑셀에서 붙여넣기</button></div>
+        <div id="bulk-file"><input type="file" id="bulk-input" accept=".csv,text/csv"></div>
+        <div id="bulk-paste" hidden><textarea id="paste-box" rows="6" placeholder="오더번호	바이어	품목	결제 조건	선적항	ETD	L/C 선적 기한&#10;PO-2611-021	가상 바이어	김스낵	L/C	부산	2026-12-05	2026-12-15"></textarea>
+          <div class="row-end"><button class="mini" data-act="paste-preview">미리보기</button></div></div>
+        <div id="bulk-preview" style="margin-top:12px"></div>
+      </section>
+    </div>
 
-      <section class="card" id="etd-log">
-        <h2>🕑 ETD 변경하기</h2>
-        <div class="box warn">⚠️ 데모: 실제 선사와 연결되지 않음</div>
+    <!-- 변경 기록 -->
+    <div class="view stack" data-view="etd-log">
+      <section class="card narrow">
+        <h2>ETD 변경하기</h2>
+        <div class="box warn">데모: 실제 선사와 연결되지 않음</div>
         <form id="chg" class="f">
-          <label class="full">변경할 오더<select id="chg-order"></select></label>
-          <label>새 ETD<input id="chg-etd" placeholder="2026-11-27"></label>
+          <label>변경할 오더<select id="chg-order"></select></label>
+          <label>새 ETD<input type="date" id="chg-etd"></label>
           <label>사유<input id="chg-reason" placeholder="롤오버"></label>
-          <button type="submit">ETD 변경 저장</button>
-          <button type="button" id="demo" class="ghost">선사 조회 (데모)</button>
+          <div class="full row-end"><button type="submit">ETD 변경 저장</button> <button type="button" id="demo" class="ghost">선사 조회 (데모)</button></div>
         </form>
         <div class="err" id="err-chg"></div>
-        <details id="log"></details>
+      </section>
+      <section class="card narrow" id="sim-card">
+        <h2>선사 연동 시뮬레이션 <small>실제 선사 연동이 움직이는 순서를 단계별로 보여 줘요</small></h2>
+        <div class="box warn">데모: 실제 선사와 연결되지 않음 · 가상 주소(example.com)와 가상 응답을 써요</div>
+        <div class="row-end" style="margin:0 0 6px"><select id="sim-order" style="max-width:420px"></select><button class="mini" data-act="sim-run">조회 실행</button></div>
+        <div id="sim"></div>
+      </section>
+      <section class="card narrow">
+        <h2>변경 기록 전체 <small id="log-count"></small></h2>
+        <div id="log"></div>
+      </section>
+    </div>
+
+    <!-- 보고 내보내기 · 불러오기 -->
+    <div class="view stack" data-view="report">
+      <section class="card narrow">
+        <h2>보고 내보내기</h2>
+        <div class="tabs" id="export" style="margin-bottom:12px"></div>
+        <textarea id="raw" hidden rows="6" style="width:100%;font:12px monospace;margin-bottom:8px"></textarea>
+        <div class="cap" style="margin:0 0 6px">미리보기 — 상사 보고용 문장 (끝에 대응 계획이 붙어요)</div>
+        <pre id="report-preview" class="preview"></pre>
+      </section>
+      <section class="card narrow">
+        <h2>CSV 불러오기 <small>이 앱에서 내보낸 CSV · 이미 있는 오더번호는 덮어쓰지 않고 건너뛰어요</small></h2>
+        <input type="file" id="import-file" accept=".csv,text/csv">
+        <div id="report-import-preview" style="margin-top:12px"></div>
       </section>
     </div>
   </main>
 </div>
-<script>const SEED_ORDERS=[{"order_no": "PO-2611-001", "buyer": "Hudson Fresh Foods", "buyer_country": "미국 동부", "item": "조미김 스낵 40박스", "etd": "2026-11-20", "eta": "2026-12-12", "lc_ship_by": "2026-11-19", "status": "선적 대기", "shipped_on": "", "created_at": "2026-11-02 10:15", "deleted": "False"}, {"order_no": "PO-2611-002", "buyer": "Berlin Snack GmbH", "buyer_country": "독일", "item": "컵라면 1x20FT", "etd": "2026-11-25", "eta": "2026-12-28", "lc_ship_by": "2026-11-25", "status": "선적 대기", "shipped_on": "", "created_at": "2026-11-03 14:40", "deleted": "False"}, {"order_no": "PO-2611-003", "buyer": "Saigon Mart", "buyer_country": "베트남", "item": "고추장 2팔레트", "etd": "2026-11-18", "eta": "2026-11-25", "lc_ship_by": "2026-11-25", "status": "선적 대기", "shipped_on": "", "created_at": "2026-11-04 09:05", "deleted": "False"}, {"order_no": "PO-2611-004", "buyer": "Tokyo Deli", "buyer_country": "일본", "item": "김치 냉장 1x20RF", "etd": "2026-11-17", "eta": "2026-11-19", "lc_ship_by": "2026-11-25", "status": "선적 대기", "shipped_on": "", "created_at": "2026-11-04 16:30", "deleted": "False"}, {"order_no": "PO-2611-005", "buyer": "Pacific Grocers", "buyer_country": "미국 서부", "item": "즉석밥 1x40FT", "etd": "2026-12-01", "eta": "2026-12-15", "lc_ship_by": "2026-12-20", "status": "선적 대기", "shipped_on": "", "created_at": "2026-11-05 11:20", "deleted": "False"}, {"order_no": "PO-2611-006", "buyer": "London Pantry", "buyer_country": "영국", "item": "유자차 1팔레트", "etd": "2026-11-05", "eta": "2026-12-10", "lc_ship_by": "2026-11-10", "status": "선적 완료", "shipped_on": "2026-11-06", "created_at": "2026-10-20 13:00", "deleted": "False"}, {"order_no": "PO-2611-007", "buyer": "Gulf Star Trading", "buyer_country": "UAE", "item": "떡볶이 밀키트 1x20FT", "etd": "2026-11-03", "eta": "2026-11-24", "lc_ship_by": "2026-11-08", "status": "선적 완료", "shipped_on": "2026-11-09", "created_at": "2026-10-22 15:45", "deleted": "False"}, {"order_no": "PO-2611-008", "buyer": "Sydney Fine Foods", "buyer_country": "호주", "item": "참기름 1팔레트", "etd": "2026-11-28", "eta": "2026-12-12", "lc_ship_by": "2026-12-05", "status": "선적 대기", "shipped_on": "", "created_at": "2026-11-06 10:00", "deleted": "True"}, {"order_no": "PO-2611-009", "buyer": "Hudson Fresh Foods", "buyer_country": "미국 동부", "item": "김부각 30박스", "etd": "2026-11-20", "eta": "2026-12-12", "lc_ship_by": "2026-12-15", "status": "선적 대기", "shipped_on": "", "created_at": "2026-11-01 09:30", "deleted": "False"}, {"order_no": "PO-2611-010", "buyer": "Saigon Mart", "buyer_country": "", "item": "만두 냉동 1x20RF", "etd": "2026-12-10", "eta": "2026-12-17", "lc_ship_by": "2026-12-31", "status": "선적 대기", "shipped_on": "", "created_at": "2026-11-07 17:10", "deleted": "False"}];
+<script>const SEED_ORDERS=[{"order_no": "PO-2611-001", "buyer": "Hudson Fresh Foods", "buyer_country": "미국 동부", "item": "조미김 스낵 40박스", "payment_terms": "L/C", "port_of_loading": "부산", "etd": "2026-11-20", "eta": "2026-12-12", "lc_ship_by": "2026-11-19", "status": "선적 대기", "shipped_on": "", "created_at": "2026-11-02 10:15", "deleted": "False", "carrier": "HMM", "vessel": "HMM ALGECIRAS 0045E", "booking_no": "HMMBK2611001", "bl_no": "", "cutoff": "2026-11-17", "action": "L/C 연장 요청 — 바이어 회신 대기", "incoterms": "FOB", "incoterms_place": "Busan", "port_of_discharge": "New York", "lc_expiry": "2026-12-10", "lc_presentation_days": "", "lc_port_loading": "Busan, Korea", "lc_port_discharge": "New York"}, {"order_no": "PO-2611-002", "buyer": "Berlin Snack GmbH", "buyer_country": "독일", "item": "컵라면 1x20FT", "payment_terms": "L/C", "port_of_loading": "부산", "etd": "2026-11-25", "eta": "2026-12-28", "lc_ship_by": "2026-11-25", "status": "선적 대기", "shipped_on": "", "created_at": "2026-11-03 14:40", "deleted": "False", "carrier": "Hapag-Lloyd", "vessel": "BERLIN EXPRESS 112W", "booking_no": "HLBK55021", "bl_no": "", "cutoff": "2026-11-21", "action": "", "incoterms": "CIF", "incoterms_place": "Hamburg", "port_of_discharge": "Hamburg", "lc_expiry": "2026-12-05", "lc_presentation_days": "", "lc_port_loading": "Any Korean port", "lc_port_discharge": "Hamburg"}, {"order_no": "PO-2611-003", "buyer": "Saigon Mart", "buyer_country": "베트남", "item": "고추장 2팔레트", "payment_terms": "L/C", "port_of_loading": "부산", "etd": "2026-11-18", "eta": "2026-11-25", "lc_ship_by": "2026-11-25", "status": "선적 대기", "shipped_on": "", "created_at": "2026-11-04 09:05", "deleted": "False", "carrier": "ONE", "vessel": "", "booking_no": "ONEBK7731", "bl_no": "", "cutoff": "", "action": "원래 선박 복귀 확인 완료", "incoterms": "CFR", "incoterms_place": "Ho Chi Minh", "port_of_discharge": "Ho Chi Minh", "lc_expiry": "2026-12-16", "lc_presentation_days": "", "lc_port_loading": "Any Korean port", "lc_port_discharge": ""}, {"order_no": "PO-2611-004", "buyer": "Tokyo Deli", "buyer_country": "일본", "item": "김치 냉장 1x20RF", "payment_terms": "L/C", "port_of_loading": "부산", "etd": "2026-11-17", "eta": "2026-11-19", "lc_ship_by": "2026-11-25", "status": "선적 대기", "shipped_on": "", "created_at": "2026-11-04 16:30", "deleted": "False", "carrier": "Sinokor", "vessel": "SINOKOR TOKYO 211N", "booking_no": "SKBK4410", "bl_no": "", "cutoff": "2026-11-14", "action": "", "incoterms": "FOB", "incoterms_place": "Busan", "port_of_discharge": "Tokyo", "lc_expiry": "2026-12-16", "lc_presentation_days": "15", "lc_port_loading": "Busan, Korea", "lc_port_discharge": "Tokyo"}, {"order_no": "PO-2611-005", "buyer": "Pacific Grocers", "buyer_country": "미국 서부", "item": "즉석밥 1x40FT", "payment_terms": "L/C", "port_of_loading": "부산", "etd": "2026-12-01", "eta": "2026-12-15", "lc_ship_by": "2026-12-20", "status": "선적 대기", "shipped_on": "", "created_at": "2026-11-05 11:20", "deleted": "False", "carrier": "", "vessel": "", "booking_no": "", "bl_no": "", "cutoff": "", "action": "", "incoterms": "CIF", "incoterms_place": "Los Angeles", "port_of_discharge": "Los Angeles", "lc_expiry": "2027-01-10", "lc_presentation_days": "", "lc_port_loading": "Busan", "lc_port_discharge": "Long Beach"}, {"order_no": "PO-2611-006", "buyer": "London Pantry", "buyer_country": "영국", "item": "유자차 1팔레트", "payment_terms": "L/C", "port_of_loading": "부산", "etd": "2026-11-05", "eta": "2026-12-10", "lc_ship_by": "2026-11-10", "status": "선적 완료", "shipped_on": "2026-11-06", "created_at": "2026-10-20 13:00", "deleted": "False", "carrier": "Maersk", "vessel": "", "booking_no": "", "bl_no": "MAEU2611006", "cutoff": "", "action": "", "incoterms": "CIF", "incoterms_place": "Felixstowe", "port_of_discharge": "Felixstowe", "lc_expiry": "2026-11-30", "lc_presentation_days": "", "lc_port_loading": "Busan", "lc_port_discharge": ""}, {"order_no": "PO-2611-007", "buyer": "Gulf Star Trading", "buyer_country": "UAE", "item": "떡볶이 밀키트 1x20FT", "payment_terms": "L/C", "port_of_loading": "부산", "etd": "2026-11-03", "eta": "2026-11-24", "lc_ship_by": "2026-11-08", "status": "선적 완료", "shipped_on": "2026-11-09", "created_at": "2026-10-22 15:45", "deleted": "False", "carrier": "Evergreen", "vessel": "", "booking_no": "", "bl_no": "EGLV2611007", "cutoff": "", "action": "", "incoterms": "CFR", "incoterms_place": "Jebel Ali", "port_of_discharge": "Jebel Ali", "lc_expiry": "2026-11-30", "lc_presentation_days": "", "lc_port_loading": "Busan", "lc_port_discharge": ""}, {"order_no": "PO-2611-008", "buyer": "Sydney Fine Foods", "buyer_country": "호주", "item": "참기름 1팔레트", "payment_terms": "L/C", "port_of_loading": "부산", "etd": "2026-11-28", "eta": "2026-12-12", "lc_ship_by": "2026-12-05", "status": "선적 대기", "shipped_on": "", "created_at": "2026-11-06 10:00", "deleted": "True", "carrier": "", "vessel": "", "booking_no": "", "bl_no": "", "cutoff": "", "action": "", "incoterms": "FOB", "incoterms_place": "Busan", "port_of_discharge": "Sydney", "lc_expiry": "2026-12-26", "lc_presentation_days": "", "lc_port_loading": "", "lc_port_discharge": ""}, {"order_no": "PO-2611-009", "buyer": "Hudson Fresh Foods", "buyer_country": "미국 동부", "item": "김부각 30박스", "payment_terms": "L/C", "port_of_loading": "부산", "etd": "2026-11-20", "eta": "2026-12-12", "lc_ship_by": "2026-12-15", "status": "선적 대기", "shipped_on": "", "created_at": "2026-11-01 09:30", "deleted": "False", "carrier": "HMM", "vessel": "", "booking_no": "HMMBK2611001", "bl_no": "", "cutoff": "", "action": "", "incoterms": "FOB", "incoterms_place": "Busan", "port_of_discharge": "New York", "lc_expiry": "2027-01-05", "lc_presentation_days": "", "lc_port_loading": "Busan, Korea", "lc_port_discharge": ""}, {"order_no": "PO-2611-010", "buyer": "Saigon Mart", "buyer_country": "", "item": "만두 냉동 1x20RF", "payment_terms": "L/C", "port_of_loading": "부산", "etd": "2026-12-10", "eta": "2026-12-17", "lc_ship_by": "2026-12-31", "status": "선적 대기", "shipped_on": "", "created_at": "2026-11-07 17:10", "deleted": "False", "carrier": "", "vessel": "", "booking_no": "", "bl_no": "", "cutoff": "", "action": "", "incoterms": "CFR", "incoterms_place": "Ho Chi Minh", "port_of_discharge": "Ho Chi Minh", "lc_expiry": "2027-01-21", "lc_presentation_days": "", "lc_port_loading": "Incheon, Korea", "lc_port_discharge": ""}, {"order_no": "PO-2611-011", "buyer": "Cascade Market", "buyer_country": "미국 서부", "item": "곤약젤리 1x20FT", "payment_terms": "T/T", "port_of_loading": "부산", "etd": "2026-11-27", "eta": "2026-12-10", "lc_ship_by": "", "status": "선적 대기", "shipped_on": "", "created_at": "2026-11-08 10:40", "deleted": "False", "carrier": "", "vessel": "", "booking_no": "", "bl_no": "", "cutoff": "", "action": "", "incoterms": "FCA", "incoterms_place": "Busan CY", "port_of_discharge": "Seattle", "lc_expiry": "", "lc_presentation_days": "", "lc_port_loading": "", "lc_port_discharge": ""}, {"order_no": "PO-2611-012", "buyer": "Rhein Feinkost", "buyer_country": "독일", "item": "김자반 2팔레트", "payment_terms": "D/P", "port_of_loading": "인천", "etd": "2026-11-22", "eta": "2026-12-26", "lc_ship_by": "", "status": "선적 대기", "shipped_on": "", "created_at": "2026-11-08 15:05", "deleted": "False", "carrier": "", "vessel": "", "booking_no": "", "bl_no": "", "cutoff": "", "action": "", "incoterms": "CIF", "incoterms_place": "Hamburg", "port_of_discharge": "Hamburg", "lc_expiry": "", "lc_presentation_days": "", "lc_port_loading": "", "lc_port_discharge": ""}, {"order_no": "PO-2611-013", "buyer": "Atlantic Imports", "buyer_country": "미국 동부", "item": "쌀국수 1x40FT (베트남 공장)", "payment_terms": "L/C", "port_of_loading": "호찌민", "etd": "2026-11-30", "eta": "2026-12-28", "lc_ship_by": "2026-12-12", "status": "선적 대기", "shipped_on": "", "created_at": "2026-11-09 11:20", "deleted": "False", "carrier": "CMA CGM", "vessel": "", "booking_no": "CMABK9013", "bl_no": "", "cutoff": "2026-11-26", "action": "", "incoterms": "FOB", "incoterms_place": "Ho Chi Minh", "port_of_discharge": "New York", "lc_expiry": "2027-01-02", "lc_presentation_days": "", "lc_port_loading": "Ho Chi Minh City, Vietnam", "lc_port_discharge": "New York"}, {"order_no": "PO-2611-014", "buyer": "Nordic Foods AB", "buyer_country": "영국", "item": "김스낵 20박스 (LCL)", "payment_terms": "T/T", "port_of_loading": "부산", "etd": "2026-11-09", "eta": "2026-12-14", "lc_ship_by": "", "status": "선적 대기", "shipped_on": "", "created_at": "2026-11-03 13:10", "deleted": "False", "carrier": "Pan Ocean", "vessel": "", "booking_no": "POBK1414", "bl_no": "", "cutoff": "2026-11-06", "action": "", "incoterms": "CFR", "incoterms_place": "Southampton", "port_of_discharge": "Southampton", "lc_expiry": "", "lc_presentation_days": "", "lc_port_loading": "", "lc_port_discharge": ""}];
 const SEED_CHANGES=[{"order_no": "PO-2611-001", "old_etd": "2026-11-12", "new_etd": "2026-11-20", "reason": "롤오버", "changed_at": "2026-11-09 10:20"}, {"order_no": "PO-2611-009", "old_etd": "2026-11-13", "new_etd": "2026-11-16", "reason": "롤오버", "changed_at": "2026-11-08 14:00"}, {"order_no": "PO-2611-009", "old_etd": "2026-11-16", "new_etd": "2026-11-20", "reason": "기상 악화", "changed_at": "2026-11-10 09:40"}, {"order_no": "PO-2611-003", "old_etd": "2026-11-18", "new_etd": "2026-11-25", "reason": "롤오버", "changed_at": "2026-11-06 11:15"}, {"order_no": "PO-2611-003", "old_etd": "2026-11-25", "new_etd": "2026-11-18", "reason": "수동 입력", "changed_at": "2026-11-09 16:05"}, {"order_no": "PO-2611-010", "old_etd": "2026-12-14", "new_etd": "2026-12-10", "reason": "수동 입력", "changed_at": "2026-11-10 13:30"}];
-const DEMO=[{"order_no": "PO-2611-004", "new_etd": "2026-11-24", "reason": "선사 조회(데모)"}, {"order_no": "PO-2611-005", "new_etd": "2026-12-01", "reason": "선사 조회(데모)"}, {"order_no": "PO-2611-008", "new_etd": "2026-12-02", "reason": "선사 조회(데모)"}, {"order_no": "PO-2611-007", "new_etd": "2026-11-10", "reason": "선사 조회(데모)"}, {"order_no": "PO-2611-999", "new_etd": "2026-11-30", "reason": "선사 조회(데모)"}];
+const SEED_LOG=[];
+const DEMO=[{"order_no": "PO-2611-002", "new_etd": "2026-11-28", "reason": "선사 조회(데모)"}, {"order_no": "PO-2611-004", "new_etd": "2026-11-24", "reason": "선사 조회(데모)"}, {"order_no": "PO-2611-005", "new_etd": "2026-12-01", "reason": "선사 조회(데모)"}, {"order_no": "PO-2611-008", "new_etd": "2026-12-02", "reason": "선사 조회(데모)"}, {"order_no": "PO-2611-007", "new_etd": "2026-11-10", "reason": "선사 조회(데모)"}, {"order_no": "PO-2611-999", "new_etd": "2026-11-30", "reason": "선사 조회(데모)"}];
 </script>
-<script>// ETD 레이더 — 웹 배포판 (Streamlit 버전과 같은 규칙 · 같은 가상 데이터)
-const WARNING_DAYS = 7;
+<script>// ETD 레이더 — 웹 배포판 v3 (PRD v3 · Streamlit 버전과 같은 규칙 · 같은 가상 데이터)
+const WARNING_DAYS = 7, CUTOFF_WARN_DAYS = 2;
 const COUNTRIES = {"미국 동부":"America/New_York","미국 서부":"America/Los_Angeles","독일":"Europe/Berlin","영국":"Europe/London","베트남":"Asia/Ho_Chi_Minh","일본":"Asia/Tokyo","UAE":"Asia/Dubai","호주":"Australia/Sydney"};
+const TERMS = ["L/C","T/T","D/P"];
+const PORTS = {"부산":["한국","Asia/Seoul"],"인천":["한국","Asia/Seoul"],"광양":["한국","Asia/Seoul"],"상하이":["중국","Asia/Shanghai"],"칭다오":["중국","Asia/Shanghai"],"호찌민":["베트남","Asia/Ho_Chi_Minh"],"하이퐁":["베트남","Asia/Ho_Chi_Minh"],"싱가포르":["싱가포르","Asia/Singapore"],"램차방":["태국","Asia/Bangkok"],"로테르담":["네덜란드","Europe/Amsterdam"]};
 const WAIT = "선적 대기", SHIPPED = "선적 완료";
-const KEY = "etd-radar-v1";
+const V32 = ["incoterms","incoterms_place","port_of_discharge","lc_expiry","lc_presentation_days","lc_port_loading","lc_port_discharge"];
+const LC_ONLY = ["lc_ship_by","lc_expiry","lc_presentation_days","lc_port_loading","lc_port_discharge"];
+const EDITABLE = ["buyer","buyer_country","item","payment_terms","port_of_loading","etd","eta","lc_ship_by","carrier","vessel","booking_no","bl_no","cutoff","action", ...V32];
+const INCOTERMS = ["EXW","FCA","FAS","FOB","CFR","CIF","CPT","CIP","DAP","DPU","DDP"];
+const BUYER_BOOKS = ["EXW","FCA","FAS","FOB"], PLACE_LOAD = ["FAS","FOB"], PLACE_DIS = ["CFR","CIF"];
+const PORT_EN = {"부산":"Busan","인천":"Incheon","광양":"Gwangyang","상하이":"Shanghai","칭다오":"Qingdao","호찌민":"Ho Chi Minh","하이퐁":"Haiphong","싱가포르":"Singapore","램차방":"Laem Chabang","로테르담":"Rotterdam"};
+const LC_PRESENT_DEFAULT = 21, MAX_TRANSIT = 60, MAX_CUTOFF_GAP = 14, MAX_ETD_AHEAD = 365;
+const KEY = "etd-radar-v32", OLD_KEY = "etd-radar-v3", GUIDE_KEY = "etd-radar-guide-closed";
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
-let S = load();
-let ui = {pendingDelete:null, pendingShip:null, flash:null, err:{}};
+// ---------- 선 아이콘 (F6-6: 메뉴 · 카드는 SVG, 이모지는 보고 문장에만) ----------
+const P = {
+  dashboard:'<rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/>',
+  orders:'<path d="M9 6h12M9 12h12M9 18h12"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/>',
+  plus:'<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>',
+  history:'<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/>',
+  report:'<path d="M4 14v5a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5"/><path d="M16 7l-4-4-4 4M12 3v12"/>',
+  late:'<path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/>',
+  red:'<circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/>',
+  yellow:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/>',
+  green:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>',
+  ok:'<path d="M3 17h18l-2 4H5z"/><path d="M5 17V9h14v8M9 9V5h6v4"/>',
+  help:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/>',
+  search:'<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>',
+  chev:'<path d="M9 6l6 6-6 6"/>', bell:'<path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/>',
+};
+const ic = (n, cls="i") => `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true">${P[n]}</svg>`;
 
+let S = load();
+let ui = {checks:{}, pendingDelete:null, pendingShip:null, pendingUnship:null, editing:null, open:null, flash:null, err:{}, filter:"all", q:"", showAllMargin:false, importPlan:null};
+
+function fresh(){ return {orders: JSON.parse(JSON.stringify(SEED_ORDERS)), changes: JSON.parse(JSON.stringify(SEED_CHANGES)), log: JSON.parse(JSON.stringify(SEED_LOG))}; }
 function load(){
-  try { const v = JSON.parse(localStorage.getItem(KEY)); if (v && v.orders) return v; } catch(e){}
-  return {orders: JSON.parse(JSON.stringify(SEED_ORDERS)), changes: JSON.parse(JSON.stringify(SEED_CHANGES))};
-}
+  try { const v = JSON.parse(localStorage.getItem(KEY)); if (v && v.orders) { v.log = v.log || []; return v; } } catch(e){}
+  try { const old = JSON.parse(localStorage.getItem(OLD_KEY));          // v3에서 쓰던 데이터는 그대로 옮기고, 새 칸만 가상 데이터에서 채움
+    if (old && old.orders) { old.log = old.log || [];
+      old.orders.forEach(o=>{ const seed = SEED_ORDERS.find(x=>x.order_no===o.order_no) || {}; V32.forEach(k=>{ if (o[k]===undefined) o[k] = seed[k] || ""; }); });
+      return old; } } catch(e){}
+  return fresh(); }
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} }
 
 // ---------- 날짜 ----------
 function dateIn(tz){ return new Intl.DateTimeFormat("en-CA",{timeZone:tz,year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date()); }
 function nowKST(){ const p = new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Seoul",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(new Date()); const g=t=>p.find(x=>x.type===t).value; return `${g("year")}-${g("month")}-${g("day")} ${g("hour")==="24"?"00":g("hour")}:${g("minute")}`; }
-function dnum(s){ const [y,m,d] = s.split("-").map(Number); return Date.UTC(y,m-1,d)/86400000; }
+const dnum = s => { const [y,m,d] = s.split("-").map(Number); return Date.UTC(y,m-1,d)/86400000; };
+const WD = ["일","월","화","수","목","금","토"];
+function fmt(iso){  // F6-4: 화면 날짜는 "11/20 (금)", 올해가 아니면 YYYY-MM-DD
+  if (!iso) return "—";
+  const [y,m,d] = iso.slice(0,10).split("-").map(Number);
+  if (y !== Number(dateIn("Asia/Seoul").slice(0,4))) return iso.slice(0,10);
+  return `${m}/${d} (${WD[new Date(Date.UTC(y,m-1,d)).getUTCDay()]})` + (iso.length > 10 ? " " + iso.slice(11,16) : "");
+}
 function checkDate(v, name){
   const t = (v||"").trim();
   if (!/^\d{4}-\d{2}-\d{2}$/.test(t)) return `${name} 날짜는 2026-11-20처럼 입력해 주세요.`;
@@ -260,25 +464,119 @@ function checkDate(v, name){
   if (dt.getUTCFullYear()!==y || dt.getUTCMonth()!==m-1 || dt.getUTCDate()!==d) return `${name}에 없는 날짜예요(${t}). 달력에 있는 날짜로 입력해 주세요.`;
   return null;
 }
+const termsOf = o => o.payment_terms || "L/C";
+const portOf = o => o.port_of_loading || "부산";
+const isLC = o => termsOf(o) === "L/C";
+const isThird = o => (PORTS[portOf(o)]||["한국"])[0] !== "한국";
+const portToday = p => dateIn((PORTS[p]||["","Asia/Seoul"])[1]);
 const isDel = o => String(o.deleted).toLowerCase()==="true";
+const isWaiting = o => o.status !== SHIPPED;
 const sortO = a => [...a].sort((x,y)=> x.etd<y.etd?-1:x.etd>y.etd?1:(x.order_no<y.order_no?-1:x.order_no>y.order_no?1:0));
+const noEmoji = t => String(t).replace(/^\S+\s/, "");
+const emojiOf = t => String(t).split(" ")[0];
 
-// ---------- F2 ----------
+// ---------- F2 경고 ----------
 function lcStatus(o){
-  if (o.status===SHIPPED && o.shipped_on){
+  if (isWaiting(o)){
+    const over = dnum(portToday(portOf(o))) - dnum(o.etd);
+    if (over > 0){ const label = `🚨 ETD ${over}일 지남 · 선적 미확인`;
+      return {level:"late", label, shipped:false, days:-over, sentence:`${o.order_no} ETD ${o.etd} → ${noEmoji(label)}`}; }
+  }
+  if (!isLC(o)){
+    const sh = !isWaiting(o);
+    const label = sh ? `✅ 선적 완료 (${termsOf(o)} · L/C 판정 없음)` : `⚪ L/C 아님 (${termsOf(o)})`;
+    return {level: sh ? "ok" : "na", label, shipped:sh, days:null, sentence:`${o.order_no} ETD ${o.etd} → ${noEmoji(label)}`};
+  }
+  if (!isWaiting(o) && o.shipped_on){
     const late = dnum(o.shipped_on) - dnum(o.lc_ship_by);
     const label = late>0 ? `🔴 L/C 기한 ${late}일 넘겨 선적` : "✅ 기한 내 선적";
     return {level: late>0?"red":"ok", label, shipped:true, days:late,
-      sentence:`${o.order_no} 실제 선적일 ${o.shipped_on}, L/C 기한 ${o.lc_ship_by} → ${label.slice(2)}`};
+      sentence:`${o.order_no} 실제 선적일 ${o.shipped_on}, L/C 기한 ${o.lc_ship_by} → ${noEmoji(label)}`};
   }
   const m = dnum(o.lc_ship_by) - dnum(o.etd);
   let level, label;
   if (m<0){ level="red"; label=`🔴 L/C 기한 ${-m}일 초과`; }
   else if (m===0){ level="yellow"; label="🟡 L/C 기한 당일 출항"; }
   else if (m<=WARNING_DAYS){ level="yellow"; label=`🟡 L/C 기한까지 ${m}일 남음`; }
-  else { level="green"; label=`🟢 L/C 기한까지 ${m}일 남음`; }
-  return {level,label,shipped:false,days:m, sentence:`${o.order_no} ETD ${o.etd}, L/C 기한 ${o.lc_ship_by} → ${label.slice(2)}`};
+  else { level="green"; label=`🔵 L/C 기한까지 ${m}일 남음`; }
+  return {level,label,shipped:false,days:m, sentence:`${o.order_no} ETD ${o.etd}, L/C 기한 ${o.lc_ship_by} → ${noEmoji(label)}`};
 }
+function cutoffStatus(o){
+  if (!isWaiting(o) || !(o.cutoff||"").trim()) return null;
+  const left = dnum(o.cutoff) - dnum(portToday(portOf(o)));
+  if (left < 0) return {level:"red", label:`🔴 서류 마감 ${-left}일 지남`, days:left};
+  if (left <= CUTOFF_WARN_DAYS) return {level:"yellow", label: left===0 ? "🟡 서류 마감 D-Day" : `🟡 서류 마감 D-${left}`, days:left};
+  return null;
+}
+const RANK = {late:0, red:1, yellow:2};
+function summary(act){
+  let late=0, red=0, yellow=0, green=0, shipped=0, lateShipped=0, na=0;
+  act.forEach(o=>{ const s=lcStatus(o);
+    if (s.level==="late") late++;
+    else if (s.shipped){ shipped++; if (isLC(o) && s.level==="red") lateShipped++; }
+    else if (s.level==="na") na++;
+    else if (s.level==="red") red++; else if (s.level==="yellow") yellow++; else green++; });
+  return {late, red, yellow, green, shipped, lateShipped, na};
+}
+function alerts(act){  // F5-1
+  const out = [];
+  act.forEach(o=>{ const s=lcStatus(o);
+    if (!s.shipped && RANK[s.level]!==undefined) out.push({o, level:s.level, label:s.label, key:[RANK[s.level], s.days ?? 0]});
+    const c = cutoffStatus(o); if (c) out.push({o, level:c.level, label:c.label, key:[RANK[c.level], c.days]}); });
+  return out.sort((a,b)=> a.key[0]-b.key[0] || a.key[1]-b.key[1]);
+}
+
+// ---------- v3.2 인코텀즈 · 입력 크로스체크 (F1-16 · F7) ----------
+const norm = t => String(t||"").toLowerCase().replace(/[^0-9a-z가-힣]/g,"");
+function placeIsPort(place, port){ const n = norm(place); if (!n || !PORTS[port]) return false;
+  return [port, PORT_EN[port], PORT_CODES[port]].filter(Boolean).some(k=>n.includes(norm(k))); }
+function samePlace(a, b){ const na = norm(a), nb = norm(b); if (!na || !nb) return true; if (na.includes(nb) || nb.includes(na)) return true;
+  return Object.keys(PORTS).some(p=>placeIsPort(a,p) && placeIsPort(b,p)); }
+function booker(o){ const t = String(o.incoterms||"").trim().toUpperCase();
+  if (!t) return "인코텀즈 미입력 → 누가 배를 잡는지 확인 필요";
+  return BUYER_BOOKS.includes(t) ? `바이어 측 포워더가 부킹 (${t}) → ETD는 바이어 포워더에 확인` : `우리가 부킹 (${t}) → 선사 · 포워더에 직접 대응`; }
+const validISO = v => /^\d{4}-\d{2}-\d{2}$/.test(String(v||"").trim()) && !checkDate(String(v).trim(),"x");
+const FN = {booking_no:"부킹번호", bl_no:"B/L 번호"};
+function crossCheck(o, others){
+  const out = [], add = (level, kind, field, msg) => out.push({level, kind, field, msg});
+  const g = k => String(o[k] ?? "").trim();
+  const etd = validISO(g("etd")) ? g("etd") : "", eta = validISO(g("eta")) ? g("eta") : "", cut = validISO(g("cutoff")) ? g("cutoff") : "";
+  if (etd && eta){ const t = dnum(eta) - dnum(etd);
+    if (t < 0) add("error","날짜","eta",`ETA(${eta})가 ETD(${etd})보다 빨라요. 두 날짜를 확인해 주세요.`);
+    else if (t === 0) add("warn","날짜","eta","ETA와 ETD가 같은 날이에요. 도착일이 맞는지 확인해 주세요.");
+    else if (t > MAX_TRANSIT) add("warn","날짜","eta",`운항 기간이 ${t}일이에요. 날짜 오타가 아닌지 확인해 주세요.`); }
+  if (etd && cut){ const gap = dnum(etd) - dnum(cut);
+    if (gap < 0) add("error","날짜","cutoff",`서류 마감(${cut})이 ETD(${etd})보다 늦어요. 서류 마감은 출항 전이에요.`);
+    else if (gap > MAX_CUTOFF_GAP) add("warn","날짜","cutoff",`서류 마감이 ETD보다 ${gap}일 앞이에요. 날짜 오타가 아닌지 확인해 주세요.`); }
+  if (etd && isWaiting(o)){ const ahead = dnum(etd) - dnum(dateIn("Asia/Seoul"));
+    if (ahead > MAX_ETD_AHEAD) add("warn","날짜","etd",`ETD가 오늘부터 ${ahead}일 뒤예요. 연도 오타가 아닌지 확인해 주세요.`); }
+  if (g("payment_terms")==="L/C"){
+    const ship = validISO(g("lc_ship_by")) ? g("lc_ship_by") : "";
+    if (o.lc_ship_by_confirm !== undefined && o.lc_ship_by_confirm !== null && g("lc_ship_by_confirm") !== g("lc_ship_by"))
+      add("error","L/C","lc_ship_by",`L/C 선적 기한 두 번 입력한 값이 달라요 (${g("lc_ship_by")} / ${g("lc_ship_by_confirm") || "빈칸"}). L/C 원본 44C 칸을 다시 확인해 주세요.`);
+    const exp = validISO(g("lc_expiry")) ? g("lc_expiry") : "";
+    if (!g("lc_expiry")) add("warn","L/C","lc_expiry","L/C 유효기한(31D)이 비어 있어요. L/C 원본을 보고 채워 주세요.");
+    else if (exp && ship && exp < ship) add("error","L/C","lc_expiry",`L/C 유효기한(${exp})이 선적 기한(${ship})보다 빨라요. L/C 원본 31D · 44C 칸을 확인해 주세요.`);
+    else if (exp && ship){ const shipped = g("status")===SHIPPED && validISO(g("shipped_on")) ? g("shipped_on") : "";
+      const base = shipped || ship, need = /^\d+$/.test(g("lc_presentation_days")) ? Number(g("lc_presentation_days")) : LC_PRESENT_DEFAULT, left = dnum(exp) - dnum(base);
+      if (left >= 0 && left < need) add("warn","L/C","lc_expiry",`${shipped?"실제 선적일 ":"선적 기한 "}${base}부터 유효기한까지 서류 낼 시간이 ${left}일뿐이에요 (L/C 기준 ${need}일). 서류 준비 일정을 확인해 주세요.`); }
+    const lp = g("lc_port_loading");
+    if (lp && !lp.toLowerCase().includes("any") && !placeIsPort(lp, g("port_of_loading"))) add("warn","L/C","lc_port_loading",`L/C 선적항(44E)이 오더 선적항과 달라요: L/C "${lp}" · 오더 ${g("port_of_loading")}`);
+    const lpd = g("lc_port_discharge"), pod0 = g("port_of_discharge");
+    if (lpd && pod0 && !lpd.toLowerCase().includes("any") && !samePlace(lpd, pod0)) add("warn","L/C","lc_port_discharge",`L/C 도착항(44F)이 오더 도착항과 달라요: L/C "${lpd}" · 오더 "${pod0}"`);
+  }
+  const term = g("incoterms").toUpperCase(), place = g("incoterms_place"), pod = g("port_of_discharge");
+  if (!term) add("warn","인코텀즈","incoterms","인코텀즈가 비어 있어요. PI · L/C에 적힌 조건을 채워 주세요.");
+  else if (!INCOTERMS.includes(term)) add("error","인코텀즈","incoterms","인코텀즈는 EXW · FCA · FAS · FOB · CFR · CIF · CPT · CIP · DAP · DPU · DDP 중에서 골라 주세요.");
+  else if (place && PLACE_LOAD.includes(term) && !placeIsPort(place, g("port_of_loading"))) add("warn","인코텀즈","incoterms_place",`${term} 지정 장소는 선적항이어야 해요: 지정 장소 "${place}" · 선적항 ${g("port_of_loading")}`);
+  else if (place && pod && PLACE_DIS.includes(term) && !samePlace(place, pod)) add("warn","인코텀즈","incoterms_place",`${term} 지정 장소는 도착항이어야 해요: 지정 장소 "${place}" · 도착항 "${pod}"`);
+  if (others) ["booking_no","bl_no"].forEach(f=>{ const v = g(f); if (!v) return;
+    const hits = others.filter(x=>x.order_no!==o.order_no && !isDel(x) && String(x[f]||"").trim().toUpperCase()===v.toUpperCase()).map(x=>x.order_no);
+    if (hits.length) add("warn","중복",f,`같은 ${FN[f]}(${v})가 ${hits.join(", ")}에도 있어요. 합적(같은 컨테이너에 여러 오더)이 아니면 오타를 확인해 주세요.`); });
+  return out;
+}
+function checkMap(act){ const m = {}; act.forEach(o=>{ const c = crossCheck(o, act); if (c.length) m[o.order_no] = c; }); return m; }
+
 // ---------- F3 ----------
 function history(o){
   const mine = S.changes.filter(c=>c.order_no===o.order_no).sort((a,b)=>a.changed_at<b.changed_at?-1:1);
@@ -286,128 +584,385 @@ function history(o){
   const d = dnum(o.etd) - dnum(mine[0].old_etd), n = mine.length;
   return d>0 ? `처음 ETD보다 ${d}일 늦어짐 (${n}회 변경)` : d<0 ? `처음 ETD보다 ${-d}일 앞당겨짐 (${n}회 변경)` : `처음 ETD와 같음 (${n}회 변경)`;
 }
-function applyChange(o, newEtd, reason){
+function applyEtdChange(o, newEtd, reason){
   S.changes.push({order_no:o.order_no, old_etd:o.etd, new_etd:newEtd, reason, changed_at:nowKST()});
   o.etd = newEtd;
 }
 
-// ---------- 화면 ----------
-ui.filter = "all";
-const LV_NAME = {red:"기한 초과", yellow:"임박", green:"여유", ok:"선적 완료"};
-function chipClass(s){ return s.level==="red" ? "red" : s.level; }
+// ---------- F4 보고 · CSV ----------
+function reportText(){
+  const act = S.orders.filter(o=>!isDel(o)), sm = summary(act);
+  const risky = act.map(o=>({o, s:lcStatus(o)})).filter(({o,s})=> s.level==="late" || (isLC(o) && !s.shipped && (s.level==="red"||s.level==="yellow")))
+                  .sort((a,b)=> RANK[a.s.level]-RANK[b.s.level] || a.s.days-b.s.days);
+  const head = `[ETD 레이더] ${dateIn("Asia/Seoul")} 선적 위험 보고 — 🚨 ${sm.late}건 · 🔴 ${sm.red}건 · 🟡 ${sm.yellow}건`;
+  if (!risky.length) return head + "\n위험 오더 없음";
+  return head + "\n" + risky.map(({o,s},i)=>`${i+1}. ${emojiOf(s.label)} ${s.sentence} · 조치: ${(o.action||"").trim() || "(미정)"}`).join("\n");
+}
+const EXPORT_COLS = ["오더번호","바이어","바이어 국가","품목","결제 조건","선적항","삼국 간","ETD","ETA","L/C 선적 기한","여유 일수","경고","상태","실제 선적일","선사","선명/항차","부킹번호","B/L 번호","서류 마감일","대응 계획","인코텀즈","인코텀즈 장소","도착항","L/C 유효기한","서류 제시 기간","L/C 선적항(44E)","L/C 도착항(44F)","입력 확인","ETD 변경","보고 문장","등록일"];
+const IMPORT_MAP = {"오더번호":"order_no","바이어":"buyer","바이어 국가":"buyer_country","품목":"item","결제 조건":"payment_terms","선적항":"port_of_loading","ETD":"etd","ETA":"eta","L/C 선적 기한":"lc_ship_by","상태":"status","실제 선적일":"shipped_on","선사":"carrier","선명/항차":"vessel","부킹번호":"booking_no","B/L 번호":"bl_no","서류 마감일":"cutoff","대응 계획":"action","등록일":"created_at","인코텀즈":"incoterms","인코텀즈 장소":"incoterms_place","도착항":"port_of_discharge","L/C 유효기한":"lc_expiry","서류 제시 기간":"lc_presentation_days","L/C 선적항(44E)":"lc_port_loading","L/C 도착항(44F)":"lc_port_discharge"};
+function exportRows(){
+  const act = S.orders.filter(o=>!isDel(o));
+  return sortO(act).map(o=>{ const s=lcStatus(o); const margin = (s.days===null||s.shipped||s.level==="late")?"":s.days;
+    return [o.order_no,o.buyer,o.buyer_country||"",o.item,termsOf(o),portOf(o),isThird(o)?"예":"",o.etd,o.eta||"",o.lc_ship_by||"",margin,noEmoji(s.label),o.status,o.shipped_on||"",o.carrier||"",o.vessel||"",o.booking_no||"",o.bl_no||"",o.cutoff||"",o.action||"",o.incoterms||"",o.incoterms_place||"",o.port_of_discharge||"",o.lc_expiry||"",o.lc_presentation_days||"",o.lc_port_loading||"",o.lc_port_discharge||"",crossCheck(o, act).map(c=>c.msg).join(" / "),history(o),s.sentence,o.created_at||""]; });
+}
+function toCSV(){ const q=v=>{ v=String(v??""); return /[",\n]/.test(v)?`"${v.replace(/"/g,'""')}"`:v; }; return [EXPORT_COLS,...exportRows()].map(r=>r.map(q).join(",")).join("\r\n"); }
+function toTSV(){ return [EXPORT_COLS,...exportRows()].map(r=>r.map(v=>String(v??"").replace(/[\t\n]/g," ")).join("\t")).join("\n"); }
+function parseCSV(text){  // 따옴표 포함 CSV
+  const rows=[]; let row=[], cur="", q=false;
+  for (let i=0;i<text.length;i++){ const ch=text[i];
+    if (q){ if (ch==='"'){ if (text[i+1]==='"'){ cur+='"'; i++; } else q=false; } else cur+=ch; }
+    else if (ch==='"') q=true; else if (ch===','){ row.push(cur); cur=""; }
+    else if (ch==='\n'){ row.push(cur.replace(/\r$/,"")); rows.push(row); row=[]; cur=""; }
+    else cur+=ch; }
+  if (cur!=="" || row.length){ row.push(cur.replace(/\r$/,"")); rows.push(row); }
+  return rows;
+}
+function validateOrder(f, existing){
+  const names = {order_no:"오더번호",buyer:"바이어",item:"품목",etd:"ETD"};
+  for (const k of ["order_no","buyer","item","etd"]) if (!String(f[k]||"").trim()) return `${names[k]} 칸이 비어 있어요. 채운 뒤 다시 저장해 주세요.`;
+  if (existing.includes(String(f.order_no).trim())) return `이미 등록된 오더번호예요(${String(f.order_no).trim()}). 다른 오더번호를 입력해 주세요.`;
+  if (!TERMS.includes(f.payment_terms)) return "결제 조건은 L/C · T/T · D/P 중에서 골라 주세요.";
+  if (!PORTS[f.port_of_loading]) return "선적항은 목록에서 골라 주세요.";
+  if (f.payment_terms==="L/C" && !String(f.lc_ship_by||"").trim()) return "L/C 선적 기한 칸이 비어 있어요. 채운 뒤 다시 저장해 주세요.";
+  const isL = f.payment_terms==="L/C";
+  const de = checkDate(f.etd,"ETD") || (isL ? checkDate(f.lc_ship_by,"L/C 선적 기한") : null)
+      || (String(f.eta||"").trim() ? checkDate(f.eta,"ETA") : null) || (String(f.cutoff||"").trim() ? checkDate(f.cutoff,"서류 마감일") : null)
+      || (isL && String(f.lc_expiry||"").trim() ? checkDate(f.lc_expiry,"L/C 유효기한") : null);
+  if (de) return de;
+  const t = String(f.incoterms||"").trim().toUpperCase();
+  if (t && !INCOTERMS.includes(t)) return "인코텀즈는 EXW · FCA · FAS · FOB · CFR · CIF · CPT · CIP · DAP · DPU · DDP 중에서 골라 주세요.";
+  const pd = String(f.lc_presentation_days||"").trim();
+  if (isL && pd && !(/^\d+$/.test(pd) && +pd>=1 && +pd<=90)) return "서류 제시 기간은 1~90 사이 숫자(일)로 입력해 주세요. 비우면 21일로 봐요.";
+  const e = crossCheck(f).find(c=>c.level==="error");
+  return e ? e.msg : null;
+}
+function buildOrder(f){
+  const isL = f.payment_terms==="L/C";
+  const o = {order_no:f.order_no.trim(), buyer:f.buyer.trim(), buyer_country:f.buyer_country||"", item:f.item.trim(), payment_terms:f.payment_terms, port_of_loading:f.port_of_loading,
+    etd:f.etd.trim(), eta:(f.eta||"").trim(), lc_ship_by:isL?(f.lc_ship_by||"").trim():"", status:WAIT, shipped_on:"", created_at:f.created_at||nowKST(), deleted:"False"};
+  ["carrier","vessel","booking_no","bl_no","cutoff","action"].forEach(k=>{ o[k] = (f[k]||"").trim(); });
+  V32.forEach(k=>{ let v = String(f[k]||"").trim(); if (k==="incoterms") v = v.toUpperCase(); if (LC_ONLY.includes(k) && !isL) v = ""; o[k] = v; });
+  return o;
+}
+function planImport(text){  // F4-4: 파일은 안 건드리고 계획만
+  const clean = text.replace(/^\ufeff/,"");
+  const tsv = clean.split("\n")[0].includes("\t");          // 엑셀에서 복사 → 탭 구분
+  const rows = (tsv ? clean.split(/\r?\n/).map(l=>l.split("\t")) : parseCSV(clean)).filter(r=>r.some(c=>c.trim()));
+  if (!rows.length) return {added:[], skipped:[], errors:[[1,"불러올 오더가 없어요. 이 앱에서 내보낸 CSV인지 확인해 주세요."]]};
+  const head = rows[0].map(h=>IMPORT_MAP[h.trim()] || h.trim());
+  if (!head.includes("order_no")) return {added:[], skipped:[], errors:[[1,"오더번호 칸을 찾지 못했어요. 이 앱에서 내보낸 CSV인지 확인해 주세요."]]};
+  const seen = S.orders.map(o=>o.order_no), added=[], skipped=[], errors=[];
+  rows.slice(1).forEach((r,i)=>{ const line=i+2, f={}; head.forEach((h,j)=>{ f[h]=(r[j]||"").trim(); });
+    f.payment_terms = f.payment_terms || "L/C"; f.port_of_loading = f.port_of_loading || "부산";
+    if (f.order_no && seen.includes(f.order_no)){ skipped.push(f.order_no); return; }
+    const err = validateOrder(f, seen) || (f.shipped_on ? checkDate(f.shipped_on,"실제 선적일") : null);
+    if (err){ errors.push([line, err]); return; }
+    const o = buildOrder(f); if (f.status===SHIPPED && f.shipped_on){ o.status=SHIPPED; o.shipped_on=f.shipped_on; }
+    added.push(o); seen.push(o.order_no); });
+  return {added, skipped, errors};
+}
+function saveFile(fname, text, b, label){
+  if (window.claude && window.claude.use){ window.claude.use("downloads").then(dl=>{ if (!dl){ b.textContent="내려받기 안 됨"; return; }
+    dl.save({filename: fname, data: text}).then(()=>{ b.textContent="내려받기 완료"; }, ()=>{ b.textContent="내려받기 취소됨"; }); }); return; }
+  try{ const blob = new Blob([text], {type:"text/csv;charset=utf-8"}); const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=fname; document.body.appendChild(a); a.click(); a.remove(); b.textContent="내려받기 시작"; setTimeout(()=>{ b.textContent=label; }, 2500); }
+  catch(err){ b.textContent="내려받기 안 됨"; }
+}
+function copyText(t, btn, okMsg){
+  const done = ok => { btn.textContent = ok ? okMsg : "복사 안 됨 — 아래 칸에서 직접 복사"; if (!ok) { const box=$("#raw"); box.hidden=false; box.value=t; box.select(); } };
+  if (navigator.clipboard?.writeText) navigator.clipboard.writeText(t).then(()=>done(true), ()=>done(fallbackCopy(t))); else done(fallbackCopy(t));
+}
+function fallbackCopy(t){ try{ const a=document.createElement("textarea"); a.value=t; a.style.position="fixed"; a.style.opacity="0"; document.body.appendChild(a); a.select(); const ok=document.execCommand("copy"); a.remove(); return ok; }catch(e){ return false; } }
 
-function renderGantt(waiting){
-  if (!waiting.length) return `<p class="empty">선적 대기 중인 오더가 없어요.</p>`;
-  const t0 = dnum(dateIn("Asia/Seoul"));
-  const WD = ["일","월","화","수","목","금","토"];
-  const md = d => { const x = new Date(d*86400000); return `${x.getUTCMonth()+1}/${x.getUTCDate()}`; };
-  const wd = d => WD[new Date(d*86400000).getUTCDay()];
-  const dday = d => { const n = d - t0; return n > 0 ? `D-${n}` : n === 0 ? "D-Day" : `D+${-n}`; };
-  const list = waiting.map(o=>({o, s: lcStatus(o), m: dnum(o.lc_ship_by) - dnum(o.etd)}))
-                      .sort((a,b)=> a.m - b.m || (a.o.etd < b.o.etd ? -1 : 1));
-  // 축: 왼쪽 = 초과(음수), 0 기준선, 오른쪽 = 여유(양수). 글자 자리를 위해 여백을 둔다.
-  const negMax = Math.max(3, ...list.map(x=>-x.m));
-  const posMax = Math.max(WARNING_DAYS + 3, ...list.map(x=>x.m));
-  // 왼쪽(초과)은 폭 16%, 오른쪽(여유)은 나머지 — 숫자는 막대 끝 글자로 정확히 보여 준다
-  const NEG = 16, POS = 100 - NEG, hi = posMax * 1.32;
-  const X = v => (v < 0 ? NEG + v / negMax * NEG : NEG + v / hi * POS).toFixed(2) + "%";
-  const words = m => m < 0 ? `${-m}일 초과` : m === 0 ? "기한 당일 출항" : `${m}일 여유`;
-  const rows = list.map(({o, s, m})=>{
-    const bar = m > 0 ? `<div class="m-bar ${s.level}" style="left:${X(0)};width:calc(${X(m)} - ${X(0)})"></div>`
-              : m < 0 ? `<div class="m-bar red neg" style="left:${X(m)};width:calc(${X(0)} - ${X(m)})"></div>`
-              : `<div class="m-dot" style="left:${X(0)}"></div>`;
-    const lblLeft = m > 0 ? `calc(${X(m)} + 10px)` : `calc(${X(0)} + 10px)`;
-    return `<div class="g-row">
-      <div class="who">${esc(o.order_no)}<small>${esc(o.buyer)}</small></div>
-      <div class="g-date"><b>${md(dnum(o.etd))}</b><small>${wd(dnum(o.etd))} · ${dday(dnum(o.etd))}</small></div>
-      <div class="g-date"><b>${md(dnum(o.lc_ship_by))}</b><small>${wd(dnum(o.lc_ship_by))} · ${dday(dnum(o.lc_ship_by))}</small></div>
-      <div class="m-track">${bar}<span class="m-lbl ${s.level}" style="left:${lblLeft}">${words(m)}</span></div>
-    </div>`;
-  }).join("");
-  return `<div class="g-legend"><span><i class="lg red"></i>기한 초과</span><span><i class="lg yellow"></i>임박 (0~${WARNING_DAYS}일)</span><span><i class="lg green"></i>여유 (${WARNING_DAYS+1}일 이상)</span><span class="g-today-lbl">오늘 ${md(t0)} (${wd(t0)}) · 위험한 순</span></div>
-    <div class="g-row g-hd"><div>오더</div><div>ETD</div><div>L/C 기한</div>
-      <div class="m-axis"><span class="neg" style="left:${X(-negMax/2)}">← 초과</span><span style="left:${X(0)}">0</span><span class="th" style="left:${X(WARNING_DAYS)}">임박 기준 ${WARNING_DAYS}일</span><span class="cap">L/C 기한까지 여유 일수 →</span></div></div>
-    <div class="m-body">${rows}
-      <div class="m-guides"><i class="zero" style="left:${X(0)}"></i><i class="th" style="left:${X(WARNING_DAYS)}"></i></div>
-    </div>`;
+// ---------- 선사 연동 시뮬레이션 (F3-6) ----------
+const PORT_CODES = {"부산":"KRPUS","인천":"KRINC","광양":"KRKAN","상하이":"CNSHA","칭다오":"CNTAO","호찌민":"VNSGN","하이퐁":"VNHPH","싱가포르":"SGSIN","램차방":"THLCH","로테르담":"NLRTM"};
+const DEMO_API = "https://carrier-api.example.com/v2/events";
+function tzOffset(tz, iso){ try { const p = new Intl.DateTimeFormat("en-US",{timeZone:tz, timeZoneName:"longOffset"}).formatToParts(new Date(iso+"T09:00:00Z")).find(x=>x.type==="timeZoneName").value; return p==="GMT" ? "+00:00" : p.replace("GMT",""); } catch(e){ return "+09:00"; } }
+function simulate(o){
+  let key=(o.booking_no||"").trim(), keyName="부킹번호", ref="carrierBookingReference";
+  if (!key){ key=(o.bl_no||"").trim(); keyName="B/L 번호"; ref="transportDocumentReference"; }
+  if (!key) return {ok:false, error:"부킹번호나 B/L 번호가 있어야 조회할 수 있어요. 오더 수정에서 먼저 넣어 주세요."};
+  const carrier = (o.carrier||"").trim() || "미지정", url = `${DEMO_API}?${ref}=${encodeURIComponent(key)}&eventType=TRANSPORT`;
+  const upd = DEMO.find(u=>u.order_no===o.order_no), newEtd = (upd && !checkDate(upd.new_etd,"ETD")) ? upd.new_etd : o.etd;
+  const vessel = (o.vessel||"").trim() || "DEMO VESSEL 001E", tz = (PORTS[portOf(o)]||["","Asia/Seoul"])[1];
+  const response = {"_note":"가상 응답 (DCSA Track & Trace 형식 참고) — 실제 선사와 연결되지 않음", [ref]:key, carrierCode:carrier,
+    events:[{eventType:"TRANSPORT", transportEventTypeCode:"DEPA", eventClassifierCode:"EST", eventDateTime:`${newEtd}T18:00:00${tzOffset(tz,newEtd)}`,
+      transportCall:{UNLocationCode:PORT_CODES[portOf(o)]||"", vessel:{vesselName:vessel}}}]};
+  const diff = dnum(newEtd) - dnum(o.etd);
+  return {ok:true, key, keyName, carrier, url, response, newEtd, diff, vessel};
+}
+function renderSim(){
+  const box = $("#sim"), st = ui.sim; if (!box) return;
+  if (!st){ box.innerHTML = `<div class="flow"><b>① 조회 키</b>→<b>② API 요청</b>→<b>③ 응답</b>→<b>④ ETD 비교</b>→<b>⑤ 반영</b></div><p class="cap">부킹번호나 B/L 번호가 있는 오더를 골라 '조회 실행'을 눌러 보세요. 실제 연동이면 하루 몇 번씩 자동으로 이 순서를 돌아요.</p>`; return; }
+  const o = S.orders.find(x=>x.order_no===st.no), r = st.r;
+  if (!r.ok){ box.innerHTML = `<ol class="sim-steps"><li class="stop"><span class="no">①</span><div class="body"><div class="t">조회 키 확인 — 멈춤</div><div class="d">${esc(r.error)}</div></div></li></ol>`; return; }
+  const words = r.diff>0 ? `${r.diff}일 늦어짐` : r.diff<0 ? `${-r.diff}일 앞당겨짐` : "같음";
+  const after = r.diff ? lcStatus({...o, etd:r.newEtd}) : null;
+  const steps = [
+    ["조회 키 확인", `${r.keyName} ${esc(r.key)} · 선사 ${esc(r.carrier)} · 오더 ${esc(o.order_no)}`, ""],
+    ["선사 API 요청", `인증키와 함께 선사 서버에 출항 이벤트를 요청해요 (실제 연동이면 키는 서버에 보관)`, `<pre class="code">GET ${esc(r.url)}\nAuthorization: Bearer ••••••••  (데모: 보내지 않음)\nAccept: application/json</pre>`],
+    ["응답 수신", `출항 예정(DEPA · EST) <b>${fmt(r.newEtd)}</b> · ${esc(r.vessel)} · ${esc(PORT_CODES[portOf(o)]||"")}`, `<pre class="code">${esc(JSON.stringify(r.response, null, 2))}</pre>`],
+    ["ETD 비교", r.diff ? `현재 ETD ${fmt(o.etd)} → 선사 예정 ${fmt(r.newEtd)} <b>(${words})</b>` + (after && isLC(o) ? ` · 반영하면 ${chip(after.label, after.level)}` : "") : `현재 ETD ${fmt(o.etd)} — 선사 예정과 같아요`, ""],
+    ["반영", st.applied ? `ETD 변경 기록에 남기고 알림에 반영했어요 (사유: 선사 조회(데모))` : r.diff ? `<button class="mini" data-act="sim-apply">반영하기 — ETD ${esc(o.etd)} → ${esc(r.newEtd)}</button>` : `변경 없음 — 반영할 내용이 없어요`, ""],
+  ];
+  box.innerHTML = `<ol class="sim-steps">${steps.map((s,i)=>{ let cls = i < st.shown ? "done" : i === st.shown ? "run" : "wait";
+    if (i === 4 && st.shown >= 4) cls = (st.applied || !r.diff) ? "done" : "act";
+    return `<li class="${cls}"><span class="no">${"①②③④⑤"[i]}</span><div class="body"><div class="t">${s[0]}${cls==="run"?" …":""}${cls==="act"?" — 확인해 주세요":""}</div>${i<=st.shown?`<div class="d">${s[1]}</div>${i<st.shown||i===4?s[2]:""}`:""}</div></li>`; }).join("")}</ol>`;
+}
+function runSim(no){
+  const o = S.orders.find(x=>x.order_no===no); if (!o) return;
+  clearTimeout(ui.simTimer); ui.sim = {no, r:simulate(o), shown:0, applied:false}; renderSim();
+  if (!ui.sim.r.ok) return;
+  const tick = () => { if (!ui.sim || ui.sim.no!==no) return; ui.sim.shown++; renderSim(); if (ui.sim.shown < 4) ui.simTimer = setTimeout(tick, ui.sim.shown===1 ? 900 : 650); };
+  ui.simTimer = setTimeout(tick, 600);
 }
 
+// ---------- 일정 캘린더 (F5-3) ----------
+const CAL_KINDS = ["ETD","L/C","마감","ETA","선적"];
+const CAL_KIND_NAME = {"ETD":"ETD 출항","L/C":"L/C 기한","마감":"서류 마감","ETA":"ETA 도착","선적":"실제 선적"};
+function calendarEvents(act){
+  const out = [];
+  act.forEach(o=>{ const level = lcStatus(o).level;
+    const pairs = isWaiting(o) ? [["ETD",o.etd],["L/C",o.lc_ship_by],["마감",o.cutoff],["ETA",o.eta]] : [["선적",o.shipped_on],["ETA",o.eta]];
+    pairs.forEach(([k,d])=>{ if (d) out.push({date:d, kind:k, no:o.order_no, level}); }); });
+  return out.sort((a,b)=> a.date<b.date?-1:a.date>b.date?1:(CAL_KINDS.indexOf(a.kind)-CAL_KINDS.indexOf(b.kind)) || (a.no<b.no?-1:1));
+}
+function renderCalendar(act){
+  const today = dateIn("Asia/Seoul");
+  if (!ui.calYM) ui.calYM = [Number(today.slice(0,4)), Number(today.slice(5,7))];
+  if (!ui.calKinds) ui.calKinds = new Set(CAL_KINDS);
+  const [y, m] = ui.calYM;
+  $("#cal-title").textContent = `${y}년 ${m}월 · 일정을 누르면 그 오더로 이동`;
+  $("#cal-kinds").innerHTML = CAL_KINDS.map(k=>`<button class="tab kind-toggle ${ui.calKinds.has(k)?"on":"off"}" data-kind="${k}" aria-pressed="${ui.calKinds.has(k)}">${CAL_KIND_NAME[k]}</button>`).join("");
+  const evs = calendarEvents(act).filter(e=>ui.calKinds.has(e.kind)), byDay = {};
+  evs.forEach(e=>{ (byDay[e.date] = byDay[e.date] || []).push(e); });
+  const evBtn = e => `<button class="ev ${e.level}" data-goto="${esc(e.no)}" title="${esc(CAL_KIND_NAME[e.kind])} · ${esc(e.no)}"><b>${esc(e.kind)}</b>${esc(e.no.replace(/^PO-/,""))}</button>`;
+  const first = new Date(Date.UTC(y, m-1, 1)), start = new Date(first); start.setUTCDate(1 - first.getUTCDay());
+  const cells = [];
+  for (let i=0; i<42; i++){ const d = new Date(start); d.setUTCDate(start.getUTCDate()+i); cells.push(d); if (i>=34 && i%7===6 && d.getUTCMonth()!==m-1) break; }
+  const iso = d => d.toISOString().slice(0,10);
+  const grid = `<div class="cal-grid" role="grid">${["일","월","화","수","목","금","토"].map((w,i)=>`<div class="wd ${i===0?"sun":i===6?"sat":""}">${w}</div>`).join("")}${cells.map(d=>{
+      const k = iso(d), list = byDay[k] || [], open = ui.calOpen===k, out = d.getUTCMonth()!==m-1;
+      const shown = open ? list : list.slice(0,3);
+      return `<div class="cell ${out?"out":""} ${k===today?"today":""}" role="gridcell"><div class="dn">${out?`${d.getUTCMonth()+1}/`:""}${d.getUTCDate()}</div>${shown.map(evBtn).join("")}${list.length>3?`<button class="more-ev" data-calopen="${k}">${open?"접기":`+${list.length-3}`}</button>`:""}</div>`; }).join("")}</div>`;
+  const allUp = evs.filter(e=>e.date>=today), upcoming = ui.calAll ? allUp : allUp.slice(0,12); let last = "";
+  const agenda = `<ul class="agenda">${upcoming.length ? upcoming.map(e=>{ const head = e.date!==last ? `<li class="day ${e.date===today?"today":""}">${fmt(e.date)}${e.date===today?" · 오늘":""}</li>` : ""; last = e.date;
+      return head + `<li><button class="ev ${e.level}" data-goto="${esc(e.no)}"><b>${esc(CAL_KIND_NAME[e.kind])}</b> ${esc(e.no)}</button></li>`; }).join("") : `<li class="empty">다가오는 일정이 없어요.</li>`}${allUp.length>12?`<li><button class="mini ghost" data-calall="1">${ui.calAll?"접기":`일정 ${allUp.length-12}개 더 보기`}</button></li>`:""}</ul>`;
+  $("#cal").innerHTML = grid + agenda;
+}
+
+// ---------- 화면 ----------
+const LV = {late:"ETD 지남", red:"L/C 초과", yellow:"임박", green:"여유", ok:"선적 완료", na:"해당 없음"};
+const chip = (label, level) => `<span class="chip ${level}">${esc(noEmoji(label))}</span>`;
+
+function renderMargin(waiting){  // F6-3: 위험한 순 상위 8건
+  const list = waiting.filter(o=>isLC(o) && lcStatus(o).level!=="late").map(o=>({o, s:lcStatus(o), m:dnum(o.lc_ship_by)-dnum(o.etd)})).sort((a,b)=>a.m-b.m || (a.o.etd<b.o.etd?-1:1));
+  const skippedTT = waiting.filter(o=>!isLC(o) && lcStatus(o).level!=="late").length, skippedLate = waiting.filter(o=>lcStatus(o).level==="late").length;
+  const notes = [skippedLate?`ETD 지남 ${skippedLate}건은 위 '오늘 확인할 것'에 있어요.`:"", skippedTT?`T/T · D/P ${skippedTT}건은 L/C 기한이 없어 제외했어요.`:""].filter(Boolean).join(" ");
+  if (!list.length) return `<p class="empty">L/C 선적 대기 오더가 없어요.</p>` + (notes?`<p class="cap">${notes}</p>`:"");
+  const shown = ui.showAllMargin ? list : list.slice(0,8);
+  const negMax = Math.max(3, ...list.map(x=>-x.m)), posMax = Math.max(WARNING_DAYS+3, ...list.map(x=>x.m));
+  const NEG=16, POS=84, hi=posMax*1.32;
+  const X = v => (v<0 ? NEG + v/negMax*NEG : NEG + v/hi*POS).toFixed(2) + "%";
+  const words = m => m<0 ? `${-m}일 초과` : m===0 ? "기한 당일 출항" : `${m}일 여유`;
+  const rows = shown.map(({o,s,m})=>{
+    const bar = m>0 ? `<div class="m-bar ${s.level}" style="left:${X(0)};width:calc(${X(m)} - ${X(0)})"></div>`
+              : m<0 ? `<div class="m-bar red neg" style="left:${X(m)};width:calc(${X(0)} - ${X(m)})"></div>` : `<div class="m-dot" style="left:${X(0)}"></div>`;
+    return `<div class="g-row">
+      <div class="who"><b>${esc(o.order_no)}${isThird(o)?` <span class="tag tc">삼국 간</span>`:""}</b><small>${esc(o.buyer)}</small></div>
+      <div class="g-date"><b>${fmt(o.etd).split(" ")[0]}</b><small>ETD</small></div>
+      <div class="g-date"><b>${fmt(o.lc_ship_by).split(" ")[0]}</b><small>L/C 기한</small></div>
+      <div class="m-track">${bar}${m>0 && m/hi > 0.55
+        ? `<span class="m-lbl in" style="right:calc(100% - ${X(m)} + 8px)">${words(m)}</span>`
+        : `<span class="m-lbl ${s.level}" style="left:calc(${m>0?X(m):X(0)} + 10px)">${words(m)}</span>`}</div></div>`;
+  }).join("");
+  const more = list.length>8 ? `<p style="margin:10px 0 0"><button class="more" data-act="toggle-margin">${ui.showAllMargin?"상위 8건만 보기":`나머지 ${list.length-8}건 더 보기`}</button></p>` : "";
+  return `<div class="g-legend"><span><i class="lg red"></i>초과</span><span><i class="lg yellow"></i>임박 (0~${WARNING_DAYS}일)</span><span><i class="lg green"></i>여유 (${WARNING_DAYS+1}일 이상)</span></div>
+    <div class="g-row g-hd"><div>오더</div><div>ETD</div><div>L/C 기한</div><div class="m-axis"><span class="neg" style="left:${X(-negMax/2)}">← 초과</span><span style="left:${X(0)}">0</span><span class="th" style="left:${X(WARNING_DAYS)}">임박 기준 ${WARNING_DAYS}일</span></div></div>
+    <div class="m-body">${rows}<div class="m-guides"><i class="zero" style="left:${X(0)}"></i><i class="th" style="left:${X(WARNING_DAYS)}"></i></div></div>${more}${notes?`<p class="cap">${notes}</p>`:""}`;
+}
 function renderDonut(c){
-  const parts = [["red",c.red,"var(--red)"],["yellow",c.yellow,"var(--yel)"],["green",c.green,"var(--grn)"],["ok",c.shipped,"var(--ok)"]];
-  const total = parts.reduce((a,p)=>a+p[1],0);
-  const R = 62, C = 2*Math.PI*R; let off = 0;
-  const segs = total ? parts.filter(p=>p[1]).map(p=>{ const len = p[1]/total*C; const el = `<circle r="${R}" cx="80" cy="80" fill="none" stroke="${p[2]}" stroke-width="20" stroke-dasharray="${len} ${C-len}" stroke-dashoffset="${-off}" transform="rotate(-90 80 80)"/>`; off += len; return el; }).join("") : "";
-  return `<svg width="160" height="160" viewBox="0 0 160 160"><circle r="${R}" cx="80" cy="80" fill="none" stroke="#eef0f8" stroke-width="20"/>${segs}
-    <text x="80" y="78" text-anchor="middle" font-size="26" font-weight="800" fill="#23253a">${total}</text><text x="80" y="98" text-anchor="middle" font-size="11" fill="#8a8ca3">진행 중 오더</text></svg>
-    <div class="donut-legend">${parts.map(p=>`<span><i style="background:${p[2]}"></i>${LV_NAME[p[0]]} <b>${p[1]}</b></span>`).join("")}</div>`;
+  const parts = [["late",c.late,"var(--late)"],["red",c.red,"var(--red)"],["yellow",c.yellow,"var(--yelbar)"],["green",c.green,"var(--grnbar)"],["ok",c.shipped,"var(--ok)"],["na",c.na,"#b8bccb"]];
+  const total = parts.reduce((a,p)=>a+p[1],0), R=62, C=2*Math.PI*R; let off=0;
+  const segs = total ? parts.filter(p=>p[1]).map(p=>{ const len=p[1]/total*C; const el=`<circle r="${R}" cx="80" cy="80" fill="none" stroke="${p[2]}" stroke-width="20" stroke-dasharray="${len} ${C-len}" stroke-dashoffset="${-off}" transform="rotate(-90 80 80)"/>`; off+=len; return el; }).join("") : "";
+  return `<svg width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="오더 현황 ${total}건"><circle r="${R}" cx="80" cy="80" fill="none" stroke="#eef0f8" stroke-width="20"/>${segs}
+    <text x="80" y="78" text-anchor="middle" font-size="26" font-weight="800" fill="#1f2135">${total}</text><text x="80" y="98" text-anchor="middle" font-size="12" fill="#5b5f75">진행 중 오더</text></svg>
+    <div class="donut-legend">${parts.map(p=>`<span><i style="background:${p[2]}"></i>${LV[p[0]]} <b>${p[1]}</b></span>`).join("")}</div>`;
+}
+function orderField(label, v){ return `<div><span>${label}</span> ${v || "—"}</div>`; }
+function renderDetail(o, s){
+  const no = esc(o.order_no), cut = cutoffStatus(o);
+  const locals = [isThird(o)?`선적항 ${esc(portOf(o))} 오늘 ${fmt(portToday(portOf(o)))}`:"", COUNTRIES[o.buyer_country]?`${esc(o.buyer_country)} 오늘 ${fmt(dateIn(COUNTRIES[o.buyer_country]))}`:""].filter(Boolean).join(" · ");
+  let h = `<div class="detail" id="d-${no}"><div class="dgrid">
+    ${orderField("품목", esc(o.item))}${orderField("바이어 국가", esc(o.buyer_country))}${orderField("ETA", fmt(o.eta))}
+    ${orderField("선사", esc(o.carrier))}${orderField("선명/항차", esc(o.vessel))}${orderField("부킹번호", esc(o.booking_no))}
+    ${orderField("B/L 번호", esc(o.bl_no))}${orderField("서류 마감일", fmt(o.cutoff) + (cut?` ${chip(cut.label, cut.level)}`:""))}${orderField("상태", esc(o.status) + (o.shipped_on?` (${fmt(o.shipped_on)})`:""))}
+    ${orderField("ETD 변경", esc(history(o)))}${orderField("대응 계획", esc(o.action) || '<span style="color:var(--late)">(미정)</span>')}${orderField("보고 문장", `<button class="mini copy" data-t="${esc(s.sentence)}">복사</button>`)}
+  </div>
+  <div class="dgrid v32">${orderField("인코텀즈", esc(((o.incoterms||"") + " " + (o.incoterms_place||"")).trim()))}${orderField("도착항", esc(o.port_of_discharge))}${orderField("부킹 담당", esc(booker(o)))}
+    ${isLC(o) ? orderField("L/C 원본", `44C 선적 기한 ${fmt(o.lc_ship_by)} · 31D 유효기한 ${fmt(o.lc_expiry)} · 48 제시 기간 ${esc(o.lc_presentation_days||"21(기본)")}일 · 44E ${esc(o.lc_port_loading||"—")} · 44F ${esc(o.lc_port_discharge||"—")}`).replace("<div>",'<div class="span-all">') : ""}</div>
+  ${ui.checks[o.order_no] ? `<div class="box warn checks"><b>입력 확인 필요 ${ui.checks[o.order_no].length}건</b><ul>${ui.checks[o.order_no].map(c=>`<li><span class="tag">${esc(c.kind)}</span> ${esc(c.msg)}</li>`).join("")}</ul></div>` : ""}
+  ${locals?`<p class="cap">${locals}</p>`:""}
+  <div class="dacts"><button class="mini ghost" data-edit="${no}">수정</button>
+    ${isWaiting(o) ? `<button class="mini ghost" data-ship="${no}">선적 완료</button>` : `<button class="mini ghost" data-unship="${no}">선적 대기로 되돌리기</button>`}
+    <button class="mini ghost" data-del="${no}" style="margin-left:auto">삭제</button></div>`;
+  if (ui.pendingDelete===o.order_no) h += `<div class="sub-panel box warn">정말 삭제할까요? 오더 ${no}은(는) 목록에서 숨겨지고, 아래 '삭제된 오더 보기'에서 복구할 수 있어요. <button class="mini danger" data-yes="${no}">네, 삭제할게요</button> <button class="mini ghost" data-no="1">취소</button></div>`;
+  if (ui.pendingShip===o.order_no) h += `<div class="sub-panel">실제 선적일(B/L On board date) <input type="date" id="shipdate"> <button class="mini" data-shipsave="${no}">선적 완료로 저장</button> <span class="err">${esc(ui.err.ship||"")}</span></div>`;
+  if (ui.pendingUnship===o.order_no) h += `<div class="sub-panel box warn">오더 ${no}을(를) 다시 '선적 대기'로 되돌릴까요? 실제 선적일(${esc(o.shipped_on)})은 지워져요. <button class="mini" data-unshipyes="${no}">네, 되돌릴게요</button> <button class="mini ghost" data-no="1">취소</button></div>`;
+  if (ui.editing===o.order_no) h += renderEdit(o);
+  return h + `</div>`;
+}
+function opts(list, cur, blank){ return (blank?`<option value="">${blank}</option>`:"") + list.map(v=>`<option value="${esc(v)}" ${v===cur?"selected":""}>${esc(v)}${PORTS[v]&&PORTS[v][0]!=="한국"?` (${PORTS[v][0]} · 삼국 간)`:""}</option>`).join(""); }
+function v32Fields(o, edit){  // F1-16 · 17: 인코텀즈 · L/C 원본 칸 (MT700 칸 번호)
+  const v = k => esc(o[k]||"");
+  return `<div class="full sub-h">인코텀즈 <small>EXW · FCA · FAS · FOB = 바이어 측 포워더가 부킹 / C · D 조건 = 우리가 부킹</small></div>
+    <label>인코텀즈<select name="incoterms">${opts(INCOTERMS, String(o.incoterms||"").toUpperCase(), "(선택)")}</select></label>
+    <label>인코텀즈 지정 장소<input name="incoterms_place" value="${v("incoterms_place")}" placeholder="FOB → 선적항(Busan) · CIF → 도착항"></label>
+    <label>도착항<input name="port_of_discharge" value="${v("port_of_discharge")}" placeholder="예: Hamburg"></label>
+    <div class="full sub-h lc-only">L/C 원본 칸 <small>L/C(MT700)를 보며 칸 번호 그대로 옮겨 적어 주세요</small></div>
+    <label class="lc-only">44C 선적 기한 한 번 더 ${edit?"(기한을 바꿀 때)":"*"}<input type="date" name="lc_ship_by_confirm"></label>
+    <label class="lc-only">31D L/C 유효기한<input type="date" name="lc_expiry" value="${v("lc_expiry")}"></label>
+    <label class="lc-only">48 서류 제시 기간(일)<input name="lc_presentation_days" inputmode="numeric" value="${v("lc_presentation_days")}" placeholder="비우면 21일 (UCP 600)"></label>
+    <label class="lc-only">44E 선적항<input name="lc_port_loading" value="${v("lc_port_loading")}" placeholder="예: Busan, Korea / Any Korean port"></label>
+    <label class="lc-only">44F 도착항<input name="lc_port_discharge" value="${v("lc_port_discharge")}"></label>`;
+}
+function renderEdit(o){
+  const v = k => esc(o[k]||"");
+  return `<form class="sub-panel f" data-editform="${esc(o.order_no)}">
+    <label>바이어 *<input name="buyer" value="${v("buyer")}"></label>
+    <label>품목 *<input name="item" value="${v("item")}"></label>
+    <label>바이어 국가<select name="buyer_country">${opts(Object.keys(COUNTRIES), o.buyer_country, "(선택 안 함)")}</select></label>
+    <label>결제 조건 *<select name="payment_terms">${opts(TERMS, termsOf(o))}</select></label>
+    <label>선적항 *<select name="port_of_loading">${opts(Object.keys(PORTS), portOf(o))}</select></label>
+    <label>ETD *<input type="date" name="etd" value="${v("etd")}"></label>
+    <label>L/C 선적 기한 (L/C일 때)<input type="date" name="lc_ship_by" value="${v("lc_ship_by")}"></label>
+    <label>ETA<input type="date" name="eta" value="${v("eta")}"></label>
+    <label>서류 마감일<input type="date" name="cutoff" value="${v("cutoff")}"></label>
+    <label>선사<input name="carrier" value="${v("carrier")}"></label>
+    <label>선명/항차<input name="vessel" value="${v("vessel")}"></label>
+    <label>부킹번호<input name="booking_no" value="${v("booking_no")}"></label>
+    <label>B/L 번호<input name="bl_no" value="${v("bl_no")}"></label>
+    <label>대응 계획<input name="action" value="${v("action")}" placeholder="예: L/C 연장 요청"></label>
+    ${v32Fields(o, true)}
+    <label>ETD · L/C 기한을 바꾼 사유<input name="reason" placeholder="예: L/C 연장(Amendment)"></label>
+    <div class="full row-end"><button type="submit" class="mini">수정 저장</button> <button type="button" class="mini ghost" data-no="1">취소</button> <span class="err">${esc(ui.err.edit||"")}</span></div>
+  </form>`;
 }
 
 function render(){
   const active = sortO(S.orders.filter(o=>!isDel(o)));
   const gone = sortO(S.orders.filter(isDel));
-  const st = new Map(active.map(o=>[o.order_no, lcStatus(o)]));
-  // 오늘 날짜 (F1-5)
-  $("#today").innerHTML = `오늘(한국) <b>${esc(dateIn("Asia/Seoul"))}</b>`;
-  const cs0 = [...new Set(active.map(o=>o.buyer_country).filter(c=>COUNTRIES[c]))].sort();
-  $("#today-local").innerHTML = cs0.length ? `<div class="tabs" style="margin-bottom:6px">${cs0.map(c=>`<span class="pill">오늘(${esc(c)}) <b>${esc(dateIn(COUNTRIES[c]))}</b></span>`).join("")}</div>` : "";
-  // 집계 (F2-3)
-  let red=0, yellow=0, green=0, late=0, shipped=0;
-  active.forEach(o=>{ const s=st.get(o.order_no); if (s.shipped){ shipped++; late += s.level==="red"; } else if (s.level==="red") red++; else if (s.level==="yellow") yellow++; else green++; });
-  const noRisk = !red && !yellow;
-  $("#stats").innerHTML =
-    `<div class="stat ${red?"red":"s-grn"} ${ui.filter==="red"?"sel":""}" data-filter="red"><div class="ic">${red?"🚨":"✅"}</div><div><div class="n">${red}</div><div class="t">${noRisk?"기한 위험 오더 없음":"L/C 기한 초과"}</div></div></div>
-     <div class="stat s-yel ${ui.filter==="yellow"?"sel":""}" data-filter="yellow"><div class="ic">⏳</div><div><div class="n">${yellow}</div><div class="t">임박 (7일 이내)</div></div></div>
-     <div class="stat s-grn ${ui.filter==="green"?"sel":""}" data-filter="green"><div class="ic">🔵</div><div><div class="n">${green}</div><div class="t">여유 (8일 이상)</div></div></div>
-     <div class="stat s-late ${ui.filter==="ok"?"sel":""}" data-filter="ok"><div class="ic">🚢</div><div><div class="n">${shipped}</div><div class="t">선적 완료 · 기한 넘겨 선적 ${late}건</div></div></div>`;
-  $("#nav-cnt").textContent = active.length;
-  if (ui.flash){ $("#flash").innerHTML = `<div class="box good">${esc(ui.flash)}</div>`; ui.flash=null; } else $("#flash").innerHTML="";
-  // 간트
-  $("#gantt").innerHTML = renderGantt(active.filter(o=>o.status!==SHIPPED));
-  // 도넛
-  $("#donut").innerHTML = renderDonut({red,yellow,green,shipped});
-  // 보고 문장 (F2)
-  const risky = active.map(o=>st.get(o.order_no)).filter(s=>!s.shipped && (s.level==="red"||s.level==="yellow")).sort((a,b)=>(a.level!=="red")-(b.level!=="red")||a.days-b.days);
-  $("#risk").innerHTML = risky.length ? `<ul class="rlist">${risky.map((r,i)=>`<li class="${r.level}"><span class="num">${i+1}</span><div class="txt"><b>${esc(r.label.slice(2))}</b>${esc(r.sentence)}<br><button class="mini copy" data-t="${esc(r.sentence)}">복사</button></div></li>`).join("")}</ul>` : `<div class="box good">기한 위험 오더 없음</div>`;
-  // 필터 탭
-  const tabs = [["all","전체",active.length],["red","초과",red],["yellow","임박",yellow],["green","여유",green],["ok","선적 완료",shipped]];
+  const sm = summary(active), al = alerts(active);
+  ui.checks = checkMap(active);
+  const nCheck = Object.keys(ui.checks).length;
+  document.title = (al.length ? `(${al.length}) ` : "") + "ETD 레이더";            // F5-2
+  $("#today").innerHTML = `오늘(한국) <b>${fmt(dateIn("Asia/Seoul"))}</b>`;
+  $("#nav-cnt") && ($("#nav-cnt").textContent = active.length);
+  if (ui.flash){ $("#flash").innerHTML = `<div class="box good" role="status">${esc(ui.flash)}</div>`; ui.flash=null; } else $("#flash").innerHTML="";
+
+  // 사용 안내 (F6-8)
+  let closed = false; try { closed = localStorage.getItem(GUIDE_KEY)==="1"; } catch(e){}
+  $("#guide").innerHTML = (closed && !ui.showGuide) ? "" : `<div class="guide">${ic("help")}<div><b>처음이신가요? ETD 레이더 사용법</b>
+    <ol><li><b>새 오더 등록</b>에서 ETD · L/C 선적 기한 · 결제 조건 · 선적항을 넣어요.</li>
+    <li><b>대시보드</b>의 '오늘 확인할 것'과 여유 막대로 위험한 오더를 먼저 봐요. <b>여유 일수 = L/C 기한 − ETD</b>, <b>7일 이하면 임박</b>이에요 (롤오버 한 번에 약 1주가 밀리기 때문).</li>
+    <li>ETD가 바뀌면 <b>변경 기록</b>에, L/C가 연장되면 오더 <b>수정</b>에서 사유와 함께 남겨요.</li>
+    <li><b>보고 내보내기</b>에서 대응 계획이 붙은 보고 문장을 복사해 상사에게 보내요.</li></ol></div>
+    <button class="mini ghost x" data-act="close-guide">닫기</button></div>`;
+
+  // 오늘 확인할 것 (F5-1)
+  $("#alerts").className = "card alerts" + (al.length ? "" : " none");
+  $("#alerts").innerHTML = `<h2>${ic("bell")} 오늘 확인할 것 <small>${al.length}건 · 위험한 순 · 누르면 그 오더로 이동</small></h2>` + (al.length
+    ? `<ul class="alist">${al.slice(0,8).map(a=>`<li><a href="#orders" data-goto="${esc(a.o.order_no)}">${chip(a.label, a.level==="late"?"late":a.level)} <b>${esc(a.o.order_no)}</b> <span style="color:var(--sub)">${esc(a.o.buyer)} · ETD ${fmt(a.o.etd)}</span><span class="go">열기 ${ic("chev")}</span></a></li>`).join("")}</ul>${al.length>8?`<p class="cap">외 ${al.length-8}건은 오더 목록에서 확인하세요.</p>`:""}`
+    : `<p class="empty" style="padding:0">오늘 확인할 것 없음</p>`)
+    + (nCheck ? `<div class="check-line"><span class="chip na">입력 확인 필요 ${nCheck}건</span> ${Object.entries(ui.checks).map(([no,c])=>`<a href="#orders" data-goto="${esc(no)}"><b>${esc(no)}</b> ${esc(c[0].kind)}</a>`).join(" · ")}</div>` : "");
+
+  // 숫자 카드
+  const card = (key, cls, icon, n, t) => `<div class="stat ${cls}" data-filter="${key}" role="button" tabindex="0"><div class="ic">${ic(icon)}</div><div><div class="n">${n}</div><div class="t">${t}</div></div></div>`;
+  $("#stats").innerHTML = card("late", sm.late?"hot":"s-late", "late", sm.late, "ETD 지남 · 선적 미확인")
+    + card("red", "s-red", "red", sm.red, "L/C 기한 초과") + card("yellow", "s-yel", "yellow", sm.yellow, "L/C 임박 (7일 이내)")
+    + card("green", "s-grn", "green", sm.green, "L/C 여유 (8일 이상)") + card("ok", "s-ok", "ok", sm.shipped, `선적 완료 · 기한 넘김 ${sm.lateShipped}건`);
+  renderCalendar(active);
+  $("#gantt").innerHTML = renderMargin(active.filter(isWaiting));
+  $("#donut").innerHTML = renderDonut(sm);
+  const risky = active.map(o=>lcStatus(o)).filter((s,i)=> s.level==="late" || (isLC(active[i]) && !s.shipped && (s.level==="red"||s.level==="yellow"))).sort((a,b)=>RANK[a.level]-RANK[b.level]||a.days-b.days);
+  $("#risk").innerHTML = risky.length ? `<ul class="rlist">${risky.slice(0,4).map(r=>`<li>${chip(r.label, r.level)}<div>${esc(r.sentence)}</div></li>`).join("")}</ul>${risky.length>4?`<p class="cap">외 ${risky.length-4}건 — 보고 내보내기에서 전체 보기</p>`:""}` : `<div class="box good">위험 오더 없음</div>`;
+
+  // 오더 목록 (F1 · F6-2)
+  const tabs = [["all","전체",active.length],["late","ETD 지남",sm.late],["red","L/C 초과",sm.red],["yellow","임박",sm.yellow],["green","여유",sm.green],["ok","선적 완료",sm.shipped],["na","해당 없음",sm.na]];
   $("#tabs").innerHTML = tabs.map(t=>`<button type="button" class="tab ${ui.filter===t[0]?"on":""}" data-filter="${t[0]}">${t[1]} ${t[2]}</button>`).join("");
-  const shown = active.filter(o=>{ const s=st.get(o.order_no); if (ui.filter==="all") return true; if (ui.filter==="ok") return s.shipped; return !s.shipped && s.level===ui.filter; });
-  // 목록 (F1)
+  const q = ui.q.trim().toLowerCase();
+  const shown = active.filter(o=>{ const s=lcStatus(o);
+    if (q && !["order_no","buyer","item","booking_no","bl_no"].some(k=>(o[k]||"").toLowerCase().includes(q))) return false;
+    if (ui.filter==="all") return true; if (ui.filter==="ok") return s.shipped; return !s.shipped && s.level===ui.filter; });
+  const ports0 = [...new Set(active.filter(isThird).map(portOf))].sort(), cs0 = [...new Set(active.map(o=>o.buyer_country).filter(c=>COUNTRIES[c]))].sort();
+  const ldOpen = $("#local-dates").open;
+  $("#local-dates").innerHTML = `<summary>바이어 · 선적항 현지 날짜 보기 (${cs0.length + ports0.length}곳)</summary><div class="tabs">${cs0.map(c=>`<span class="pill">${esc(c)} <b>${fmt(dateIn(COUNTRIES[c]))}</b></span>`).concat(ports0.map(p=>`<span class="pill">선적항 ${esc(p)} <b>${fmt(portToday(p))}</b></span>`)).join("")}</div>`;
+  $("#local-dates").open = ldOpen;
   $("#err-new").textContent = ui.err.new||"";
-  if (!active.length) $("#list").innerHTML = `<p class="empty">아직 등록된 오더가 없어요. 아래 '새 오더 등록'에서 첫 오더를 등록해 주세요.</p>`;
-  else if (!shown.length) $("#list").innerHTML = `<p class="empty">이 조건에 해당하는 오더가 없어요.</p>`;
-  else $("#list").innerHTML = `<table><thead><tr><th>오더번호</th><th>바이어 · 품목</th><th>국가</th><th>ETD</th><th>ETA</th><th>L/C 기한</th><th>L/C 경고</th><th>ETD 변경</th><th></th></tr></thead><tbody>${shown.map(o=>{
-      const s = st.get(o.order_no);
-      let row = `<tr><td class="nw"><b>${esc(o.order_no)}</b><div class="st ${o.status===SHIPPED?"done":""}">${o.status===SHIPPED?`선적 완료 ${esc(o.shipped_on)}`:WAIT}</div></td><td>${esc(o.buyer)}<div class="st">${esc(o.item)}</div></td><td class="nw">${esc(o.buyer_country||"—")}</td><td class="nw">${esc(o.etd)}</td><td class="nw">${esc(o.eta||"—")}</td><td class="nw">${esc(o.lc_ship_by)}</td><td><span class="chip ${chipClass(s)}">${esc(s.label.slice(2))}</span></td><td class="hist">${esc(history(o))}</td><td class="nw">${o.status!==SHIPPED?`<button class="mini" data-ship="${esc(o.order_no)}">선적 완료</button> `:""}<button class="mini ghost" data-del="${esc(o.order_no)}">삭제</button></td></tr>`;
-      if (ui.pendingDelete===o.order_no) row += `<tr class="sub-row"><td colspan="9"><div class="box warn" style="margin:0">정말 삭제할까요? 오더 ${esc(o.order_no)}은(는) 목록에서 숨겨지고, 아래 '삭제된 오더 보기'에서 복구할 수 있어요. <button class="mini danger" data-yes="${esc(o.order_no)}">네, 삭제할게요</button> <button class="mini ghost" data-no="1">취소</button></div></td></tr>`;
-      if (ui.pendingShip===o.order_no) row += `<tr class="sub-row"><td colspan="9"><div class="box" style="margin:0">오더 ${esc(o.order_no)}의 실제 선적일(B/L On board date)을 입력해 주세요. <input id="shipdate" placeholder="2026-11-10"> <button class="mini" data-shipsave="${esc(o.order_no)}">선적 완료로 저장</button> <span class="err">${esc(ui.err.ship||"")}</span></div></td></tr>`;
-      return row; }).join("")}</tbody></table>${active.some(o=>!o.buyer_country)?`<p class="cap">바이어 국가를 고르지 않아 한국 날짜만 보여요.</p>`:""}`;
-  // F3
-  const waiting = active.filter(o=>o.status!==SHIPPED);
-  $("#chg-order").innerHTML = `<option value="">(선택)</option>` + waiting.map(o=>`<option value="${esc(o.order_no)}">${esc(o.order_no)} · 현재 ETD ${esc(o.etd)}</option>`).join("");
+  if (!active.length) $("#list").innerHTML = `<p class="empty">아직 등록된 오더가 없어요. '새 오더 등록'에서 첫 오더를 등록하거나, '보고 내보내기'에서 CSV를 불러오세요.</p>`;
+  else if (!shown.length) $("#list").innerHTML = `<p class="empty">${q ? "검색 결과가 없어요." : "이 조건에 해당하는 오더가 없어요."}</p>`;
+  else $("#list").innerHTML = `<div class="olist"><div class="orow ohead"><div>오더 · 바이어</div><div>결제 · 선적항</div><div>ETD</div><div>L/C 기한</div><div>상태</div><div></div></div>${shown.map(o=>{
+      const s = lcStatus(o), cut = cutoffStatus(o), open = ui.open===o.order_no;
+      return `<div class="orow ${open?"open":""}" data-open="${esc(o.order_no)}" role="button" tabindex="0" aria-expanded="${open}">
+        <div class="c1"><b>${esc(o.order_no)}</b><small>${esc(o.buyer)}</small></div>
+        <div class="c2"><span class="lbl">결제 · 선적항</span><span><span class="tag">${esc(termsOf(o))}</span> ${esc(portOf(o))}${isThird(o)?` <span class="tag tc">삼국 간</span>`:""}</span></div>
+        <div class="c3"><span class="lbl">ETD</span>${fmt(o.etd)}</div>
+        <div class="c4"><span class="lbl">L/C 기한</span>${fmt(o.lc_ship_by)}</div>
+        <div class="c5 st"><span class="lbl">상태</span>${chip(s.label, s.level)}${cut?chip(cut.label, cut.level):""}${ui.checks[o.order_no]?`<span class="chip na">입력 확인 ${ui.checks[o.order_no].length}</span>`:""}</div>
+        <div class="chev">${ic("chev")}</div></div>${open ? renderDetail(o, s) : ""}`; }).join("")}</div>`;
+  $("#gone").innerHTML = `<summary>삭제된 오더 보기 (${gone.length})</summary>` + (gone.length ? `<ul>${gone.map(o=>`<li><b>${esc(o.order_no)}</b> · ${esc(o.buyer)} · ETD ${fmt(o.etd)} <button class="mini ghost" data-restore="${esc(o.order_no)}">복구</button></li>`).join("")}</ul>` : `<p class="cap">삭제된 오더 없음</p>`);
+
+  // 변경 기록 (F3-5) — 증감은 회색 화살표
+  const waiting = active.filter(isWaiting);
+  const selVal = $("#chg-order").value;
+  $("#chg-order").innerHTML = `<option value="">(선택)</option>` + waiting.map(o=>`<option value="${esc(o.order_no)}">${esc(o.order_no)} · 현재 ETD ${fmt(o.etd)}</option>`).join("");
+  $("#chg-order").value = selVal;
   $("#err-chg").textContent = ui.err.chg||"";
-  const cs = [...S.changes].sort((a,b)=>a.changed_at<b.changed_at?1:-1);
-  $("#log").innerHTML = `<summary>변경 기록 전체 (${cs.length}건)</summary>` + (cs.length ? `<ul>${cs.map(c=>`<li>${esc(c.changed_at)} · <b>${esc(c.order_no)}</b> · ${esc(c.old_etd)} → ${esc(c.new_etd)} · ${esc(c.reason)}</li>`).join("")}</ul>` : "");
-  // 삭제된 오더 (F1-6)
-  $("#gone").innerHTML = `<summary>삭제된 오더 보기 (${gone.length})</summary>` + (gone.length ? `<ul>${gone.map(o=>`<li><b>${esc(o.order_no)}</b> · ${esc(o.buyer)} · ${esc(o.item)} · ETD ${esc(o.etd)} <button class="mini" data-restore="${esc(o.order_no)}">복구</button></li>`).join("")}</ul>` : `<p class="cap">삭제된 오더 없음</p>`);
+  const simSel = $("#sim-order").value;
+  $("#sim-order").innerHTML = `<option value="">조회할 오더 선택</option>` + waiting.map(o=>`<option value="${esc(o.order_no)}">${esc(o.order_no)} · ${esc(o.carrier||"선사 미지정")} · ${esc(o.booking_no||o.bl_no||"조회 키 없음")}</option>`).join("");
+  $("#sim-order").value = simSel; renderSim();
+  const logRows = S.changes.map(c=>({t:c.changed_at, no:c.order_no, f:"ETD", old:c.old_etd, nw:c.new_etd, r:c.reason, d:dnum(c.new_etd)-dnum(c.old_etd), unit:["늦어짐","앞당겨짐"]}))
+    .concat(S.log.map(c=>({t:c.changed_at, no:c.order_no, f:c.field, old:c.old, nw:c.new, r:c.reason, d:(c.field==="L/C 기한" && c.old && c.new) ? dnum(c.new)-dnum(c.old) : null, unit:["연장","단축"]})))
+    .sort((a,b)=>a.t<b.t?1:-1);
+  $("#log-count").textContent = `(${logRows.length}건 · 최근 순)`;
+  const dv = r => r.d===null ? "" : `<span class="delta">${r.d>0?"▲":"▼"} ${Math.abs(r.d)}일 ${r.d>0?r.unit[0]:r.unit[1]}</span>`;
+  const fv = v => /^\d{4}-\d{2}-\d{2}$/.test(v||"") ? fmt(v) : esc(v);
+  $("#log").innerHTML = logRows.length ? `<div class="tablewrap"><table><thead><tr><th>바꾼 시각</th><th>오더번호</th><th>항목</th><th>이전 → 새 값</th><th>변화</th><th>사유</th></tr></thead><tbody>${logRows.map(r=>`<tr><td class="nw">${fmt(r.t)}</td><td class="nw"><b>${esc(r.no)}</b></td><td class="nw"><span class="tag">${esc(r.f)}</span></td><td class="nw">${fv(r.old)} → ${fv(r.nw)}</td><td class="nw">${dv(r)}</td><td>${esc(r.r)}</td></tr>`).join("")}</tbody></table></div>` : `<p class="empty">아직 변경 기록이 없어요.</p>`;
+
+  // 보고 (F4)
+  $("#report-preview").textContent = reportText();
+  $("#export").innerHTML = `<button class="mini" data-act="copy-report">보고 문장 전체 복사</button> <button class="mini ghost" data-act="csv">엑셀(CSV) 내보내기</button> <button class="mini ghost" data-act="tsv">표 복사 (엑셀에 붙여넣기)</button>`;
+  const ip = ui.importPlan, target = ip && ip.src==="new" ? "#bulk-preview" : "#report-import-preview";
+  $("#bulk-preview").innerHTML = ""; $("#report-import-preview").innerHTML = "";
+  if (ip) $(target).innerHTML = `<div class="box ${ip.errors.length?"warn":""}">미리보기: ${ip.added.length}건 추가 · ${ip.skipped.length}건 건너뜀(이미 있음) · ${ip.errors.length}건 오류</div>`
+    + (ip.errors.length ? `<ul class="cap">${ip.errors.map(e=>`<li>${e[0]}번째 줄: ${esc(e[1])}</li>`).join("")}</ul>` : "")
+    + (ip.added.length ? `<div class="tablewrap"><table><thead><tr><th>오더번호</th><th>바이어</th><th>결제 · 선적항</th><th>ETD</th><th>L/C 기한</th><th>입력 확인</th></tr></thead><tbody>${ip.added.map(a=>{ const pool = S.orders.filter(o=>!isDel(o)).concat(ip.added), cc = crossCheck(a, pool);
+      return `<tr><td>${esc(a.order_no)}</td><td>${esc(a.buyer)}</td><td>${esc(a.payment_terms)} · ${esc(a.port_of_loading)}${a.incoterms?` · ${esc(a.incoterms)}`:""}</td><td>${fmt(a.etd)}</td><td>${fmt(a.lc_ship_by)}</td><td>${cc.length?cc.map(c=>esc(c.msg)).join("<br>"):"—"}</td></tr>`; }).join("")}</tbody></table></div>
+       <div class="row-end"><button class="mini" data-act="import-yes">${ip.added.length}건 추가하기</button> <button class="mini ghost" data-act="import-no">취소</button></div>` : `<div class="row-end"><button class="mini ghost" data-act="import-no">닫기</button></div>`);
   ui.err = {};
 }
 
-$("#country").innerHTML = `<option value="">(선택 안 함)</option>` + Object.keys(COUNTRIES).map(c=>`<option>${c}</option>`).join("");
+// ---------- 입력 ----------
+document.querySelectorAll(".sel-terms").forEach(el=>el.innerHTML = opts(TERMS, "L/C"));
+document.querySelectorAll(".sel-port").forEach(el=>el.innerHTML = opts(Object.keys(PORTS), "부산"));
+document.querySelectorAll(".sel-country").forEach(el=>el.innerHTML = opts(Object.keys(COUNTRIES), "", "(선택 안 함)"));
+function syncLc(){ const isL = $("#new [name=payment_terms]").value==="L/C"; const el=$("#new .lc-field"); el.querySelector("span").textContent = isL ? "L/C 선적 기한 (44C) *" : "L/C 선적 기한 (L/C 아님 — 저장 안 함)"; el.querySelector("input").disabled = !isL; if(!isL) el.querySelector("input").value="";
+  document.querySelectorAll("#new .lc-only").forEach(x=>{ x.hidden = !isL; const i = x.querySelector("input"); if (i){ i.disabled = !isL; if (!isL) i.value = ""; } }); }
+$("#new-v32").innerHTML = v32Fields({}, false);
+$("#new [name=payment_terms]").addEventListener("change", syncLc);
+$("#q").addEventListener("input", e=>{ ui.q = e.target.value; render(); });
+$("#ic-search").innerHTML = ic("search");
+$("#help-btn").innerHTML = ic("help") + " 사용 안내";
 
 $("#new").addEventListener("submit", e=>{
   e.preventDefault();
-  const f = Object.fromEntries(new FormData(e.target).entries());
-  const names = {order_no:"오더번호",buyer:"바이어",item:"품목",etd:"ETD",lc_ship_by:"L/C 선적 기한"};
-  let err = null;
-  for (const k of ["order_no","buyer","item","etd","lc_ship_by"]) if (!String(f[k]||"").trim()){ err = `${names[k]} 칸이 비어 있어요. 채운 뒤 다시 저장해 주세요.`; break; }
-  if (!err && S.orders.some(o=>o.order_no===f.order_no.trim())) err = `이미 등록된 오더번호예요(${f.order_no.trim()}). 다른 오더번호를 입력해 주세요.`;
-  if (!err) err = checkDate(f.etd,"ETD") || checkDate(f.lc_ship_by,"L/C 선적 기한") || (f.eta.trim()?checkDate(f.eta,"ETA"):null);
+  const f = Object.fromEntries(new FormData(e.target).entries()); f.lc_ship_by = f.lc_ship_by || "";
+  if (f.payment_terms==="L/C") f.lc_ship_by_confirm = f.lc_ship_by_confirm || ""; else delete f.lc_ship_by_confirm;
+  const err = validateOrder(f, S.orders.map(o=>o.order_no));
   if (err){ ui.err.new = err; return render(); }
-  S.orders.push({order_no:f.order_no.trim(), buyer:f.buyer.trim(), buyer_country:f.buyer_country, item:f.item.trim(), etd:f.etd.trim(), eta:f.eta.trim(), lc_ship_by:f.lc_ship_by.trim(), status:WAIT, shipped_on:"", created_at:nowKST(), deleted:"False"});
-  save(); e.target.reset(); ui.flash = `오더 ${f.order_no.trim()}을(를) 저장했어요.`; render();
+  const no_ = buildOrder(f), warns = crossCheck(no_, S.orders.filter(o=>!isDel(o)));
+  S.orders.push(no_); save(); e.target.reset(); syncLc();
+  ui.flash = `오더 ${f.order_no.trim()}을(를) 저장했어요.` + (warns.length ? ` — 입력 확인 필요 ${warns.length}건: ${warns.map(c=>c.msg).join(" / ")}` : ""); render();
 });
-
 $("#chg").addEventListener("submit", e=>{
   e.preventDefault();
   const no = $("#chg-order").value, nd = $("#chg-etd").value.trim(), rs = $("#chg-reason").value.trim();
@@ -415,49 +970,115 @@ $("#chg").addEventListener("submit", e=>{
   let err = !o ? "변경할 오더를 먼저 골라 주세요." : !rs ? "사유 칸이 비어 있어요. 롤오버 · 기상 악화처럼 사유를 적어 주세요." : checkDate(nd,"ETD");
   if (!err && nd===o.etd) err = `지금 ETD(${o.etd})와 같은 날짜예요. 바뀐 날짜를 입력해 주세요.`;
   if (err){ ui.err.chg = err; return render(); }
-  const old = o.etd; applyChange(o, nd, rs); save(); e.target.reset();
+  const old = o.etd; applyEtdChange(o, nd, rs); save(); e.target.reset();
   ui.flash = `${no} ETD를 ${old} → ${nd}로 바꿨어요 (사유: ${rs}).`; render();
 });
-
 $("#demo").addEventListener("click", ()=>{
   let changed = 0, skipped = 0;
-  DEMO.forEach(u=>{
-    const o = S.orders.find(x=>x.order_no===u.order_no);
-    if (!o || isDel(o) || o.status===SHIPPED || checkDate(u.new_etd,"ETD")){ skipped++; return; }
-    if (u.new_etd===o.etd) return;
-    applyChange(o, u.new_etd, "선사 조회(데모)"); changed++;
-  });
-  save();
-  ui.flash = changed ? `${changed}건 변경 · ${skipped}건 건너뜀` : `변경된 ETD 없음${skipped?` · ${skipped}건 건너뜀`:""}`;
-  render();
+  DEMO.forEach(u=>{ const o = S.orders.find(x=>x.order_no===u.order_no);
+    if (!o || isDel(o) || !isWaiting(o) || checkDate(u.new_etd,"ETD")){ skipped++; return; }
+    if (u.new_etd===o.etd) return; applyEtdChange(o, u.new_etd, "선사 조회(데모)"); changed++; });
+  save(); ui.flash = changed ? `${changed}건 변경 · ${skipped}건 건너뜀` : `변경된 ETD 없음${skipped?` · ${skipped}건 건너뜀`:""}`; render();
 });
-
-$("#reset").addEventListener("click", ()=>{ S = {orders: JSON.parse(JSON.stringify(SEED_ORDERS)), changes: JSON.parse(JSON.stringify(SEED_CHANGES))}; save(); ui.flash="가상 데이터를 처음 상태로 되돌렸어요."; render(); });
+$("#reset").addEventListener("click", ()=>{ S = fresh(); save(); ui.flash="가상 데이터를 처음 상태로 되돌렸어요."; render(); });
+$("#help-btn").addEventListener("click", ()=>{ ui.showGuide = true; location.hash = "dashboard"; render(); });
+function readCsvFile(file, src){ const rd = new FileReader(); rd.onload = () => { ui.importPlan = {...planImport(String(rd.result)), src}; render(); }; rd.readAsText(file, "utf-8"); }
+$("#import-file").addEventListener("change", e=>{ const f = e.target.files[0]; if (f) readCsvFile(f, "report"); });
+$("#bulk-input").addEventListener("change", e=>{ const f = e.target.files[0]; if (f) readCsvFile(f, "new"); });
+document.addEventListener("submit", e=>{
+  const f = e.target.closest("[data-editform]"); if (!f) return; e.preventDefault();
+  const o = S.orders.find(x=>x.order_no===f.dataset.editform), v = Object.fromEntries(new FormData(f).entries());
+  const merged = {...o}; EDITABLE.forEach(k=>{ if (k in v) merged[k] = String(v[k]||"").trim(); });
+  if (merged.payment_terms!=="L/C") LC_ONLY.forEach(k=>{ merged[k] = ""; });
+  merged.incoterms = String(merged.incoterms||"").toUpperCase();
+  const chk = {...merged, order_no:"__edit__"};
+  if (merged.payment_terms==="L/C" && (merged.lc_ship_by||"")!==(o.lc_ship_by||"")) chk.lc_ship_by_confirm = v.lc_ship_by_confirm || "";
+  let err = validateOrder(chk, []);
+  const diff = EDITABLE.filter(k=>(o[k]||"")!==(merged[k]||""));
+  if (!err && !diff.length) err = "바뀐 내용이 없어요.";
+  const need = [diff.includes("etd")?"ETD":"", (diff.includes("lc_ship_by") && o.lc_ship_by && merged.lc_ship_by)?"L/C 기한":""].filter(Boolean);
+  if (!err && need.length && !v.reason.trim()) err = `${need.join(" · ")}이(가) 바뀌었어요. 바꾼 사유를 적어 주세요. (예: L/C 연장(Amendment), 롤오버)`;
+  if (err){ ui.err.edit = err; return render(); }
+  const reason = v.reason.trim() || "-";
+  if (diff.includes("etd")) S.changes.push({order_no:o.order_no, old_etd:o.etd, new_etd:merged.etd, reason, changed_at:nowKST()});
+  if (diff.includes("lc_ship_by")) S.log.push({order_no:o.order_no, field:"L/C 기한", old:o.lc_ship_by||"", new:merged.lc_ship_by, reason, changed_at:nowKST()});
+  diff.forEach(k=>{ o[k] = merged[k]; });
+  ui.editing = null; save(); ui.flash = `오더 ${o.order_no}을(를) 수정했어요.`; render();
+});
 
 document.addEventListener("click", e=>{
   const f = e.target.closest("[data-filter]");
-  if (f){ ui.filter = (ui.filter===f.dataset.filter && f.classList.contains("stat")) ? "all" : f.dataset.filter; render(); if (f.classList.contains("stat")) document.getElementById("orders").scrollIntoView({behavior:"smooth"}); return; }
-  const n = e.target.closest("[data-nav]");
-  if (n){ document.querySelectorAll("[data-nav]").forEach(x=>x.classList.toggle("on", x===n)); return; }
-  const b = e.target.closest("button"); if (!b) return;
-  const d = b.dataset;
-  if (d.del){ ui.pendingDelete = d.del; ui.pendingShip = null; render(); }
-  else if (d.no){ ui.pendingDelete = null; render(); }
-  else if (d.yes){ S.orders.find(o=>o.order_no===d.yes).deleted="True"; ui.pendingDelete=null; save(); ui.flash=`오더 ${d.yes}을(를) 삭제했어요. '삭제된 오더 보기'에서 복구할 수 있어요.`; render(); }
-  else if (d.restore){ S.orders.find(o=>o.order_no===d.restore).deleted="False"; save(); ui.flash=`오더 ${d.restore}을(를) 복구했어요.`; render(); }
-  else if (d.ship){ ui.pendingShip = d.ship; ui.pendingDelete = null; render(); }
+  if (f){ ui.filter = f.dataset.filter; ui.open = null; render(); if (f.classList.contains("stat")) location.hash = "orders"; return; }
+  const g = e.target.closest("[data-goto]");
+  if (g){ e.preventDefault(); ui.filter = "all"; ui.q = ""; $("#q").value = ""; ui.open = g.dataset.goto; render(); location.hash = "orders";
+    setTimeout(()=>{ const el=document.getElementById("d-"+ui.open); el && el.scrollIntoView({block:"center"}); }, 30); return; }
+  const b = e.target.closest("button");
+  const row = e.target.closest("[data-open]");
+  if (row && !b){ ui.open = ui.open===row.dataset.open ? null : row.dataset.open; ui.pendingDelete = ui.pendingShip = ui.pendingUnship = ui.editing = null; render(); return; }
+  if (!b) return;
+  const d = b.dataset, find = no => S.orders.find(o=>o.order_no===no);
+  const clear = () => { ui.pendingDelete = ui.pendingShip = ui.pendingUnship = ui.editing = null; };
+  if (d.del){ clear(); ui.pendingDelete = d.del; render(); }
+  else if (d.no){ clear(); render(); }
+  else if (d.edit){ clear(); ui.editing = d.edit; render(); }
+  else if (d.yes){ find(d.yes).deleted="True"; clear(); ui.open=null; save(); ui.flash=`오더 ${d.yes}을(를) 삭제했어요. '삭제된 오더 보기'에서 복구할 수 있어요.`; render(); }
+  else if (d.restore){ find(d.restore).deleted="False"; save(); ui.flash=`오더 ${d.restore}을(를) 복구했어요.`; render(); }
+  else if (d.ship){ clear(); ui.pendingShip = d.ship; render(); }
+  else if (d.unship){ clear(); ui.pendingUnship = d.unship; render(); }
+  else if (d.unshipyes){ const o = find(d.unshipyes);
+    S.log.push({order_no:o.order_no, field:"상태", old:`선적 완료 (${o.shipped_on})`, new:WAIT, reason:"선적 완료 되돌리기", changed_at:nowKST()});
+    o.status = WAIT; o.shipped_on = ""; clear(); save(); ui.flash = `오더 ${o.order_no}을(를) 선적 대기로 되돌렸어요.`; render(); }
   else if (d.shipsave){
-    const v = ($("#shipdate").value||"").trim(); const today = dateIn("Asia/Seoul");
+    const so = find(d.shipsave), v = ($("#shipdate").value||"").trim(), today = portToday(portOf(so));
     let err = !v ? "실제 선적일 칸이 비어 있어요. 채운 뒤 다시 저장해 주세요." : checkDate(v,"실제 선적일");
-    if (!err && v>today) err = `실제 선적일이 오늘(한국 ${today})보다 뒤예요. 이미 선적한 날짜를 입력해 주세요.`;
+    if (!err && v>today) err = `실제 선적일이 선적항(${portOf(so)}) 오늘 ${today}보다 뒤예요. 이미 선적한 날짜를 입력해 주세요.`;
     if (err){ ui.err.ship = err; return render(); }
-    const o = S.orders.find(x=>x.order_no===d.shipsave); o.status=SHIPPED; o.shipped_on=v; ui.pendingShip=null; save();
-    ui.flash = `오더 ${o.order_no}을(를) 선적 완료로 저장했어요 (선적일 ${v}).`; render();
-  }
-  else if (d.t){ navigator.clipboard?.writeText(d.t).then(()=>{ b.textContent="복사됨"; }, ()=>{ b.textContent="복사 안 됨"; }); }
+    so.status=SHIPPED; so.shipped_on=v; clear(); save(); ui.flash = `오더 ${so.order_no}을(를) 선적 완료로 저장했어요 (선적일 ${v}).`; render(); }
+  else if (d.cal !== undefined){ const t = dateIn("Asia/Seoul"); let [y,m] = ui.calYM; const step = Number(d.cal);
+    if (step===0){ y = Number(t.slice(0,4)); m = Number(t.slice(5,7)); } else { m += step; if (m<1){ m=12; y--; } if (m>12){ m=1; y++; } }
+    ui.calYM = [y,m]; ui.calOpen = null; render(); }
+  else if (d.kind){ ui.calKinds.has(d.kind) ? ui.calKinds.delete(d.kind) : ui.calKinds.add(d.kind); render(); }
+  else if (d.calall){ ui.calAll = !ui.calAll; render(); }
+  else if (d.calopen){ ui.calOpen = ui.calOpen===d.calopen ? null : d.calopen; render(); }
+  else if (d.bulk){ document.querySelectorAll("[data-bulk]").forEach(x=>x.classList.toggle("on", x===b)); $("#bulk-file").hidden = d.bulk!=="file"; $("#bulk-paste").hidden = d.bulk!=="paste"; }
+  else if (d.act==="paste-preview"){ const t = $("#paste-box").value; if (t.trim()){ ui.importPlan = {...planImport(t), src:"new"}; render(); } }
+  else if (d.act==="template"){ saveFile("etd-radar_오더등록양식.csv", "\ufeff" + ["오더번호","바이어","바이어 국가","품목","결제 조건","선적항","ETD","ETA","L/C 선적 기한","선사","선명/항차","부킹번호","B/L 번호","서류 마감일","대응 계획","인코텀즈","인코텀즈 장소","도착항","L/C 유효기한","서류 제시 기간","L/C 선적항(44E)","L/C 도착항(44F)"].join(",") + "\r\n", b, "빈 양식(CSV) 내려받기"); }
+  else if (d.act==="sim-run"){ const no = $("#sim-order").value; if (no) runSim(no); }
+  else if (d.act==="sim-apply"){ const st = ui.sim, o = S.orders.find(x=>x.order_no===st.no);
+    if (o && st.r.ok && st.r.diff){ const old = o.etd; applyEtdChange(o, st.r.newEtd, "선사 조회(데모)"); save(); st.applied = true; ui.flash = `${o.order_no} ETD를 ${old} → ${st.r.newEtd}로 바꿨어요 (사유: 선사 조회(데모)).`; render(); } }
+  else if (d.act==="toggle-margin"){ ui.showAllMargin = !ui.showAllMargin; render(); }
+  else if (d.act==="close-guide"){ try { localStorage.setItem(GUIDE_KEY,"1"); } catch(e){} ui.showGuide = false; render(); }
+  else if (d.act==="copy-report"){ copyText(reportText(), b, "보고 문장 복사됨"); }
+  else if (d.act==="tsv"){ copyText(toTSV(), b, "표 복사됨 — 엑셀에 붙여넣기"); }
+  else if (d.act==="import-no"){ ui.importPlan = null; $("#import-file").value = ""; $("#bulk-input").value = ""; render(); }
+  else if (d.act==="import-yes"){ const ip = ui.importPlan; S.orders.push(...ip.added); save(); ui.importPlan = null; $("#import-file").value = ""; $("#bulk-input").value = ""; $("#paste-box").value = "";
+    ui.flash = `${ip.added.length}건 추가 · ${ip.skipped.length}건 건너뜀(이미 있음) · ${ip.errors.length}건 오류`; render(); }
+  else if (d.act==="csv"){ saveFile(`etd-radar_${dateIn("Asia/Seoul")}.csv`, "\ufeff"+toCSV(), b, "엑셀(CSV) 내보내기"); }
+  else if (d.t){ copyText(d.t, b, "복사됨"); }
 });
+document.addEventListener("keydown", e=>{ if ((e.key==="Enter"||e.key===" ") && e.target.matches("[data-open],.stat")){ e.preventDefault(); e.target.click(); } });
 
+// ---------- 화면(탭) 전환 ----------
+const VIEWS = {
+  "dashboard": ["선적 일정 대시보드", "오늘 확인할 것 · 위험 건수 · L/C 기한까지 여유", "dashboard"],
+  "orders":    ["오더 목록", "줄을 누르면 상세 · 수정 · 선적 완료 · 삭제", "orders"],
+  "new-order": ["새 오더 등록", "결제 조건 · 선적항 · 선적 정보까지 입력해요", "plus"],
+  "etd-log":   ["변경 기록", "ETD 변경 · 선사 조회(데모) · L/C 기한 · 상태 변경 이력", "history"],
+  "report":    ["보고 내보내기", "보고 문장 복사 · 엑셀(CSV) 내보내기 · CSV 불러오기", "report"],
+};
+const navHtml = cls => Object.entries(VIEWS).map(([k,v])=>`<a href="#${k}" data-nav="${k}">${ic(v[2])} ${v[0]==="선적 일정 대시보드"?"대시보드":v[0]}${k==="orders"&&cls==="side"?' <span class="cnt" id="nav-cnt"></span>':""}</a>`).join("");
+$("#sidenav").innerHTML = navHtml("side"); $("#toptabs").innerHTML = navHtml("top");
+function route(){
+  let v = (location.hash || "").replace("#", "");
+  if (!VIEWS[v]) v = "dashboard";
+  document.querySelectorAll(".view").forEach(el=>el.classList.toggle("on", el.dataset.view===v));
+  document.querySelectorAll("[data-nav]").forEach(el=>el.classList.toggle("on", el.dataset.nav===v));
+  $("#view-title").textContent = VIEWS[v][0]; $("#view-sub").textContent = VIEWS[v][1];
+  if (!ui.open) try { window.scrollTo(0,0); } catch(e){}
+}
+window.addEventListener("hashchange", route);
 render();
+route();
 </script>
 </body>
 </html>

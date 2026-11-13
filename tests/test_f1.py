@@ -3,7 +3,8 @@ from zoneinfo import ZoneInfo
 import logic, storage
 
 NOW = datetime(2026, 11, 12, 9, 0, tzinfo=ZoneInfo("Asia/Seoul"))
-BASE = {"order_no": "PO-NEW", "buyer": "가상", "item": "김", "etd": "2026-11-20", "lc_ship_by": "2026-11-25"}
+BASE = {"order_no": "PO-NEW", "buyer": "가상", "item": "김", "etd": "2026-11-20", "lc_ship_by": "2026-11-25",
+        "payment_terms": "L/C", "port_of_loading": "부산"}  # v2: 결제 조건 · 선적항 필수
 
 def test_sort_by_etd_then_order_no(tmpdata):
     nos = [o["order_no"] for o in logic.active_orders(storage.load_orders(tmpdata / "orders.csv"))]
@@ -24,7 +25,7 @@ def test_soft_delete_and_restore_keep_rows(tmpdata):
     p, b = tmpdata / "orders.csv", tmpdata / "bk"
     storage.set_deleted("PO-2611-001", True, p, b)
     rows = storage.load_orders(p)
-    assert len(rows) == 10 and "PO-2611-001" in [o["order_no"] for o in logic.deleted_orders(rows)]
+    assert len(rows) == 14 and "PO-2611-001" in [o["order_no"] for o in logic.deleted_orders(rows)]
     storage.set_deleted("PO-2611-001", False, p, b)
     assert "PO-2611-001" in [o["order_no"] for o in logic.active_orders(storage.load_orders(p))]
 

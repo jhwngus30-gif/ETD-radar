@@ -1,11 +1,15 @@
-order_no,buyer,buyer_country,item,etd,eta,lc_ship_by,status,shipped_on,created_at,deleted
-PO-2611-001,Hudson Fresh Foods,미국 동부,조미김 스낵 40박스,2026-11-20,2026-12-12,2026-11-19,선적 대기,,2026-11-02 10:15,False
-PO-2611-002,Berlin Snack GmbH,독일,컵라면 1x20FT,2026-11-25,2026-12-28,2026-11-25,선적 대기,,2026-11-03 14:40,False
-PO-2611-003,Saigon Mart,베트남,고추장 2팔레트,2026-11-18,2026-11-25,2026-11-25,선적 대기,,2026-11-04 09:05,False
-PO-2611-004,Tokyo Deli,일본,김치 냉장 1x20RF,2026-11-17,2026-11-19,2026-11-25,선적 대기,,2026-11-04 16:30,False
-PO-2611-005,Pacific Grocers,미국 서부,즉석밥 1x40FT,2026-12-01,2026-12-15,2026-12-20,선적 대기,,2026-11-05 11:20,False
-PO-2611-006,London Pantry,영국,유자차 1팔레트,2026-11-05,2026-12-10,2026-11-10,선적 완료,2026-11-06,2026-10-20 13:00,False
-PO-2611-007,Gulf Star Trading,UAE,떡볶이 밀키트 1x20FT,2026-11-03,2026-11-24,2026-11-08,선적 완료,2026-11-09,2026-10-22 15:45,False
-PO-2611-008,Sydney Fine Foods,호주,참기름 1팔레트,2026-11-28,2026-12-12,2026-12-05,선적 대기,,2026-11-06 10:00,True
-PO-2611-009,Hudson Fresh Foods,미국 동부,김부각 30박스,2026-11-20,2026-12-12,2026-12-15,선적 대기,,2026-11-01 09:30,False
-PO-2611-010,Saigon Mart,,만두 냉동 1x20RF,2026-12-10,2026-12-17,2026-12-31,선적 대기,,2026-11-07 17:10,False
+order_no,buyer,buyer_country,item,payment_terms,port_of_loading,etd,eta,lc_ship_by,status,shipped_on,created_at,deleted,carrier,vessel,booking_no,bl_no,cutoff,action,incoterms,incoterms_place,port_of_discharge,lc_expiry,lc_presentation_days,lc_port_loading,lc_port_discharge
+PO-2611-001,Hudson Fresh Foods,미국 동부,조미김 스낵 40박스,L/C,부산,2026-11-20,2026-12-12,2026-11-19,선적 대기,,2026-11-02 10:15,False,HMM,HMM ALGECIRAS 0045E,HMMBK2611001,,2026-11-17,L/C 연장 요청 — 바이어 회신 대기,FOB,Busan,New York,2026-12-10,,"Busan, Korea",New York
+PO-2611-002,Berlin Snack GmbH,독일,컵라면 1x20FT,L/C,부산,2026-11-25,2026-12-28,2026-11-25,선적 대기,,2026-11-03 14:40,False,Hapag-Lloyd,BERLIN EXPRESS 112W,HLBK55021,,2026-11-21,,CIF,Hamburg,Hamburg,2026-12-05,,Any Korean port,Hamburg
+PO-2611-003,Saigon Mart,베트남,고추장 2팔레트,L/C,부산,2026-11-18,2026-11-25,2026-11-25,선적 대기,,2026-11-04 09:05,False,ONE,,ONEBK7731,,,원래 선박 복귀 확인 완료,CFR,Ho Chi Minh,Ho Chi Minh,2026-12-16,,Any Korean port,
+PO-2611-004,Tokyo Deli,일본,김치 냉장 1x20RF,L/C,부산,2026-11-17,2026-11-19,2026-11-25,선적 대기,,2026-11-04 16:30,False,Sinokor,SINOKOR TOKYO 211N,SKBK4410,,2026-11-14,,FOB,Busan,Tokyo,2026-12-16,15,"Busan, Korea",Tokyo
+PO-2611-005,Pacific Grocers,미국 서부,즉석밥 1x40FT,L/C,부산,2026-12-01,2026-12-15,2026-12-20,선적 대기,,2026-11-05 11:20,False,,,,,,,CIF,Los Angeles,Los Angeles,2027-01-10,,Busan,Long Beach
+PO-2611-006,London Pantry,영국,유자차 1팔레트,L/C,부산,2026-11-05,2026-12-10,2026-11-10,선적 완료,2026-11-06,2026-10-20 13:00,False,Maersk,,,MAEU2611006,,,CIF,Felixstowe,Felixstowe,2026-11-30,,Busan,
+PO-2611-007,Gulf Star Trading,UAE,떡볶이 밀키트 1x20FT,L/C,부산,2026-11-03,2026-11-24,2026-11-08,선적 완료,2026-11-09,2026-10-22 15:45,False,Evergreen,,,EGLV2611007,,,CFR,Jebel Ali,Jebel Ali,2026-11-30,,Busan,
+PO-2611-008,Sydney Fine Foods,호주,참기름 1팔레트,L/C,부산,2026-11-28,2026-12-12,2026-12-05,선적 대기,,2026-11-06 10:00,True,,,,,,,FOB,Busan,Sydney,2026-12-26,,,
+PO-2611-009,Hudson Fresh Foods,미국 동부,김부각 30박스,L/C,부산,2026-11-20,2026-12-12,2026-12-15,선적 대기,,2026-11-01 09:30,False,HMM,,HMMBK2611001,,,,FOB,Busan,New York,2027-01-05,,"Busan, Korea",
+PO-2611-010,Saigon Mart,,만두 냉동 1x20RF,L/C,부산,2026-12-10,2026-12-17,2026-12-31,선적 대기,,2026-11-07 17:10,False,,,,,,,CFR,Ho Chi Minh,Ho Chi Minh,2027-01-21,,"Incheon, Korea",
+PO-2611-011,Cascade Market,미국 서부,곤약젤리 1x20FT,T/T,부산,2026-11-27,2026-12-10,,선적 대기,,2026-11-08 10:40,False,,,,,,,FCA,Busan CY,Seattle,,,,
+PO-2611-012,Rhein Feinkost,독일,김자반 2팔레트,D/P,인천,2026-11-22,2026-12-26,,선적 대기,,2026-11-08 15:05,False,,,,,,,CIF,Hamburg,Hamburg,,,,
+PO-2611-013,Atlantic Imports,미국 동부,쌀국수 1x40FT (베트남 공장),L/C,호찌민,2026-11-30,2026-12-28,2026-12-12,선적 대기,,2026-11-09 11:20,False,CMA CGM,,CMABK9013,,2026-11-26,,FOB,Ho Chi Minh,New York,2027-01-02,,"Ho Chi Minh City, Vietnam",New York
+PO-2611-014,Nordic Foods AB,영국,김스낵 20박스 (LCL),T/T,부산,2026-11-09,2026-12-14,,선적 대기,,2026-11-03 13:10,False,Pan Ocean,,POBK1414,,2026-11-06,,CFR,Southampton,Southampton,,,,

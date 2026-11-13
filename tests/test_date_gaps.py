@@ -6,7 +6,8 @@ import logic, storage, config
 
 KST = ZoneInfo("Asia/Seoul")
 NOW = datetime(2026, 11, 12, 9, 0, tzinfo=KST)
-BASE = {"order_no": "PO-X", "buyer": "가상", "item": "김", "etd": "2026-11-20", "lc_ship_by": "2026-11-25"}
+BASE = {"order_no": "PO-X", "buyer": "가상", "item": "김", "etd": "2026-11-20", "lc_ship_by": "2026-11-25",
+        "payment_terms": "L/C", "port_of_loading": "부산"}  # v2: 결제 조건 · 선적항 필수
 
 def mk(etd="2026-11-20", lc="2026-11-25", **kw):
     o = {"order_no": "T", "etd": etd, "lc_ship_by": lc, "status": "선적 대기", "shipped_on": "", "deleted": "False"}
@@ -84,7 +85,7 @@ def test_summary_excludes_shipped_and_deleted():
             mk(order_no="e", etd="2026-11-26", status="선적 완료", shipped_on="2026-11-26"),
             mk(order_no="f", status="선적 완료", shipped_on="2026-11-20"),
             mk(order_no="g", etd="2026-11-26", status="선적 완료", shipped_on="2026-11-26", deleted="True")]
-    assert logic.lc_summary(rows) == {"red": 1, "yellow": 1, "late_shipped": 1}
+    assert logic.lc_summary(rows, NOW) == {"late": 0, "red": 1, "yellow": 1, "late_shipped": 1}
 
 def test_history_empty_and_same_etd_rejected():
     o = mk(order_no="Z")

@@ -36,8 +36,8 @@ def test_change_is_logged_append_only(tmpdata):
 def test_demo_changes_and_skips(tmpdata):
     o, _ = orders_changes(tmpdata)
     plan, skipped = logic.plan_demo_updates(o, storage.load_carrier_demo(tmpdata / "carrier_demo.json"), NOW)
-    assert [p["order_no"] for p in plan] == ["PO-2611-004"] and skipped == 3
-    assert plan[0]["reason"] == "선사 조회(데모)"
+    assert [p["order_no"] for p in plan] == ["PO-2611-002", "PO-2611-004"] and skipped == 3   # v3.1: 002 응답 추가
+    assert all(p["reason"] == "선사 조회(데모)" for p in plan)
     assert logic.lc_status({**by(o, "PO-2611-004"), "etd": "2026-11-24"})["label"] == "🟡 L/C 기한까지 1일 남음"
 
 def test_demo_none():

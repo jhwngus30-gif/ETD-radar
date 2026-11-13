@@ -1,5 +1,8 @@
 import pytest
 import logic, storage
+from datetime import datetime
+from zoneinfo import ZoneInfo
+NOW = datetime(2026, 11, 11, 15, 0, tzinfo=ZoneInfo("Asia/Seoul"))  # 가상 데이터 기준일
 
 def mk(etd, lc, **kw):
     o = {"order_no": "T", "etd": etd, "lc_ship_by": lc, "status": "선적 대기", "shipped_on": "", "deleted": "False"}
@@ -27,7 +30,7 @@ def test_report_sentence_has_order_dates_days():
         assert part in s
 
 def test_summary_on_sample(tmpdata):
-    assert logic.lc_summary(storage.load_orders(tmpdata / "orders.csv")) == {"red": 1, "yellow": 2, "late_shipped": 1}
+    assert logic.lc_summary(storage.load_orders(tmpdata / "orders.csv"), NOW) == {"late": 1, "red": 1, "yellow": 2, "late_shipped": 1}
 
 def test_summary_zero():
-    assert logic.lc_summary([]) == {"red": 0, "yellow": 0, "late_shipped": 0}
+    assert logic.lc_summary([]) == {"late": 0, "red": 0, "yellow": 0, "late_shipped": 0}

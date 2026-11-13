@@ -38,6 +38,11 @@ def load_orders(path=config.ORDERS_FILE):
             r.setdefault(c, "")
             if r[c] is None:
                 r[c] = ""
+        # 예전 파일(결제 조건 · 선적항 칸 없음)은 L/C · 부산으로 읽는다
+        if not r["payment_terms"]:
+            r["payment_terms"] = config.DEFAULT_PAYMENT
+        if not r["port_of_loading"]:
+            r["port_of_loading"] = config.DEFAULT_PORT
     return rows
 
 
@@ -105,3 +110,33 @@ def load_carrier_demo(path=config.CARRIER_DEMO_FILE):
         return []
     with open(path, encoding="utf-8") as f:
         return json.load(f).get("updates", [])
+
+
+
+# ---------- v3 ----------
+def update_order(order_no, changes, path=config.ORDERS_FILE, backup_dir=config.BACKUP_DIR):
+    """오더 한 줄의 칸을 고친다 (줄 수는 그대로)."""
+    _update(order_no, changes, path, backup_dir)
+
+
+def add_orders(new_orders, path=config.ORDERS_FILE, backup_dir=config.BACKUP_DIR):
+    """여러 오더를 한 번에 추가 (CSV 불러오기)."""
+    if not new_orders:
+        return
+    orders = load_orders(path)
+    orders.extend(new_orders)
+    _write_orders(orders, path, backup_dir)
+
+
+def load_change_log(path=config.CHANGE_LOG_FILE):
+    _ensure_file(path, config.CHANGE_LOG_COLUMNS)
+    with open(path, newline="", encoding="utf-8-sig") as f:
+        return list(csv.DictReader(f))
+
+
+def append_change_log(entry, path=config.CHANGE_LOG_FILE, backup_dir=config.BACKUP_DIR):
+    """L/C 기한 · 상태 변경 기록은 덧붙이기만 한다."""
+    _ensure_file(path, config.CHANGE_LOG_COLUMNS)
+    _backup(path, backup_dir)
+    with open(path, "a", newline="", encoding="utf-8") as f:
+        csv.DictWriter(f, fieldnames=config.CHANGE_LOG_COLUMNS, extrasaction="ignore").writerow(entry)

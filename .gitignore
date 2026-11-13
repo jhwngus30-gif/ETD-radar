@@ -14,3 +14,6 @@ deploy/
 .claude/settings.local.json
 .vercel/
 .env*
+
+# 덮어쓰기 전 백업 (Claude가 저장할 때 만듦) — 저장소에는 올리지 않음
+backups/
