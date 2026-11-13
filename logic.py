@@ -790,3 +790,152 @@ def month_grid(year, month):
     """월간 달력 칸: 주(월~일) 단위 날짜 목록. 앞뒤 달 날짜도 채운다."""
     import calendar
     return calendar.Calendar(firstweekday=6).monthdatescalendar(year, month)   # 일요일 시작
+
+
+
+# ---------- v4.0 메일에서 가져오기 (F8) ----------
+_MONTHS = {m: i for i, m in enumerate(["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"], 1)}
+_MON = r"(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?"
+_DATE_RE_ALL = re.compile(
+    r"(\d{4}-\d{1,2}-\d{1,2})"                                    # 2026-11-28
+    r"|(\d{1,2})[-\s](" + _MON + r")[-\s,]*(\d{4})?"               # 28-Nov-2026 / 28 Nov
+    r"|(" + _MON + r")\s+(\d{1,2})(?:st|nd|rd|th)?,?\s*(\d{4})?"    # Nov 28, 2026 / Nov 28
+    r"|\b(\d{1,2})/(\d{1,2})(?:/(\d{2,4}))?\b",                     # 11/28 (월/일)
+    re.I)
+
+
+def _mk_date(y, mo, d):
+    try:
+        return date(int(y), int(mo), int(d))
+    except (ValueError, TypeError):
+        return None
+
+
+def mail_dates(text, today):
+    """글 속 날짜들을 순서대로 date 로. 연도가 없으면 올해, 반년 넘게 지난 날이면 내년으로 본다."""
+    out = []
+    for m in _DATE_RE_ALL.finditer(text):
+        g = m.groups()
+        y = None
+        if g[0]:
+            d = _mk_date(*g[0].split("-"))
+        elif g[1]:
+            y = g[3]; d = _mk_date(y or today.year, _MONTHS[g[2][:3].lower()], g[1])
+        elif g[4]:
+            y = g[6]; d = _mk_date(y or today.year, _MONTHS[g[4][:3].lower()], g[5])
+        else:
+            a, b, y = int(g[7]), int(g[8]), g[9]
+            mo, dd = (b, a) if a > 12 else (a, b)               # 13 이상이 앞이면 일/월
+            yy = (int(y) + 2000 if y and len(y) == 2 else y) or today.year
+            d = _mk_date(yy, mo, dd)
+        if d and not (g[0]) and not y and (today - d).days > 180:
+            d = _mk_date(d.year + 1, d.month, d.day)
+        if d:
+            out.append(d)
+    return out
+
+
+def _label_dates(text, label_re, today):
+    """라벨(ETD/ETA) 뒤 같은 줄의 날짜 → (이전 값, 새 값)."""
+    old = new = None
+    new_strong = False
+    for m in re.finditer(label_re, text, re.I):
+        line_end = text.find("\n", m.end())
+        seg = text[m.end(): line_end if line_end != -1 else len(text)]
+        before = text[max(0, m.start() - 20): m.start()].lower()
+        ds = mail_dates(seg, today)
+        if not ds:
+            continue
+        if re.search(r"old|original|previous|기존|변경 전", before):
+            old = ds[0]
+        elif re.search(r"new|revised|변경 후", before):
+            new, new_strong = ds[-1], True
+            if len(ds) > 1:
+                old = ds[0]
+        elif not new_strong:
+            if len(ds) > 1:
+                old, new = ds[0], ds[-1]
+            elif new is None:
+                new = ds[0]
+    return old, new
+
+
+def _code(pattern, text):
+    for m in re.finditer(pattern, text, re.I):
+        v = m.group(1).strip().rstrip(".,;)")
+        if re.search(r"\d", v) and re.search(r"[A-Za-z]", v) and len(v) >= 6:
+            return v.upper()
+    return ""
+
+
+def parse_mail(text, now=None):
+    """선사 · 포워더 메일 본문에서 값 찾기 (F8-1). 못 찾은 값은 빈칸 — 지어내지 않는다."""
+    text = (text or "").replace("\r", "")
+    today = today_korea(now)
+    m = re.search(r"\bP/?O[\s#:.\-]*(?:No\.?\s*)?(\d{2,}(?:-\d+)+)", text, re.I)
+    order_no = f"PO-{m.group(1)}" if m else ""
+    etd_old, etd = _label_dates(text, r"\bETD\b|estimated time of departure", today)
+    eta_old, eta = _label_dates(text, r"\bETA\b|estimated time of arrival", today)
+    bl = _code(r"\bB/?L\s*(?:No\.?|Number|#)?\s*[:#]?\s*([A-Z0-9][A-Z0-9-]{5,})", text)
+    bk = _code(r"\bBooking\s*(?:No\.?|Number|#|Ref\.?)?\s*[:#]?\s*([A-Z0-9][A-Z0-9-]{5,})", text)
+    vm = re.search(r"\b(?:Vessel(?:\s*/\s*Voy(?:age)?)?|VSL)\s*[:\-]\s*([^\n]{3,60})", text, re.I)
+    vessel = vm.group(1).strip() if vm else ""
+    pm = re.search(r"\b(?:POL|Port of Loading)\s*[:\-]\s*([^\n,;]{2,40})", text, re.I)
+    dm = re.search(r"\b(?:POD|Port of Discharge)\s*[:\-]\s*([^\n,;]{2,40})", text, re.I)
+    low = text.lower()
+    status = next((label for key, label in M.MAIL_STATUS if key in low and (key != "b/l" or re.search(r"b/?l[^\n]{0,40}(issued|release|draft)", low))), "")
+    if not status and etd_old and etd and etd_old != etd:
+        status = "ETD 변경"
+    iso = lambda d: d.isoformat() if d else ""
+    return {"order_no": order_no, "booking_no": bk, "bl_no": bl, "vessel": vessel,
+            "pol": pm.group(1).strip() if pm else "", "pod": dm.group(1).strip() if dm else "",
+            "etd_old": iso(etd_old), "etd": iso(etd), "eta": iso(eta), "status": status}
+
+
+def plan_mail_update(parsed, orders, now=None):
+    """찾은 값으로 바뀔 칸만 계획 (F8-3). 파일은 안 건드림.
+    → {match, by, diff, etd_change, notes, error}"""
+    p = parsed
+    if not any(p.get(k) for k in ("order_no", "booking_no", "bl_no", "etd", "eta")):
+        return {"match": None, "by": "", "diff": {}, "etd_change": None, "notes": [], "error": M.MAIL_NOTHING}
+    act = active_orders(orders)
+    match, by = None, ""
+    for key in ("order_no", "booking_no", "bl_no"):
+        v = (p.get(key) or "").upper()
+        if v:
+            match = next((o for o in act if (o.get(key) or "").upper() == v), None)
+            if match:
+                by = key
+                break
+    if not match:
+        return {"match": None, "by": "", "diff": {}, "etd_change": None, "notes": [], "error": M.MAIL_NO_MATCH}
+    diff, notes = {}, []
+    if p.get("etd") and p["etd"] != match["etd"] and is_waiting(match):
+        diff["etd"] = p["etd"]
+    if p.get("eta") and p["eta"] != (match.get("eta") or ""):
+        diff["eta"] = p["eta"]
+    for k in ("vessel", "booking_no", "bl_no"):
+        if p.get(k) and p[k] != (match.get(k) or ""):
+            diff[k] = p[k]
+    if p.get("pod") and not (match.get("port_of_discharge") or ""):
+        diff["port_of_discharge"] = p["pod"]
+    if p.get("pol") and not place_is_port(p["pol"], port_of(match)):
+        notes.append(M.MAIL_POL_DIFF.format(pol=p["pol"], port=port_of(match)))
+    if not diff:
+        return {"match": match, "by": by, "diff": {}, "etd_change": None, "notes": notes,
+                "error": M.MAIL_NO_CHANGE.format(order_no=match["order_no"])}
+    err = validate_new_order({**match, **diff, "order_no": "__edit__"}, [])
+    if err:
+        return {"match": match, "by": by, "diff": diff, "etd_change": None, "notes": notes, "error": err}
+    reason = M.MAIL_REASON.format(status=p.get("status") or "선사 · 포워더 통지")
+    etd_ch = build_change(match["order_no"], match["etd"], diff["etd"], reason, now) if "etd" in diff else None
+    return {"match": match, "by": by, "diff": diff, "etd_change": etd_ch, "notes": notes, "error": None}
+
+
+def mail_new_order_fields(parsed):
+    """맞는 오더가 없을 때 새 오더 등록 칸에 채울 값 (F8-3)."""
+    p = parsed
+    port = next((k for k in config.PORTS if place_is_port(p.get("pol", ""), k)), "")
+    return {"order_no": p.get("order_no", ""), "etd": p.get("etd", ""), "eta": p.get("eta", ""),
+            "vessel": p.get("vessel", ""), "booking_no": p.get("booking_no", ""), "bl_no": p.get("bl_no", ""),
+            "port_of_loading": port, "port_of_discharge": p.get("pod", "")}

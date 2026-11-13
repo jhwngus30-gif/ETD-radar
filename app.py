@@ -118,8 +118,8 @@ if ss.show_guide:
             ss.show_guide = False
             st.rerun()
 
-tab_dash, tab_orders, tab_new, tab_log, tab_report = st.tabs(
-    ["선적 현황", f"오더 목록 ({len(active)})", "새 오더 등록", "변경 기록", "보고 내보내기"])
+tab_dash, tab_orders, tab_new, tab_mail, tab_log, tab_report = st.tabs(
+    ["선적 현황", f"오더 목록 ({len(active)})", "새 오더 등록", "메일 가져오기", "변경 기록", "보고 내보내기"])
 
 # ======================= 선적 현황 (홈) =======================
 with tab_dash:
@@ -412,6 +412,47 @@ with tab_new:
             if warns:
                 ss.flash += f" — {M.CHECK_TITLE} {len(warns)}건: " + " / ".join(c["msg"] for c in warns)
             st.rerun()
+
+# ======================= 메일 가져오기 (F8) =======================
+with tab_mail:
+    st.markdown("**선사 · 포워더 메일 본문을 붙여 넣으면** 오더번호 · ETD · ETA · B/L · 선명을 찾아요. 확인을 눌러야 반영돼요.")
+    st.caption("이 화면은 붙여넣기만 해요. 실제 Gmail에서 바로 가져오기는 Claude 공유 페이지에서만 돼요 (본인 메일 읽기만).")
+    dm = st.columns(len(M.DEMO_MAILS))
+    for c, (name, body) in zip(dm, M.DEMO_MAILS):
+        if c.button(f"가상 메일: {name}", key=f"demo_mail_{name}"):
+            ss.mail_text = body
+            st.rerun()
+    mail_text = st.text_area("메일 본문", value=ss.get("mail_text", ""), height=220, key="mail_box",
+                             placeholder="메일 본문 전체를 붙여 넣으세요 (제목 줄 포함하면 더 정확해요)")
+    if mail_text.strip():
+        p = logic.parse_mail(mail_text)
+        st.markdown("**메일에서 찾은 값**")
+        shown = {"오더번호": p["order_no"], "부킹번호": p["booking_no"], "B/L 번호": p["bl_no"], "선명/항차": p["vessel"],
+                 "선적항": p["pol"], "도착항": p["pod"], "ETD": (f"{p['etd_old']} → " if p["etd_old"] else "") + p["etd"],
+                 "ETA": p["eta"], "상태": p["status"]}
+        st.dataframe([{"칸": k, "값": v or "메일에서 못 찾음"} for k, v in shown.items()], hide_index=True)
+        plan = logic.plan_mail_update(p, orders)
+        for n in plan["notes"]:
+            st.warning(n)
+        if plan["error"] and not plan["match"]:
+            st.info(plan["error"])
+            if plan["error"] == M.MAIL_NO_MATCH:
+                st.markdown("**새 오더 등록 탭에 아래 값을 넣어 주세요** (바이어 · 품목 · 결제 조건은 메일에 없어 직접 입력)")
+                st.json({k: v for k, v in logic.mail_new_order_fields(p).items() if v})
+        elif plan["error"]:
+            st.error(plan["error"])
+        else:
+            o = plan["match"]
+            st.markdown(f"**{o['buyer']}** · {o['item']} · {o['order_no']} — 바뀔 칸")
+            st.dataframe([{"칸": M.FIELD_NAMES.get(k, k), "지금": o.get(k, "") or "—", "메일": v} for k, v in plan["diff"].items()],
+                         hide_index=True)
+            if st.button("반영하기", type="primary", key="mail_apply"):
+                storage.update_order(o["order_no"], plan["diff"])
+                if plan["etd_change"]:
+                    storage.append_change(plan["etd_change"])
+                ss.flash = M.MAIL_APPLIED.format(order_no=o["order_no"], what=", ".join(M.FIELD_NAMES.get(k, k) for k in plan["diff"]))
+                ss.mail_text = ""
+                st.rerun()
 
 # ======================= 변경 기록 =======================
 with tab_log:

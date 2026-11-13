@@ -212,3 +212,56 @@ CHECK_SHORT = {"eta": "ETA 날짜 확인", "cutoff": "서류 마감일 확인", 
 CHECK_EXPIRY_MISSING = "L/C 유효기한 비어 있음"
 CHECK_EXPIRY_ERR = "L/C 유효기한이 선적 기한보다 빠름"
 CHECK_EXPIRY_SHORT = "서류 낼 시간 부족"
+
+
+# ---------- v4.0 메일에서 가져오기 (F8) ----------
+MAIL_STATUS = [("roll", "ETD 변경(롤오버)"), ("b/l", "B/L 발행"), ("depart", "출항"), ("sailed", "출항"),
+               ("booking confirm", "부킹 확정"), ("delay", "선적 지연"), ("arrived", "도착"), ("discharged", "도착")]
+MAIL_NO_MATCH = "이 메일과 맞는 오더가 없어요. '새 오더로 등록'으로 찾은 값을 채울 수 있어요."
+MAIL_NOTHING = "메일에서 오더번호 · 날짜 · B/L 번호를 하나도 찾지 못했어요. 본문 전체를 붙여 넣었는지 확인해 주세요."
+MAIL_NO_CHANGE = "{order_no}: 메일 내용이 지금 기록과 같아요. 바꿀 칸이 없어요."
+MAIL_REASON = "메일: {status}"
+MAIL_POL_DIFF = "메일의 선적항 \"{pol}\"이 오더 선적항 {port}과 달라요. 선적항은 자동으로 바꾸지 않으니 확인해 주세요."
+MAIL_APPLIED = "{order_no} 메일 내용 반영: {what}"
+DEMO_MAILS = [
+    ("롤오버 통지 (Sinokor)", """Subject: [Notice] Vessel delay / Rollover - Booking SKBK4410
+
+Dear Shipper,
+
+Please be advised that due to port congestion at Busan, your cargo under Booking No. SKBK4410
+(Shipper ref: PO-2611-004) has been rolled over to the next vessel.
+
+Vessel/Voy: SINOKOR TOKYO 212N
+ETD Busan: revised from 17-Nov-2026 to 24-Nov-2026
+ETA Tokyo: 26-Nov-2026
+
+We apologize for the inconvenience.
+Best regards,
+Sinokor Merchant Marine (virtual)"""),
+    ("B/L 발행 · 출항 (ONE)", """Subject: B/L issued - PO-2611-003 / ONE HARMONY 045S
+
+Hello,
+
+Your shipment PO-2611-003 has departed.
+Vessel: ONE HARMONY 045S
+B/L No.: ONEYPUSB7731 (original B/L issued, please check the draft)
+POL: Busan
+POD: Ho Chi Minh
+ETD: 18 Nov 2026
+ETA: 25 Nov 2026
+
+Ocean Network Express (virtual)"""),
+    ("신규 부킹 확정 (Hapag-Lloyd)", """Subject: Booking Confirmation HLBK66120
+
+Booking confirmed as below.
+Booking No.: HLBK66120
+Shipper ref: PO-2611-021
+POL: Busan
+POD: Rotterdam
+Vessel: ROTTERDAM EXPRESS 098W
+ETD: Dec 3, 2026
+ETA: Jan 2, 2027
+SI cut-off: Nov 30, 2026
+
+Hapag-Lloyd Korea (virtual)"""),
+]
